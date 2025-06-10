@@ -106,6 +106,28 @@ common:
     name: MuleSoft PartnerMax Retirement New Program
     type: Partners
     description: 'null'
+  - name: UseCases
+    type: UseCases
+    data:
+      - name: B2B EDI integration
+      - name: DevOps
+      - name: eCommerce
+      - name: Event-Driven Architecture
+      - name: iPaaS
+      - name: Legacy system modernization
+      - name: Microservices
+      - name: Move to the cloud
+      - name: Omnichannel
+      - name: SaaS integration
+      - name: Single view of customer
+      - name: Business automation
+      - name: eCommerce
+      - name: Legacy system modernization
+      - name: Mobile
+      - name: Move to the cloud
+      - name: Omnichannel
+      - name: SaaS
+      - name: Single view of customer  
 created: '2025-06-05T00:00:00.000Z'
 modified: '2025-06-09'
 position: Consumer
