@@ -127,7 +127,7 @@ common:
       - name: Move to the cloud
       - name: Omnichannel
       - name: SaaS
-      - name: Single view of customer  
+      - name: Single view of customer
 created: '2025-06-05T00:00:00.000Z'
 modified: '2025-06-09'
 position: Consumer
