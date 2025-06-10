@@ -53,6 +53,7 @@ Integration is the key to unlocking the potential of AI agents. Use MuleSofts al
 - [Login](https://anypoint.mulesoft.com/login/signin?apintent=generic)
 - [SignUp](https://anypoint.mulesoft.com/login/signup?apintent=generic)
 - [Partners](https://www.mulesoft.com/integration-partner/partnermax-retirement)
+- [UseCases](undefined)
 
 ## Maintainers
 
