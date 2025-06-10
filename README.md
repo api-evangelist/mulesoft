@@ -1,7 +1,7 @@
-# Pandium (pandium)
-Transform integration development from a fragmented, ad hoc process into a streamlined, repeatable workflow with Pandiums Integration Platform. With Pandium, B2B SaaS companies can meet customer demands, reduce technical debt, and stay ahead in an increasingly connected world. 
+# MuleSoft (mulesoft)
+Integration is the key to unlocking the potential of AI agents. Use MuleSofts all-in-one platform to build your foundation for agent action by connecting your systems, models and vector stores, orchestrating complex workflows, and securing mission critical APIs. 
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/pandium/refs/heads/main/apis.yml)
+**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/mulesoft/refs/heads/main/apis.yml)
 
 ## Scope
 
@@ -11,51 +11,48 @@ Transform integration development from a fragmented, ad hoc process into a strea
 
 ## Tags:
 
- - Integrations, Workflows, Hubs, B2B
+ - Integrations, Automation, Management, Gateways, Governance, Deployment, Monitoring
 
 ## Timestamps
 
-- **Created:** 2025-01-07 
-- **Modified:** 2025-06-06 
+- **Created:** 2025-06-05 
+- **Modified:** 2025-06-09 
 
 ## APIs
 
-### Pandium
-Transform integration development from a fragmented, ad hoc process into a streamlined, repeatable workflow with Pandiums Integration Platform. With Pandium, B2B SaaS companies can meet customer demands, reduce technical debt, and stay ahead in an increasingly connected world. 
+### MuleSoft
+Integration is the key to unlocking the potential of AI agents. Use MuleSofts all-in-one platform to build your foundation for agent action by connecting your systems, models and vector stores, orchestrating complex workflows, and securing mission critical APIs. 
 
-**Human URL:** [ https://www.pandium.com/]( https://www.pandium.com/)
+**Human URL:** [ https://www.mulesoft.com/]( https://www.mulesoft.com/)
 
 
 #### Tags:
 
- - API
+ - Integrations, Automation, Management, Gateways, Governance, Deployment, Monitoring
 
 #### Properties
 
-- [Documentation]( https://www.pandium.com/)
-- [Documentation](https://docs.pandium.com/reference/pandium-api)
+- [Documentation]( https://www.mulesoft.com/)
 
 ## Common Properties
 
-- [GitHubOrganization](https://github.com/pandium)
-- [LinkedIn](https://www.linkedin.com/company/pandium/)
-- [Customers](https://www.pandium.com/customer-stories)
-- [eBooks](https://www.pandium.com/ebooks)
-- [Blog](https://www.pandium.com/blog)
-- [FAQ](https://www.pandium.com/faqs)
-- [Podcast](https://www.pandium.com/podcast)
-- [Documentation](https://docs.pandium.com/getting-started/readme)
-- [Glossary](https://docs.pandium.com/getting-started/key-terminology)
-- [CLI](https://docs.pandium.com/reference/pandium-cli)
-- [ WhatsNew](https://www.pandium.com/product-updates)
-- [Pricing](https://www.pandium.com/pricing)
-- [Integrations](https://www.pandium.com/connectors)
-- [Status](https://status.pandium.com/)
-- [Partners](https://www.pandium.com/teams/partnerships)
-- [Security](https://www.pandium.com/security)
-- [Website](https://www.pandium.com/)
-- [TermsOfService](https://www.pandium.com/terms-and-conditions)
-- [PrivacyPolicy](https://www.pandium.com/privacy-policy)
+- [Certifications](https://trailheadacademy.salesforce.com/products/mulesoft)
+- [Website](https://www.mulesoft.com/)
+- [Webinars](https://www.mulesoft.com/integration-resources?type[0]=Webinar)
+- [Videos](https://videos.mulesoft.com/?_gl=1*1yqvlbf*_gcl_au*MjAyNzM1NTg1NS4xNzQ5MTM5OTUx)
+- [eBooks](https://www.mulesoft.com/integration-resources)
+- [WhitePapers](https://www.mulesoft.com/integration-resources?type[0]=Whitepaper)
+- [ Articles](https://www.mulesoft.com/resources/articles)
+- [Blog](https://blogs.mulesoft.com/bloghome/)
+- [GettingStarted](https://developer.mulesoft.com/)
+- [Documentation](https://docs.mulesoft.com/general/)
+- [ChangeLog](https://docs.mulesoft.com/release-notes/quick-refs/by-date-index)
+- [Glossary](https://docs.mulesoft.com/general/glossary)
+- [GettingStarted](https://docs.mulesoft.com/general/learning-map-api-management)
+- [SDKs](https://docs.mulesoft.com/mule-sdk/latest/)
+- [Login](https://anypoint.mulesoft.com/login/signin?apintent=generic)
+- [SignUp](https://anypoint.mulesoft.com/login/signup?apintent=generic)
+- [Partners](https://www.mulesoft.com/integration-partner/partnermax-retirement)
 
 ## Maintainers
 
