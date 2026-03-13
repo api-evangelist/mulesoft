@@ -1,0 +1,312 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://anypoint.mulesoft.com/schemas/mulesoft/application.json",
+  "title": "MuleSoft Anypoint Application",
+  "description": "Schema for a Mule application deployed to the Anypoint Platform, including configuration for CloudHub, Runtime Fabric, and hybrid deployment targets.",
+  "type": "object",
+  "required": [
+    "domain",
+    "status"
+  ],
+  "properties": {
+    "domain": {
+      "type": "string",
+      "description": "Unique domain name for the application, used as the subdomain in the CloudHub URL",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "fullDomain": {
+      "type": "string",
+      "description": "Full domain including the platform suffix (e.g., myapp.cloudhub.io)"
+    },
+    "status": {
+      "type": "string",
+      "description": "Current deployment status of the application",
+      "enum": [
+        "STARTED",
+        "STARTING",
+        "STOPPED",
+        "UNDEPLOYED",
+        "DEPLOYING",
+        "DEPLOY_FAILED",
+        "UPDATING"
+      ]
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of the application purpose and functionality"
+    },
+    "organizationId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier of the organization that owns this application"
+    },
+    "environmentId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier of the environment where this application is deployed"
+    },
+    "region": {
+      "type": "string",
+      "description": "Cloud region where the application is deployed",
+      "examples": [
+        "us-east-1",
+        "us-west-2",
+        "eu-west-1",
+        "eu-central-1",
+        "ap-southeast-1",
+        "ap-southeast-2",
+        "ap-northeast-1",
+        "ca-central-1",
+        "sa-east-1"
+      ]
+    },
+    "muleVersion": {
+      "$ref": "#/$defs/MuleVersion"
+    },
+    "workers": {
+      "$ref": "#/$defs/WorkerConfig"
+    },
+    "deploymentTarget": {
+      "type": "string",
+      "description": "The target platform for deployment",
+      "enum": [
+        "cloudhub",
+        "cloudhub2",
+        "rtf",
+        "hybrid"
+      ]
+    },
+    "properties": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Application properties passed as runtime configuration to the Mule runtime"
+    },
+    "secureProperties": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of property keys that are treated as secure and masked in the UI"
+    },
+    "lastUpdateTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of the last application update or redeployment"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the application was first created"
+    },
+    "fileName": {
+      "type": "string",
+      "description": "Name of the deployed application archive file (JAR or ZIP)"
+    },
+    "monitoringEnabled": {
+      "type": "boolean",
+      "description": "Whether Anypoint Monitoring is enabled for this application",
+      "default": true
+    },
+    "monitoringAutoRestart": {
+      "type": "boolean",
+      "description": "Whether the platform automatically restarts the application on failure",
+      "default": true
+    },
+    "staticIPsEnabled": {
+      "type": "boolean",
+      "description": "Whether static IP addresses are allocated to this application",
+      "default": false
+    },
+    "persistentQueues": {
+      "type": "boolean",
+      "description": "Whether persistent queues are enabled for reliable message processing",
+      "default": false
+    },
+    "persistentQueuesEncrypted": {
+      "type": "boolean",
+      "description": "Whether persistent queue data is encrypted at rest",
+      "default": false
+    },
+    "objectStoreV1": {
+      "type": "boolean",
+      "description": "Whether the application uses the legacy Object Store v1",
+      "default": false
+    },
+    "objectStoreV2": {
+      "type": "boolean",
+      "description": "Whether the application uses Object Store v2",
+      "default": true
+    },
+    "loggingNgEnabled": {
+      "type": "boolean",
+      "description": "Whether next-generation logging with Anypoint Monitoring is enabled",
+      "default": true
+    },
+    "trackingSettings": {
+      "$ref": "#/$defs/TrackingSettings"
+    },
+    "ipAddresses": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "ipv4"
+      },
+      "description": "List of IP addresses assigned to the application workers"
+    },
+    "vpnConfig": {
+      "$ref": "#/$defs/VpnConfig"
+    },
+    "logLevels": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/LogLevel"
+      },
+      "description": "Custom log level configuration for application packages"
+    }
+  },
+  "$defs": {
+    "MuleVersion": {
+      "type": "object",
+      "description": "Mule runtime version information for the deployed application",
+      "required": [
+        "version"
+      ],
+      "properties": {
+        "version": {
+          "type": "string",
+          "description": "Mule runtime version string (e.g., 4.6.0)",
+          "pattern": "^\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9]+)?$"
+        },
+        "updateId": {
+          "type": "string",
+          "description": "Runtime update identifier for patch-level updates"
+        },
+        "endOfSupportDate": {
+          "type": ["string", "null"],
+          "format": "date",
+          "description": "Date when this runtime version reaches end of support"
+        }
+      }
+    },
+    "WorkerConfig": {
+      "type": "object",
+      "description": "Worker configuration defining compute resources allocated to the application",
+      "required": [
+        "amount",
+        "type"
+      ],
+      "properties": {
+        "amount": {
+          "type": "integer",
+          "description": "Number of worker instances running the application",
+          "minimum": 1,
+          "maximum": 8
+        },
+        "type": {
+          "type": "object",
+          "description": "Worker type defining the vCore allocation and memory",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Worker size name",
+              "enum": [
+                "Micro",
+                "Small",
+                "Medium",
+                "Large",
+                "xLarge",
+                "xxLarge",
+                "4xLarge"
+              ]
+            },
+            "weight": {
+              "type": "number",
+              "description": "vCore weight of the worker type",
+              "enum": [
+                0.1,
+                0.2,
+                1,
+                2,
+                4,
+                8,
+                16
+              ]
+            },
+            "cpu": {
+              "type": "string",
+              "description": "CPU allocation description"
+            },
+            "memory": {
+              "type": "string",
+              "description": "Memory allocation description (e.g., 500 MB, 1.5 GB)"
+            }
+          }
+        },
+        "remainingOrgWorkers": {
+          "type": "number",
+          "description": "Remaining vCore allocation available in the organization after this application"
+        }
+      }
+    },
+    "TrackingSettings": {
+      "type": "object",
+      "description": "Transaction tracking configuration for API analytics and debugging",
+      "properties": {
+        "trackingLevel": {
+          "type": "string",
+          "description": "Level of transaction tracking detail",
+          "enum": [
+            "DISABLED",
+            "API_ANALYTICS",
+            "DEBUG"
+          ]
+        }
+      }
+    },
+    "VpnConfig": {
+      "type": "object",
+      "description": "VPN configuration for connecting the application to a private network",
+      "properties": {
+        "vpnId": {
+          "type": "string",
+          "description": "Unique identifier of the Anypoint VPN connection"
+        },
+        "vpcId": {
+          "type": "string",
+          "description": "Unique identifier of the Anypoint Virtual Private Cloud"
+        },
+        "vpcName": {
+          "type": "string",
+          "description": "Display name of the VPC"
+        }
+      }
+    },
+    "LogLevel": {
+      "type": "object",
+      "description": "Custom log level override for a specific package or class",
+      "required": [
+        "packageName",
+        "level"
+      ],
+      "properties": {
+        "packageName": {
+          "type": "string",
+          "description": "Fully qualified Java package or class name"
+        },
+        "level": {
+          "type": "string",
+          "description": "Log level to apply",
+          "enum": [
+            "DEBUG",
+            "INFO",
+            "WARN",
+            "ERROR",
+            "OFF"
+          ]
+        }
+      }
+    }
+  }
+}

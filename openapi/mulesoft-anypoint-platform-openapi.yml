@@ -1,0 +1,1051 @@
+openapi: 3.1.0
+info:
+  title: MuleSoft Anypoint Platform API
+  description: >-
+    The Anypoint Platform API provides programmatic access to manage
+    organizations, environments, and applications within the MuleSoft Anypoint
+    Platform. It enables automation of platform administration tasks including
+    creating and configuring organizations and business groups, managing
+    deployment environments, and controlling the lifecycle of Mule applications
+    across CloudHub, Runtime Fabric, and hybrid deployment targets.
+  version: 1.0.0
+  contact:
+    name: MuleSoft Support
+    url: https://help.mulesoft.com/s/support
+  termsOfService: https://www.mulesoft.com/legal/terms/EULA
+  license:
+    name: MuleSoft EULA
+    url: https://www.mulesoft.com/legal/terms/EULA
+externalDocs:
+  description: Anypoint Platform API Documentation
+  url: https://docs.mulesoft.com/access-management/
+servers:
+  - url: https://anypoint.mulesoft.com
+    description: Anypoint Platform US Control Plane
+  - url: https://eu1.anypoint.mulesoft.com
+    description: Anypoint Platform EU Control Plane
+tags:
+  - name: Organizations
+    description: >-
+      Manage organizations and business groups within the Anypoint Platform.
+      Organizations are the top-level containers for all platform resources
+      including environments, users, and applications.
+  - name: Environments
+    description: >-
+      Manage deployment environments within an organization. Environments
+      provide isolated contexts for deploying and running Mule applications,
+      such as Design, Sandbox, and Production.
+  - name: Applications
+    description: >-
+      Manage Mule applications deployed to CloudHub, Runtime Fabric, or hybrid
+      targets. Includes operations for deploying, starting, stopping, and
+      monitoring application instances.
+security:
+  - bearerAuth: []
+paths:
+  /accounts/api/organizations:
+    get:
+      operationId: listOrganizations
+      summary: List organizations
+      description: >-
+        Retrieves a list of organizations accessible to the authenticated user,
+        including the root organization and any business groups.
+      tags:
+        - Organizations
+      responses:
+        '200':
+          description: List of organizations retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Organization'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /accounts/api/organizations/{orgId}:
+    get:
+      operationId: getOrganization
+      summary: Get organization details
+      description: >-
+        Retrieves detailed information about a specific organization, including
+        its name, owner, entitlements, and associated business groups.
+      tags:
+        - Organizations
+      parameters:
+        - $ref: '#/components/parameters/OrgId'
+      responses:
+        '200':
+          description: Organization details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateOrganization
+      summary: Update organization
+      description: >-
+        Updates the properties of an existing organization, such as its name,
+        session timeout, or entitlement settings.
+      tags:
+        - Organizations
+      parameters:
+        - $ref: '#/components/parameters/OrgId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganizationUpdate'
+      responses:
+        '200':
+          description: Organization updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteOrganization
+      summary: Delete organization
+      description: >-
+        Deletes a business group. The root organization cannot be deleted.
+        All environments and resources within the business group are removed.
+      tags:
+        - Organizations
+      parameters:
+        - $ref: '#/components/parameters/OrgId'
+      responses:
+        '204':
+          description: Organization deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /accounts/api/organizations/{orgId}/environments:
+    get:
+      operationId: listEnvironments
+      summary: List environments
+      description: >-
+        Retrieves all environments within the specified organization. Each
+        environment represents an isolated deployment target such as Design,
+        Sandbox, or Production.
+      tags:
+        - Environments
+      parameters:
+        - $ref: '#/components/parameters/OrgId'
+      responses:
+        '200':
+          description: List of environments retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Environment'
+                  total:
+                    type: integer
+                    description: Total number of environments
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createEnvironment
+      summary: Create environment
+      description: >-
+        Creates a new environment within the specified organization. The
+        environment type determines its purpose and available features.
+      tags:
+        - Environments
+      parameters:
+        - $ref: '#/components/parameters/OrgId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnvironmentCreate'
+      responses:
+        '201':
+          description: Environment created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Environment'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          description: Environment with this name already exists
+  /accounts/api/organizations/{orgId}/environments/{envId}:
+    get:
+      operationId: getEnvironment
+      summary: Get environment details
+      description: >-
+        Retrieves detailed information about a specific environment, including
+        its type, client ID, and configuration settings.
+      tags:
+        - Environments
+      parameters:
+        - $ref: '#/components/parameters/OrgId'
+        - $ref: '#/components/parameters/EnvId'
+      responses:
+        '200':
+          description: Environment details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Environment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateEnvironment
+      summary: Update environment
+      description: >-
+        Updates the properties of an existing environment, such as its name
+        or type classification.
+      tags:
+        - Environments
+      parameters:
+        - $ref: '#/components/parameters/OrgId'
+        - $ref: '#/components/parameters/EnvId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnvironmentUpdate'
+      responses:
+        '200':
+          description: Environment updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Environment'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteEnvironment
+      summary: Delete environment
+      description: >-
+        Deletes an environment and all resources deployed within it. Production
+        environments may require additional confirmation.
+      tags:
+        - Environments
+      parameters:
+        - $ref: '#/components/parameters/OrgId'
+        - $ref: '#/components/parameters/EnvId'
+      responses:
+        '204':
+          description: Environment deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /cloudhub/api/v2/applications:
+    get:
+      operationId: listApplications
+      summary: List applications
+      description: >-
+        Retrieves a list of all Mule applications deployed to CloudHub within
+        the current environment. Returns application metadata, deployment
+        status, and runtime information.
+      tags:
+        - Applications
+      parameters:
+        - name: X-ANYPNT-ENV-ID
+          in: header
+          required: true
+          description: The environment ID to list applications from
+          schema:
+            type: string
+            format: uuid
+        - name: X-ANYPNT-ORG-ID
+          in: header
+          required: true
+          description: The organization ID
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: List of applications retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Application'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createApplication
+      summary: Create application
+      description: >-
+        Deploys a new Mule application to CloudHub. The application
+        configuration includes the runtime version, worker size, number of
+        workers, and application properties.
+      tags:
+        - Applications
+      parameters:
+        - name: X-ANYPNT-ENV-ID
+          in: header
+          required: true
+          description: The environment ID to deploy to
+          schema:
+            type: string
+            format: uuid
+        - name: X-ANYPNT-ORG-ID
+          in: header
+          required: true
+          description: The organization ID
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationCreate'
+      responses:
+        '200':
+          description: Application created and deployment initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          description: Application with this domain already exists
+  /cloudhub/api/v2/applications/{domain}:
+    get:
+      operationId: getApplication
+      summary: Get application details
+      description: >-
+        Retrieves detailed information about a specific CloudHub application,
+        including its deployment status, runtime version, worker
+        configuration, and application properties.
+      tags:
+        - Applications
+      parameters:
+        - $ref: '#/components/parameters/Domain'
+        - name: X-ANYPNT-ENV-ID
+          in: header
+          required: true
+          description: The environment ID
+          schema:
+            type: string
+            format: uuid
+        - name: X-ANYPNT-ORG-ID
+          in: header
+          required: true
+          description: The organization ID
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Application details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateApplication
+      summary: Update application
+      description: >-
+        Updates the configuration of an existing CloudHub application. Can be
+        used to change runtime version, worker configuration, properties,
+        or redeploy with a new application archive.
+      tags:
+        - Applications
+      parameters:
+        - $ref: '#/components/parameters/Domain'
+        - name: X-ANYPNT-ENV-ID
+          in: header
+          required: true
+          description: The environment ID
+          schema:
+            type: string
+            format: uuid
+        - name: X-ANYPNT-ORG-ID
+          in: header
+          required: true
+          description: The organization ID
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationUpdate'
+      responses:
+        '200':
+          description: Application updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteApplication
+      summary: Delete application
+      description: >-
+        Deletes a CloudHub application and stops all running workers. The
+        application domain becomes available for reuse after deletion.
+      tags:
+        - Applications
+      parameters:
+        - $ref: '#/components/parameters/Domain'
+        - name: X-ANYPNT-ENV-ID
+          in: header
+          required: true
+          description: The environment ID
+          schema:
+            type: string
+            format: uuid
+        - name: X-ANYPNT-ORG-ID
+          in: header
+          required: true
+          description: The organization ID
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Application deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /cloudhub/api/v2/applications/{domain}/status:
+    get:
+      operationId: getApplicationStatus
+      summary: Get application status
+      description: >-
+        Retrieves the current deployment status of a CloudHub application,
+        including the status of each worker instance.
+      tags:
+        - Applications
+      parameters:
+        - $ref: '#/components/parameters/Domain'
+        - name: X-ANYPNT-ENV-ID
+          in: header
+          required: true
+          description: The environment ID
+          schema:
+            type: string
+            format: uuid
+        - name: X-ANYPNT-ORG-ID
+          in: header
+          required: true
+          description: The organization ID
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Application status retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationStatus'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        Anypoint Platform access token obtained via the Access Management API
+        login endpoint or a connected app OAuth 2.0 flow.
+  parameters:
+    OrgId:
+      name: orgId
+      in: path
+      required: true
+      description: The unique identifier of the organization
+      schema:
+        type: string
+        format: uuid
+    EnvId:
+      name: envId
+      in: path
+      required: true
+      description: The unique identifier of the environment
+      schema:
+        type: string
+        format: uuid
+    Domain:
+      name: domain
+      in: path
+      required: true
+      description: The unique domain name of the CloudHub application
+      schema:
+        type: string
+        pattern: '^[a-z0-9-]+$'
+  responses:
+    BadRequest:
+      description: Invalid request parameters or body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Organization:
+      type: object
+      description: >-
+        An Anypoint Platform organization or business group. Organizations are
+        the top-level containers that hold all platform resources including
+        users, environments, and deployed applications.
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier of the organization
+        name:
+          type: string
+          description: Display name of the organization
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the organization was created
+        updatedAt:
+          type: string
+          format: date-time
+          description: Timestamp when the organization was last updated
+        ownerId:
+          type: string
+          format: uuid
+          description: User ID of the organization owner
+        clientId:
+          type: string
+          description: Client ID for the organization used in API authentication
+        idprovider_id:
+          type: string
+          description: Identity provider ID if external identity management is configured
+        isFederated:
+          type: boolean
+          description: Whether the organization uses federated identity management
+        parentOrganizationIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: IDs of parent organizations in the business group hierarchy
+        subOrganizationIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: IDs of child business groups
+        tenantOrganizationIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: IDs of tenant organizations
+        mfaRequired:
+          type: boolean
+          description: Whether multi-factor authentication is required
+        isAutomaticAdminPromotionExempt:
+          type: boolean
+          description: Whether automatic admin promotion is disabled
+        domain:
+          type: string
+          description: Domain associated with the organization
+        isMaster:
+          type: boolean
+          description: Whether this is the root (master) organization
+        subscription:
+          $ref: '#/components/schemas/Subscription'
+        entitlements:
+          $ref: '#/components/schemas/Entitlements'
+        environments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Environment'
+          description: Environments belonging to this organization
+    OrganizationUpdate:
+      type: object
+      description: Fields that can be updated on an organization
+      properties:
+        name:
+          type: string
+          description: Display name of the organization
+        ownerId:
+          type: string
+          format: uuid
+          description: User ID of the new organization owner
+        sessionTimeout:
+          type: integer
+          description: Session timeout in minutes
+          minimum: 15
+          maximum: 180
+        mfaRequired:
+          type: boolean
+          description: Whether multi-factor authentication is required
+    Subscription:
+      type: object
+      description: Subscription plan details for the organization
+      properties:
+        category:
+          type: string
+          description: Subscription category
+        type:
+          type: string
+          description: Subscription type
+        expiration:
+          type: string
+          format: date-time
+          description: Subscription expiration date
+    Entitlements:
+      type: object
+      description: Platform entitlements and resource limits for the organization
+      properties:
+        createEnvironments:
+          type: boolean
+          description: Whether the organization can create new environments
+        globalDeployment:
+          type: boolean
+          description: Whether global deployment is enabled
+        createSubOrgs:
+          type: boolean
+          description: Whether the organization can create sub-organizations
+        vCoresProduction:
+          $ref: '#/components/schemas/ResourceAllocation'
+        vCoresSandbox:
+          $ref: '#/components/schemas/ResourceAllocation'
+        vCoresDesign:
+          $ref: '#/components/schemas/ResourceAllocation'
+        staticIps:
+          $ref: '#/components/schemas/ResourceAllocation'
+        vpcs:
+          $ref: '#/components/schemas/ResourceAllocation'
+        loadBalancer:
+          $ref: '#/components/schemas/ResourceAllocation'
+    ResourceAllocation:
+      type: object
+      description: Resource allocation with assigned and reassigned counts
+      properties:
+        assigned:
+          type: number
+          description: Number of resources assigned to this organization
+        reassigned:
+          type: number
+          description: Number of resources reassigned to sub-organizations
+    Environment:
+      type: object
+      description: >-
+        A deployment environment within an organization. Environments provide
+        isolated contexts for deploying Mule applications, with types including
+        Design, Sandbox, and Production.
+      required:
+        - id
+        - name
+        - organizationId
+        - type
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier of the environment
+        name:
+          type: string
+          description: Display name of the environment
+        organizationId:
+          type: string
+          format: uuid
+          description: ID of the organization this environment belongs to
+        isProduction:
+          type: boolean
+          description: Whether this is a production environment
+        type:
+          type: string
+          description: The environment type classification
+          enum:
+            - design
+            - sandbox
+            - production
+        clientId:
+          type: string
+          description: Client ID associated with this environment
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the environment was created
+        updatedAt:
+          type: string
+          format: date-time
+          description: Timestamp when the environment was last updated
+    EnvironmentCreate:
+      type: object
+      description: Request body for creating a new environment
+      required:
+        - name
+        - type
+      properties:
+        name:
+          type: string
+          description: Display name for the new environment
+        type:
+          type: string
+          description: The environment type classification
+          enum:
+            - design
+            - sandbox
+            - production
+    EnvironmentUpdate:
+      type: object
+      description: Request body for updating an environment
+      properties:
+        name:
+          type: string
+          description: New display name for the environment
+        type:
+          type: string
+          description: New environment type classification
+          enum:
+            - design
+            - sandbox
+            - production
+    Application:
+      type: object
+      description: >-
+        A Mule application deployed to CloudHub. Contains metadata about the
+        application configuration, deployment status, worker settings, and
+        runtime properties.
+      required:
+        - domain
+        - status
+      properties:
+        domain:
+          type: string
+          description: >-
+            Unique domain name for the application, used as the subdomain in
+            the CloudHub URL (e.g., myapp.cloudhub.io)
+          pattern: '^[a-z0-9-]+$'
+        fullDomain:
+          type: string
+          description: Full domain including the cloudhub.io suffix
+        status:
+          type: string
+          description: Current deployment status of the application
+          enum:
+            - STARTED
+            - STARTING
+            - STOPPED
+            - UNDEPLOYED
+            - DEPLOYING
+            - DEPLOY_FAILED
+            - UPDATING
+        description:
+          type: string
+          description: Human-readable description of the application
+        region:
+          type: string
+          description: CloudHub region where the application is deployed
+          examples:
+            - us-east-1
+            - us-west-2
+            - eu-west-1
+            - ap-southeast-1
+            - ap-southeast-2
+        muleVersion:
+          type: object
+          description: Mule runtime version information
+          properties:
+            version:
+              type: string
+              description: Mule runtime version string
+            updateId:
+              type: string
+              description: Runtime update identifier
+            endOfSupportDate:
+              type: string
+              format: date
+              description: Date when this runtime version reaches end of support
+        workers:
+          $ref: '#/components/schemas/WorkerConfig'
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+          description: Application properties passed to the Mule runtime
+        lastUpdateTime:
+          type: integer
+          format: int64
+          description: Unix timestamp of the last application update
+        fileName:
+          type: string
+          description: Name of the deployed application archive file
+        monitoringEnabled:
+          type: boolean
+          description: Whether Anypoint Monitoring is enabled for this application
+        monitoringAutoRestart:
+          type: boolean
+          description: Whether automatic restart on failure is enabled
+        staticIPsEnabled:
+          type: boolean
+          description: Whether static IPs are allocated to this application
+        persistentQueues:
+          type: boolean
+          description: Whether persistent queues are enabled
+        persistentQueuesEncrypted:
+          type: boolean
+          description: Whether persistent queue data is encrypted
+        objectStoreV1:
+          type: boolean
+          description: Whether the application uses Object Store v1
+        loggingNgEnabled:
+          type: boolean
+          description: Whether next-generation logging is enabled
+        trackingSettings:
+          type: object
+          description: Transaction tracking configuration
+          properties:
+            trackingLevel:
+              type: string
+              description: Level of tracking detail
+              enum:
+                - DISABLED
+                - API_ANALYTICS
+                - DEBUG
+        vpnId:
+          type: string
+          description: ID of the VPN if the application is connected to one
+        vpnConfig:
+          type: object
+          description: VPN configuration for the application
+          properties:
+            vpnId:
+              type: string
+              description: VPN identifier
+    ApplicationCreate:
+      type: object
+      description: Request body for creating a new CloudHub application
+      required:
+        - domain
+        - muleVersion
+        - workers
+      properties:
+        domain:
+          type: string
+          description: Unique domain name for the application
+          pattern: '^[a-z0-9-]+$'
+        muleVersion:
+          type: object
+          description: Target Mule runtime version
+          required:
+            - version
+          properties:
+            version:
+              type: string
+              description: Mule runtime version to deploy
+        region:
+          type: string
+          description: CloudHub region to deploy to
+        workers:
+          $ref: '#/components/schemas/WorkerConfig'
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+          description: Application properties
+        monitoringAutoRestart:
+          type: boolean
+          description: Enable automatic restart on failure
+          default: true
+        persistentQueues:
+          type: boolean
+          description: Enable persistent queues
+          default: false
+        staticIPsEnabled:
+          type: boolean
+          description: Enable static IP allocation
+          default: false
+        loggingNgEnabled:
+          type: boolean
+          description: Enable next-generation logging
+          default: true
+    ApplicationUpdate:
+      type: object
+      description: Request body for updating an existing CloudHub application
+      properties:
+        muleVersion:
+          type: object
+          description: New Mule runtime version
+          properties:
+            version:
+              type: string
+              description: Mule runtime version
+        workers:
+          $ref: '#/components/schemas/WorkerConfig'
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+          description: Updated application properties
+        monitoringAutoRestart:
+          type: boolean
+          description: Enable or disable automatic restart
+        region:
+          type: string
+          description: Target CloudHub region
+        staticIPsEnabled:
+          type: boolean
+          description: Enable or disable static IPs
+        loggingNgEnabled:
+          type: boolean
+          description: Enable or disable next-generation logging
+        persistentQueues:
+          type: boolean
+          description: Enable or disable persistent queues
+    WorkerConfig:
+      type: object
+      description: >-
+        Worker configuration defining the compute resources allocated to a
+        CloudHub application, including the number of workers and their size.
+      required:
+        - amount
+        - type
+      properties:
+        amount:
+          type: integer
+          description: Number of worker instances
+          minimum: 1
+          maximum: 8
+        type:
+          type: object
+          description: Worker type defining the vCore size and memory
+          properties:
+            name:
+              type: string
+              description: Worker size name
+              enum:
+                - Micro
+                - Small
+                - Medium
+                - Large
+                - xLarge
+                - xxLarge
+                - 4xLarge
+            weight:
+              type: number
+              description: vCore weight of the worker type
+              enum:
+                - 0.1
+                - 0.2
+                - 1
+                - 2
+                - 4
+                - 8
+                - 16
+            cpu:
+              type: string
+              description: CPU allocation description
+            memory:
+              type: string
+              description: Memory allocation description
+    ApplicationStatus:
+      type: object
+      description: Detailed deployment status of a CloudHub application
+      properties:
+        domain:
+          type: string
+          description: Application domain name
+        status:
+          type: string
+          description: Overall application status
+        deploymentUpdateStatus:
+          type: string
+          description: Status of the most recent deployment update
+        workers:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: Worker instance identifier
+              host:
+                type: string
+                description: Hostname of the worker instance
+              port:
+                type: integer
+                description: Port number the worker is listening on
+              status:
+                type: string
+                description: Status of this worker instance
+              deployedRegion:
+                type: string
+                description: Region where this worker is running
+              staticIPAddress:
+                type: string
+                description: Static IP address if allocated
+    Error:
+      type: object
+      description: Error response from the Anypoint Platform API
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Human-readable error message

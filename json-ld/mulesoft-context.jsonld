@@ -1,0 +1,257 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "mulesoft": "https://anypoint.mulesoft.com/ns/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "Organization": {
+      "@id": "mulesoft:Organization",
+      "@context": {
+        "id": {
+          "@id": "mulesoft:organizationId",
+          "@type": "xsd:string"
+        },
+        "name": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "ownerId": {
+          "@id": "mulesoft:ownerId",
+          "@type": "xsd:string"
+        },
+        "clientId": {
+          "@id": "mulesoft:clientId",
+          "@type": "xsd:string"
+        },
+        "isFederated": {
+          "@id": "mulesoft:isFederated",
+          "@type": "xsd:boolean"
+        },
+        "isMaster": {
+          "@id": "mulesoft:isMaster",
+          "@type": "xsd:boolean"
+        },
+        "domain": {
+          "@id": "mulesoft:domain",
+          "@type": "xsd:string"
+        },
+        "mfaRequired": {
+          "@id": "mulesoft:mfaRequired",
+          "@type": "xsd:boolean"
+        },
+        "parentOrganizationIds": {
+          "@id": "mulesoft:parentOrganizationIds",
+          "@container": "@set"
+        },
+        "subOrganizationIds": {
+          "@id": "mulesoft:subOrganizationIds",
+          "@container": "@set"
+        },
+        "environments": {
+          "@id": "mulesoft:hasEnvironment",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Environment": {
+      "@id": "mulesoft:Environment",
+      "@context": {
+        "id": {
+          "@id": "mulesoft:environmentId",
+          "@type": "xsd:string"
+        },
+        "name": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "organizationId": {
+          "@id": "mulesoft:belongsToOrganization",
+          "@type": "@id"
+        },
+        "type": {
+          "@id": "mulesoft:environmentType",
+          "@type": "xsd:string"
+        },
+        "isProduction": {
+          "@id": "mulesoft:isProduction",
+          "@type": "xsd:boolean"
+        },
+        "clientId": {
+          "@id": "mulesoft:clientId",
+          "@type": "xsd:string"
+        },
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Application": {
+      "@id": "mulesoft:Application",
+      "@context": {
+        "domain": {
+          "@id": "mulesoft:applicationDomain",
+          "@type": "xsd:string"
+        },
+        "fullDomain": {
+          "@id": "schema:url",
+          "@type": "xsd:string"
+        },
+        "status": {
+          "@id": "mulesoft:deploymentStatus",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "schema:description",
+          "@type": "xsd:string"
+        },
+        "organizationId": {
+          "@id": "mulesoft:belongsToOrganization",
+          "@type": "@id"
+        },
+        "environmentId": {
+          "@id": "mulesoft:deployedToEnvironment",
+          "@type": "@id"
+        },
+        "region": {
+          "@id": "mulesoft:deploymentRegion",
+          "@type": "xsd:string"
+        },
+        "muleVersion": {
+          "@id": "mulesoft:muleVersion"
+        },
+        "workers": {
+          "@id": "mulesoft:workerConfig"
+        },
+        "deploymentTarget": {
+          "@id": "mulesoft:deploymentTarget",
+          "@type": "xsd:string"
+        },
+        "fileName": {
+          "@id": "mulesoft:fileName",
+          "@type": "xsd:string"
+        },
+        "monitoringEnabled": {
+          "@id": "mulesoft:monitoringEnabled",
+          "@type": "xsd:boolean"
+        },
+        "staticIPsEnabled": {
+          "@id": "mulesoft:staticIPsEnabled",
+          "@type": "xsd:boolean"
+        },
+        "persistentQueues": {
+          "@id": "mulesoft:persistentQueues",
+          "@type": "xsd:boolean"
+        },
+        "loggingNgEnabled": {
+          "@id": "mulesoft:loggingNgEnabled",
+          "@type": "xsd:boolean"
+        },
+        "lastUpdateTime": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "MuleVersion": {
+      "@id": "mulesoft:MuleVersion",
+      "@context": {
+        "version": {
+          "@id": "schema:softwareVersion",
+          "@type": "xsd:string"
+        },
+        "updateId": {
+          "@id": "mulesoft:updateId",
+          "@type": "xsd:string"
+        },
+        "endOfSupportDate": {
+          "@id": "mulesoft:endOfSupportDate",
+          "@type": "xsd:date"
+        }
+      }
+    },
+
+    "WorkerConfig": {
+      "@id": "mulesoft:WorkerConfig",
+      "@context": {
+        "amount": {
+          "@id": "mulesoft:workerCount",
+          "@type": "xsd:integer"
+        },
+        "type": {
+          "@id": "mulesoft:workerType"
+        }
+      }
+    },
+
+    "WorkerType": {
+      "@id": "mulesoft:WorkerType",
+      "@context": {
+        "name": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "weight": {
+          "@id": "mulesoft:vCoreWeight",
+          "@type": "xsd:decimal"
+        },
+        "cpu": {
+          "@id": "mulesoft:cpuAllocation",
+          "@type": "xsd:string"
+        },
+        "memory": {
+          "@id": "mulesoft:memoryAllocation",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "Entitlements": {
+      "@id": "mulesoft:Entitlements",
+      "@context": {
+        "createEnvironments": {
+          "@id": "mulesoft:canCreateEnvironments",
+          "@type": "xsd:boolean"
+        },
+        "globalDeployment": {
+          "@id": "mulesoft:globalDeployment",
+          "@type": "xsd:boolean"
+        },
+        "createSubOrgs": {
+          "@id": "mulesoft:canCreateSubOrgs",
+          "@type": "xsd:boolean"
+        },
+        "vCoresProduction": {
+          "@id": "mulesoft:vCoresProduction"
+        },
+        "vCoresSandbox": {
+          "@id": "mulesoft:vCoresSandbox"
+        },
+        "vCoresDesign": {
+          "@id": "mulesoft:vCoresDesign"
+        }
+      }
+    }
+  }
+}
