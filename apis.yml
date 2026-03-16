@@ -980,7 +980,7 @@ common:
   - url: json-schema/mulesoft-application-schema.json
     type: JSONSchema
 created: '2025-06-05T00:00:00.000Z'
-modified: '2026-03-03'
+modified: '2026-03-16'
 position: Consumer
 segments:
   - Gateways
