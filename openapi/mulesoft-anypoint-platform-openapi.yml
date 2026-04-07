@@ -25,21 +25,21 @@ servers:
   - url: https://eu1.anypoint.mulesoft.com
     description: Anypoint Platform EU Control Plane
 tags:
-  - name: Organizations
-    description: >-
-      Manage organizations and business groups within the Anypoint Platform.
-      Organizations are the top-level containers for all platform resources
-      including environments, users, and applications.
-  - name: Environments
-    description: >-
-      Manage deployment environments within an organization. Environments
-      provide isolated contexts for deploying and running Mule applications,
-      such as Design, Sandbox, and Production.
   - name: Applications
     description: >-
       Manage Mule applications deployed to CloudHub, Runtime Fabric, or hybrid
       targets. Includes operations for deploying, starting, stopping, and
       monitoring application instances.
+  - name: Environments
+    description: >-
+      Manage deployment environments within an organization. Environments
+      provide isolated contexts for deploying and running Mule applications,
+      such as Design, Sandbox, and Production.
+  - name: Organizations
+    description: >-
+      Manage organizations and business groups within the Anypoint Platform.
+      Organizations are the top-level containers for all platform resources
+      including environments, users, and applications.
 security:
   - bearerAuth: []
 paths:

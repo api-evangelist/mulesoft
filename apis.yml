@@ -45,10 +45,10 @@ apis:
     humanURL: https://docs.mulesoft.com/access-management/
     baseURL: https://anypoint.mulesoft.com
     tags:
-      - API Management
       - Administration
-      - REST
+      - API Management
       - Enterprise
+      - REST
     properties:
       - type: Documentation
         url: https://docs.mulesoft.com/access-management/
@@ -74,9 +74,9 @@ apis:
     baseURL: https://anypoint.mulesoft.com/exchange/api/v2
     tags:
       - API Catalog
-      - Marketplace
       - Asset Management
       - Enterprise
+      - Marketplace
     properties:
       - type: Documentation
         url: https://docs.mulesoft.com/exchange/
@@ -95,10 +95,10 @@ apis:
     humanURL: https://docs.mulesoft.com/runtime-manager/
     baseURL: https://anypoint.mulesoft.com/cloudhub/api
     tags:
-      - Runtime Manager
-      - Deployment
-      - CloudHub
       - CI/CD
+      - CloudHub
+      - Deployment
+      - Runtime Manager
     properties:
       - type: Documentation
         url: https://docs.mulesoft.com/runtime-manager/
@@ -116,10 +116,10 @@ apis:
     humanURL: https://docs.mulesoft.com/mq/
     baseURL: https://anypoint.mulesoft.com/mq/stats/api/v1
     tags:
-      - Messaging
       - Async
-      - Queue
       - Cloud
+      - Messaging
+      - Queue
     properties:
       - type: Documentation
         url: https://docs.mulesoft.com/mq/
@@ -139,9 +139,9 @@ apis:
     baseURL: https://anypoint.mulesoft.com/designcenter/api-designer
     tags:
       - API Design
-      - RAML
-      - OpenAPI
       - Design Center
+      - OpenAPI
+      - RAML
     properties:
       - type: Documentation
         url: https://docs.mulesoft.com/design-center/
