@@ -46,7 +46,7 @@ paths:
   /accounts/api/organizations:
     get:
       operationId: listOrganizations
-      summary: List organizations
+      summary: MuleSoft List organizations
       description: >-
         Retrieves a list of organizations accessible to the authenticated user,
         including the root organization and any business groups.
@@ -69,7 +69,7 @@ paths:
   /accounts/api/organizations/{orgId}:
     get:
       operationId: getOrganization
-      summary: Get organization details
+      summary: MuleSoft Get organization details
       description: >-
         Retrieves detailed information about a specific organization, including
         its name, owner, entitlements, and associated business groups.
@@ -90,7 +90,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     put:
       operationId: updateOrganization
-      summary: Update organization
+      summary: MuleSoft Update organization
       description: >-
         Updates the properties of an existing organization, such as its name,
         session timeout, or entitlement settings.
@@ -119,7 +119,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteOrganization
-      summary: Delete organization
+      summary: MuleSoft Delete organization
       description: >-
         Deletes a business group. The root organization cannot be deleted.
         All environments and resources within the business group are removed.
@@ -137,7 +137,7 @@ paths:
   /accounts/api/organizations/{orgId}/environments:
     get:
       operationId: listEnvironments
-      summary: List environments
+      summary: MuleSoft List environments
       description: >-
         Retrieves all environments within the specified organization. Each
         environment represents an isolated deployment target such as Design,
@@ -167,7 +167,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     post:
       operationId: createEnvironment
-      summary: Create environment
+      summary: MuleSoft Create environment
       description: >-
         Creates a new environment within the specified organization. The
         environment type determines its purpose and available features.
@@ -197,7 +197,7 @@ paths:
   /accounts/api/organizations/{orgId}/environments/{envId}:
     get:
       operationId: getEnvironment
-      summary: Get environment details
+      summary: MuleSoft Get environment details
       description: >-
         Retrieves detailed information about a specific environment, including
         its type, client ID, and configuration settings.
@@ -219,7 +219,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     put:
       operationId: updateEnvironment
-      summary: Update environment
+      summary: MuleSoft Update environment
       description: >-
         Updates the properties of an existing environment, such as its name
         or type classification.
@@ -249,7 +249,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteEnvironment
-      summary: Delete environment
+      summary: MuleSoft Delete environment
       description: >-
         Deletes an environment and all resources deployed within it. Production
         environments may require additional confirmation.
@@ -268,7 +268,7 @@ paths:
   /cloudhub/api/v2/applications:
     get:
       operationId: listApplications
-      summary: List applications
+      summary: MuleSoft List applications
       description: >-
         Retrieves a list of all Mule applications deployed to CloudHub within
         the current environment. Returns application metadata, deployment
@@ -303,7 +303,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createApplication
-      summary: Create application
+      summary: MuleSoft Create application
       description: >-
         Deploys a new Mule application to CloudHub. The application
         configuration includes the runtime version, worker size, number of
@@ -347,7 +347,7 @@ paths:
   /cloudhub/api/v2/applications/{domain}:
     get:
       operationId: getApplication
-      summary: Get application details
+      summary: MuleSoft Get application details
       description: >-
         Retrieves detailed information about a specific CloudHub application,
         including its deployment status, runtime version, worker
@@ -383,7 +383,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     put:
       operationId: updateApplication
-      summary: Update application
+      summary: MuleSoft Update application
       description: >-
         Updates the configuration of an existing CloudHub application. Can be
         used to change runtime version, worker configuration, properties,
@@ -427,7 +427,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteApplication
-      summary: Delete application
+      summary: MuleSoft Delete application
       description: >-
         Deletes a CloudHub application and stops all running workers. The
         application domain becomes available for reuse after deletion.
@@ -459,7 +459,7 @@ paths:
   /cloudhub/api/v2/applications/{domain}/status:
     get:
       operationId: getApplicationStatus
-      summary: Get application status
+      summary: MuleSoft Get application status
       description: >-
         Retrieves the current deployment status of a CloudHub application,
         including the status of each worker instance.
