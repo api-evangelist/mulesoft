@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Environment",
+  "type": "object",
+  "description": "A deployment environment within an organization. Environments provide isolated contexts for deploying Mule applications, with types including Design, Sandbox, and Production.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the environment"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the environment"
+    },
+    "organizationId": {
+      "type": "string",
+      "description": "ID of the organization this environment belongs to"
+    },
+    "isProduction": {
+      "type": "boolean",
+      "description": "Whether this is a production environment"
+    },
+    "type": {
+      "type": "string",
+      "description": "The environment type classification"
+    },
+    "clientId": {
+      "type": "string",
+      "description": "Client ID associated with this environment"
+    },
+    "createdAt": {
+      "type": "string",
+      "description": "Timestamp when the environment was created"
+    },
+    "updatedAt": {
+      "type": "string",
+      "description": "Timestamp when the environment was last updated"
+    }
+  }
+}

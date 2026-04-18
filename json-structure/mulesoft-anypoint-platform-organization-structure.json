@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "Organization",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "updatedAt": {
+      "type": "string"
+    },
+    "ownerId": {
+      "type": "string"
+    },
+    "clientId": {
+      "type": "string"
+    },
+    "idprovider_id": {
+      "type": "string"
+    },
+    "isFederated": {
+      "type": "boolean"
+    },
+    "parentOrganizationIds": {
+      "type": "array"
+    },
+    "subOrganizationIds": {
+      "type": "array"
+    },
+    "tenantOrganizationIds": {
+      "type": "array"
+    },
+    "mfaRequired": {
+      "type": "boolean"
+    },
+    "isAutomaticAdminPromotionExempt": {
+      "type": "boolean"
+    },
+    "domain": {
+      "type": "string"
+    },
+    "isMaster": {
+      "type": "boolean"
+    },
+    "environments": {
+      "type": "array"
+    }
+  }
+}

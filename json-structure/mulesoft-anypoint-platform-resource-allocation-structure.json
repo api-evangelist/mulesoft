@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "ResourceAllocation",
+  "type": "object",
+  "properties": {
+    "assigned": {
+      "type": "number"
+    },
+    "reassigned": {
+      "type": "number"
+    }
+  }
+}

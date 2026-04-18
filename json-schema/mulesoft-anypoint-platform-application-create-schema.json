@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ApplicationCreate",
+  "type": "object",
+  "description": "Request body for creating a new CloudHub application",
+  "properties": {
+    "domain": {
+      "type": "string",
+      "description": "Unique domain name for the application"
+    },
+    "muleVersion": {
+      "type": "object",
+      "description": "Target Mule runtime version"
+    },
+    "region": {
+      "type": "string",
+      "description": "CloudHub region to deploy to"
+    },
+    "properties": {
+      "type": "object",
+      "description": "Application properties"
+    },
+    "monitoringAutoRestart": {
+      "type": "boolean",
+      "description": "Enable automatic restart on failure"
+    },
+    "persistentQueues": {
+      "type": "boolean",
+      "description": "Enable persistent queues"
+    },
+    "staticIPsEnabled": {
+      "type": "boolean",
+      "description": "Enable static IP allocation"
+    },
+    "loggingNgEnabled": {
+      "type": "boolean",
+      "description": "Enable next-generation logging"
+    }
+  }
+}

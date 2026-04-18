@@ -1,0 +1,6 @@
+{
+  "domain": "example_value",
+  "status": "example_value",
+  "deploymentUpdateStatus": "example_value",
+  "workers": []
+}

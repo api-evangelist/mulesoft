@@ -1,0 +1,5 @@
+{
+  "createEnvironments": true,
+  "globalDeployment": true,
+  "createSubOrgs": true
+}

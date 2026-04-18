@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "Application",
+  "type": "object",
+  "properties": {
+    "domain": {
+      "type": "string"
+    },
+    "fullDomain": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "region": {
+      "type": "string"
+    },
+    "muleVersion": {
+      "type": "object"
+    },
+    "properties": {
+      "type": "object"
+    },
+    "lastUpdateTime": {
+      "type": "integer"
+    },
+    "fileName": {
+      "type": "string"
+    },
+    "monitoringEnabled": {
+      "type": "boolean"
+    },
+    "monitoringAutoRestart": {
+      "type": "boolean"
+    },
+    "staticIPsEnabled": {
+      "type": "boolean"
+    },
+    "persistentQueues": {
+      "type": "boolean"
+    },
+    "persistentQueuesEncrypted": {
+      "type": "boolean"
+    },
+    "objectStoreV1": {
+      "type": "boolean"
+    },
+    "loggingNgEnabled": {
+      "type": "boolean"
+    },
+    "trackingSettings": {
+      "type": "object"
+    },
+    "vpnId": {
+      "type": "string"
+    },
+    "vpnConfig": {
+      "type": "object"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "domain": "example_value",
+  "fullDomain": "example_value",
+  "status": "example_value",
+  "description": "A sample description.",
+  "region": "example_value",
+  "muleVersion": "example_value",
+  "properties": "example_value",
+  "lastUpdateTime": 10,
+  "fileName": "example_value",
+  "monitoringEnabled": true,
+  "monitoringAutoRestart": true,
+  "staticIPsEnabled": true,
+  "persistentQueues": true,
+  "persistentQueuesEncrypted": true,
+  "objectStoreV1": true,
+  "loggingNgEnabled": true,
+  "trackingSettings": "example_value",
+  "vpnId": "500123",
+  "vpnConfig": "example_value"
+}

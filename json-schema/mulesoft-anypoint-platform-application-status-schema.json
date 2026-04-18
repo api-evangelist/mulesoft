@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ApplicationStatus",
+  "type": "object",
+  "description": "Detailed deployment status of a CloudHub application",
+  "properties": {
+    "domain": {
+      "type": "string",
+      "description": "Application domain name"
+    },
+    "status": {
+      "type": "string",
+      "description": "Overall application status"
+    },
+    "deploymentUpdateStatus": {
+      "type": "string",
+      "description": "Status of the most recent deployment update"
+    },
+    "workers": {
+      "type": "array"
+    }
+  }
+}

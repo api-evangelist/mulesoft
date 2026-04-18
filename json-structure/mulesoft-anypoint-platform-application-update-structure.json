@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "ApplicationUpdate",
+  "type": "object",
+  "properties": {
+    "muleVersion": {
+      "type": "object"
+    },
+    "properties": {
+      "type": "object"
+    },
+    "monitoringAutoRestart": {
+      "type": "boolean"
+    },
+    "region": {
+      "type": "string"
+    },
+    "staticIPsEnabled": {
+      "type": "boolean"
+    },
+    "loggingNgEnabled": {
+      "type": "boolean"
+    },
+    "persistentQueues": {
+      "type": "boolean"
+    }
+  }
+}

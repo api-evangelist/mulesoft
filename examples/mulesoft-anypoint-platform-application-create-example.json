@@ -1,0 +1,10 @@
+{
+  "domain": "example_value",
+  "muleVersion": "example_value",
+  "region": "example_value",
+  "properties": "example_value",
+  "monitoringAutoRestart": true,
+  "persistentQueues": true,
+  "staticIPsEnabled": true,
+  "loggingNgEnabled": true
+}

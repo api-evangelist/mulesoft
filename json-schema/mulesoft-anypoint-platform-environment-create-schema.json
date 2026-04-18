@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EnvironmentCreate",
+  "type": "object",
+  "description": "Request body for creating a new environment",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Display name for the new environment"
+    },
+    "type": {
+      "type": "string",
+      "description": "The environment type classification"
+    }
+  }
+}

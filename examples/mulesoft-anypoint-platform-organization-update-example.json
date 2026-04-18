@@ -1,0 +1,6 @@
+{
+  "name": "Example Title",
+  "ownerId": "500123",
+  "sessionTimeout": 10,
+  "mfaRequired": true
+}

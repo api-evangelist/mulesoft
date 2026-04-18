@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Organization",
+  "type": "object",
+  "description": "An Anypoint Platform organization or business group. Organizations are the top-level containers that hold all platform resources including users, environments, and deployed applications.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the organization"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the organization"
+    },
+    "createdAt": {
+      "type": "string",
+      "description": "Timestamp when the organization was created"
+    },
+    "updatedAt": {
+      "type": "string",
+      "description": "Timestamp when the organization was last updated"
+    },
+    "ownerId": {
+      "type": "string",
+      "description": "User ID of the organization owner"
+    },
+    "clientId": {
+      "type": "string",
+      "description": "Client ID for the organization used in API authentication"
+    },
+    "idprovider_id": {
+      "type": "string",
+      "description": "Identity provider ID if external identity management is configured"
+    },
+    "isFederated": {
+      "type": "boolean",
+      "description": "Whether the organization uses federated identity management"
+    },
+    "parentOrganizationIds": {
+      "type": "array",
+      "description": "IDs of parent organizations in the business group hierarchy"
+    },
+    "subOrganizationIds": {
+      "type": "array",
+      "description": "IDs of child business groups"
+    },
+    "tenantOrganizationIds": {
+      "type": "array",
+      "description": "IDs of tenant organizations"
+    },
+    "mfaRequired": {
+      "type": "boolean",
+      "description": "Whether multi-factor authentication is required"
+    },
+    "isAutomaticAdminPromotionExempt": {
+      "type": "boolean",
+      "description": "Whether automatic admin promotion is disabled"
+    },
+    "domain": {
+      "type": "string",
+      "description": "Domain associated with the organization"
+    },
+    "isMaster": {
+      "type": "boolean",
+      "description": "Whether this is the root (master) organization"
+    },
+    "environments": {
+      "type": "array",
+      "description": "Environments belonging to this organization"
+    }
+  }
+}

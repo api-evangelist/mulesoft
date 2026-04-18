@@ -20,38 +20,38 @@ externalDocs:
   description: Anypoint Platform API Documentation
   url: https://docs.mulesoft.com/access-management/
 servers:
-  - url: https://anypoint.mulesoft.com
-    description: Anypoint Platform US Control Plane
-  - url: https://eu1.anypoint.mulesoft.com
-    description: Anypoint Platform EU Control Plane
+- url: https://anypoint.mulesoft.com
+  description: Anypoint Platform US Control Plane
+- url: https://eu1.anypoint.mulesoft.com
+  description: Anypoint Platform EU Control Plane
 tags:
-  - name: Applications
-    description: >-
-      Manage Mule applications deployed to CloudHub, Runtime Fabric, or hybrid
-      targets. Includes operations for deploying, starting, stopping, and
-      monitoring application instances.
-  - name: Environments
-    description: >-
-      Manage deployment environments within an organization. Environments
-      provide isolated contexts for deploying and running Mule applications,
-      such as Design, Sandbox, and Production.
-  - name: Organizations
-    description: >-
-      Manage organizations and business groups within the Anypoint Platform.
-      Organizations are the top-level containers for all platform resources
-      including environments, users, and applications.
+- name: Applications
+  description: >-
+    Manage Mule applications deployed to CloudHub, Runtime Fabric, or hybrid
+    targets. Includes operations for deploying, starting, stopping, and
+    monitoring application instances.
+- name: Environments
+  description: >-
+    Manage deployment environments within an organization. Environments
+    provide isolated contexts for deploying and running Mule applications,
+    such as Design, Sandbox, and Production.
+- name: Organizations
+  description: >-
+    Manage organizations and business groups within the Anypoint Platform.
+    Organizations are the top-level containers for all platform resources
+    including environments, users, and applications.
 security:
-  - bearerAuth: []
+- bearerAuth: []
 paths:
   /accounts/api/organizations:
     get:
       operationId: listOrganizations
-      summary: MuleSoft List organizations
+      summary: Mulesoft List Organizations
       description: >-
         Retrieves a list of organizations accessible to the authenticated user,
         including the root organization and any business groups.
       tags:
-        - Organizations
+      - Organizations
       responses:
         '200':
           description: List of organizations retrieved successfully
@@ -64,19 +64,48 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Organization'
+              examples:
+                Listorganizations200Example:
+                  summary: Default listOrganizations 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - id: abc123
+                      name: Example Title
+                      createdAt: '2026-01-15T10:30:00Z'
+                      updatedAt: '2026-01-15T10:30:00Z'
+                      ownerId: '500123'
+                      clientId: '500123'
+                      idprovider_id: '500123'
+                      isFederated: true
+                      parentOrganizationIds:
+                      - {}
+                      subOrganizationIds:
+                      - {}
+                      tenantOrganizationIds:
+                      - {}
+                      mfaRequired: true
+                      isAutomaticAdminPromotionExempt: true
+                      domain: example_value
+                      isMaster: true
+                      environments:
+                      - {}
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /accounts/api/organizations/{orgId}:
     get:
       operationId: getOrganization
-      summary: MuleSoft Get organization details
+      summary: Mulesoft Get Organization Details
       description: >-
         Retrieves detailed information about a specific organization, including
         its name, owner, entitlements, and associated business groups.
       tags:
-        - Organizations
+      - Organizations
       parameters:
-        - $ref: '#/components/parameters/OrgId'
+      - $ref: '#/components/parameters/OrgId'
       responses:
         '200':
           description: Organization details retrieved successfully
@@ -84,26 +113,78 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Organization'
+              examples:
+                Getorganization200Example:
+                  summary: Default getOrganization 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    createdAt: '2026-01-15T10:30:00Z'
+                    updatedAt: '2026-01-15T10:30:00Z'
+                    ownerId: '500123'
+                    clientId: '500123'
+                    idprovider_id: '500123'
+                    isFederated: true
+                    parentOrganizationIds:
+                    - example_value
+                    subOrganizationIds:
+                    - example_value
+                    tenantOrganizationIds:
+                    - example_value
+                    mfaRequired: true
+                    isAutomaticAdminPromotionExempt: true
+                    domain: example_value
+                    isMaster: true
+                    subscription:
+                      category: example_value
+                      type: example_value
+                      expiration: '2026-01-15T10:30:00Z'
+                    entitlements:
+                      createEnvironments: true
+                      globalDeployment: true
+                      createSubOrgs: true
+                    environments:
+                    - id: abc123
+                      name: Example Title
+                      organizationId: '500123'
+                      isProduction: true
+                      type: design
+                      clientId: '500123'
+                      createdAt: '2026-01-15T10:30:00Z'
+                      updatedAt: '2026-01-15T10:30:00Z'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     put:
       operationId: updateOrganization
-      summary: MuleSoft Update organization
+      summary: Mulesoft Update Organization
       description: >-
         Updates the properties of an existing organization, such as its name,
         session timeout, or entitlement settings.
       tags:
-        - Organizations
+      - Organizations
       parameters:
-        - $ref: '#/components/parameters/OrgId'
+      - $ref: '#/components/parameters/OrgId'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/OrganizationUpdate'
+            examples:
+              UpdateorganizationRequestExample:
+                summary: Default updateOrganization request
+                x-microcks-default: true
+                value:
+                  name: Example Title
+                  ownerId: '500123'
+                  sessionTimeout: 10
+                  mfaRequired: true
       responses:
         '200':
           description: Organization updated successfully
@@ -111,22 +192,65 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Organization'
+              examples:
+                Updateorganization200Example:
+                  summary: Default updateOrganization 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    createdAt: '2026-01-15T10:30:00Z'
+                    updatedAt: '2026-01-15T10:30:00Z'
+                    ownerId: '500123'
+                    clientId: '500123'
+                    idprovider_id: '500123'
+                    isFederated: true
+                    parentOrganizationIds:
+                    - example_value
+                    subOrganizationIds:
+                    - example_value
+                    tenantOrganizationIds:
+                    - example_value
+                    mfaRequired: true
+                    isAutomaticAdminPromotionExempt: true
+                    domain: example_value
+                    isMaster: true
+                    subscription:
+                      category: example_value
+                      type: example_value
+                      expiration: '2026-01-15T10:30:00Z'
+                    entitlements:
+                      createEnvironments: true
+                      globalDeployment: true
+                      createSubOrgs: true
+                    environments:
+                    - id: abc123
+                      name: Example Title
+                      organizationId: '500123'
+                      isProduction: true
+                      type: design
+                      clientId: '500123'
+                      createdAt: '2026-01-15T10:30:00Z'
+                      updatedAt: '2026-01-15T10:30:00Z'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteOrganization
-      summary: MuleSoft Delete organization
+      summary: Mulesoft Delete Organization
       description: >-
         Deletes a business group. The root organization cannot be deleted.
         All environments and resources within the business group are removed.
       tags:
-        - Organizations
+      - Organizations
       parameters:
-        - $ref: '#/components/parameters/OrgId'
+      - $ref: '#/components/parameters/OrgId'
       responses:
         '204':
           description: Organization deleted successfully
@@ -134,18 +258,21 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /accounts/api/organizations/{orgId}/environments:
     get:
       operationId: listEnvironments
-      summary: MuleSoft List environments
+      summary: Mulesoft List Environments
       description: >-
         Retrieves all environments within the specified organization. Each
         environment represents an isolated deployment target such as Design,
         Sandbox, or Production.
       tags:
-        - Environments
+      - Environments
       parameters:
-        - $ref: '#/components/parameters/OrgId'
+      - $ref: '#/components/parameters/OrgId'
       responses:
         '200':
           description: List of environments retrieved successfully
@@ -161,26 +288,51 @@ paths:
                   total:
                     type: integer
                     description: Total number of environments
+              examples:
+                Listenvironments200Example:
+                  summary: Default listEnvironments 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - id: abc123
+                      name: Example Title
+                      organizationId: '500123'
+                      isProduction: true
+                      type: design
+                      clientId: '500123'
+                      createdAt: '2026-01-15T10:30:00Z'
+                      updatedAt: '2026-01-15T10:30:00Z'
+                    total: 10
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createEnvironment
-      summary: MuleSoft Create environment
+      summary: Mulesoft Create Environment
       description: >-
         Creates a new environment within the specified organization. The
         environment type determines its purpose and available features.
       tags:
-        - Environments
+      - Environments
       parameters:
-        - $ref: '#/components/parameters/OrgId'
+      - $ref: '#/components/parameters/OrgId'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/EnvironmentCreate'
+            examples:
+              CreateenvironmentRequestExample:
+                summary: Default createEnvironment request
+                x-microcks-default: true
+                value:
+                  name: Example Title
+                  type: design
       responses:
         '201':
           description: Environment created successfully
@@ -188,24 +340,40 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Environment'
+              examples:
+                Createenvironment201Example:
+                  summary: Default createEnvironment 201 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    organizationId: '500123'
+                    isProduction: true
+                    type: design
+                    clientId: '500123'
+                    createdAt: '2026-01-15T10:30:00Z'
+                    updatedAt: '2026-01-15T10:30:00Z'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '409':
           description: Environment with this name already exists
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /accounts/api/organizations/{orgId}/environments/{envId}:
     get:
       operationId: getEnvironment
-      summary: MuleSoft Get environment details
+      summary: Mulesoft Get Environment Details
       description: >-
         Retrieves detailed information about a specific environment, including
         its type, client ID, and configuration settings.
       tags:
-        - Environments
+      - Environments
       parameters:
-        - $ref: '#/components/parameters/OrgId'
-        - $ref: '#/components/parameters/EnvId'
+      - $ref: '#/components/parameters/OrgId'
+      - $ref: '#/components/parameters/EnvId'
       responses:
         '200':
           description: Environment details retrieved successfully
@@ -213,27 +381,50 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Environment'
+              examples:
+                Getenvironment200Example:
+                  summary: Default getEnvironment 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    organizationId: '500123'
+                    isProduction: true
+                    type: design
+                    clientId: '500123'
+                    createdAt: '2026-01-15T10:30:00Z'
+                    updatedAt: '2026-01-15T10:30:00Z'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     put:
       operationId: updateEnvironment
-      summary: MuleSoft Update environment
+      summary: Mulesoft Update Environment
       description: >-
         Updates the properties of an existing environment, such as its name
         or type classification.
       tags:
-        - Environments
+      - Environments
       parameters:
-        - $ref: '#/components/parameters/OrgId'
-        - $ref: '#/components/parameters/EnvId'
+      - $ref: '#/components/parameters/OrgId'
+      - $ref: '#/components/parameters/EnvId'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/EnvironmentUpdate'
+            examples:
+              UpdateenvironmentRequestExample:
+                summary: Default updateEnvironment request
+                x-microcks-default: true
+                value:
+                  name: Example Title
+                  type: design
       responses:
         '200':
           description: Environment updated successfully
@@ -241,23 +432,39 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Environment'
+              examples:
+                Updateenvironment200Example:
+                  summary: Default updateEnvironment 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    organizationId: '500123'
+                    isProduction: true
+                    type: design
+                    clientId: '500123'
+                    createdAt: '2026-01-15T10:30:00Z'
+                    updatedAt: '2026-01-15T10:30:00Z'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteEnvironment
-      summary: MuleSoft Delete environment
+      summary: Mulesoft Delete Environment
       description: >-
         Deletes an environment and all resources deployed within it. Production
         environments may require additional confirmation.
       tags:
-        - Environments
+      - Environments
       parameters:
-        - $ref: '#/components/parameters/OrgId'
-        - $ref: '#/components/parameters/EnvId'
+      - $ref: '#/components/parameters/OrgId'
+      - $ref: '#/components/parameters/EnvId'
       responses:
         '204':
           description: Environment deleted successfully
@@ -265,31 +472,36 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /cloudhub/api/v2/applications:
     get:
       operationId: listApplications
-      summary: MuleSoft List applications
+      summary: Mulesoft List Applications
       description: >-
         Retrieves a list of all Mule applications deployed to CloudHub within
         the current environment. Returns application metadata, deployment
         status, and runtime information.
       tags:
-        - Applications
+      - Applications
       parameters:
-        - name: X-ANYPNT-ENV-ID
-          in: header
-          required: true
-          description: The environment ID to list applications from
-          schema:
-            type: string
-            format: uuid
-        - name: X-ANYPNT-ORG-ID
-          in: header
-          required: true
-          description: The organization ID
-          schema:
-            type: string
-            format: uuid
+      - name: X-ANYPNT-ENV-ID
+        in: header
+        required: true
+        description: The environment ID to list applications from
+        schema:
+          type: string
+          format: uuid
+        example: '500123'
+      - name: X-ANYPNT-ORG-ID
+        in: header
+        required: true
+        description: The organization ID
+        schema:
+          type: string
+          format: uuid
+        example: '500123'
       responses:
         '200':
           description: List of applications retrieved successfully
@@ -299,38 +511,96 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Application'
+              examples:
+                Listapplications200Example:
+                  summary: Default listApplications 200 response
+                  x-microcks-default: true
+                  value:
+                  - domain: example_value
+                    fullDomain: example_value
+                    status: STARTED
+                    description: A sample description.
+                    region: example_value
+                    muleVersion:
+                      version: example_value
+                      updateId: '500123'
+                      endOfSupportDate: '2026-01-15'
+                    workers:
+                      amount: 10
+                      type: {}
+                    properties: example_value
+                    lastUpdateTime: 10
+                    fileName: example_value
+                    monitoringEnabled: true
+                    monitoringAutoRestart: true
+                    staticIPsEnabled: true
+                    persistentQueues: true
+                    persistentQueuesEncrypted: true
+                    objectStoreV1: true
+                    loggingNgEnabled: true
+                    trackingSettings:
+                      trackingLevel: DISABLED
+                    vpnId: '500123'
+                    vpnConfig:
+                      vpnId: '500123'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createApplication
-      summary: MuleSoft Create application
+      summary: Mulesoft Create Application
       description: >-
         Deploys a new Mule application to CloudHub. The application
         configuration includes the runtime version, worker size, number of
         workers, and application properties.
       tags:
-        - Applications
+      - Applications
       parameters:
-        - name: X-ANYPNT-ENV-ID
-          in: header
-          required: true
-          description: The environment ID to deploy to
-          schema:
-            type: string
-            format: uuid
-        - name: X-ANYPNT-ORG-ID
-          in: header
-          required: true
-          description: The organization ID
-          schema:
-            type: string
-            format: uuid
+      - name: X-ANYPNT-ENV-ID
+        in: header
+        required: true
+        description: The environment ID to deploy to
+        schema:
+          type: string
+          format: uuid
+        example: '500123'
+      - name: X-ANYPNT-ORG-ID
+        in: header
+        required: true
+        description: The organization ID
+        schema:
+          type: string
+          format: uuid
+        example: '500123'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/ApplicationCreate'
+            examples:
+              CreateapplicationRequestExample:
+                summary: Default createApplication request
+                x-microcks-default: true
+                value:
+                  domain: example_value
+                  muleVersion:
+                    version: example_value
+                  region: example_value
+                  workers:
+                    amount: 10
+                    type:
+                      name: Micro
+                      weight: 0.1
+                      cpu: example_value
+                      memory: example_value
+                  properties: example_value
+                  monitoringAutoRestart: true
+                  persistentQueues: true
+                  staticIPsEnabled: true
+                  loggingNgEnabled: true
       responses:
         '200':
           description: Application created and deployment initiated
@@ -338,38 +608,79 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Application'
+              examples:
+                Createapplication200Example:
+                  summary: Default createApplication 200 response
+                  x-microcks-default: true
+                  value:
+                    domain: example_value
+                    fullDomain: example_value
+                    status: STARTED
+                    description: A sample description.
+                    region: example_value
+                    muleVersion:
+                      version: example_value
+                      updateId: '500123'
+                      endOfSupportDate: '2026-01-15'
+                    workers:
+                      amount: 10
+                      type:
+                        name: Micro
+                        weight: 0.1
+                        cpu: example_value
+                        memory: example_value
+                    properties: example_value
+                    lastUpdateTime: 10
+                    fileName: example_value
+                    monitoringEnabled: true
+                    monitoringAutoRestart: true
+                    staticIPsEnabled: true
+                    persistentQueues: true
+                    persistentQueuesEncrypted: true
+                    objectStoreV1: true
+                    loggingNgEnabled: true
+                    trackingSettings:
+                      trackingLevel: DISABLED
+                    vpnId: '500123'
+                    vpnConfig:
+                      vpnId: '500123'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '409':
           description: Application with this domain already exists
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /cloudhub/api/v2/applications/{domain}:
     get:
       operationId: getApplication
-      summary: MuleSoft Get application details
+      summary: Mulesoft Get Application Details
       description: >-
         Retrieves detailed information about a specific CloudHub application,
         including its deployment status, runtime version, worker
         configuration, and application properties.
       tags:
-        - Applications
+      - Applications
       parameters:
-        - $ref: '#/components/parameters/Domain'
-        - name: X-ANYPNT-ENV-ID
-          in: header
-          required: true
-          description: The environment ID
-          schema:
-            type: string
-            format: uuid
-        - name: X-ANYPNT-ORG-ID
-          in: header
-          required: true
-          description: The organization ID
-          schema:
-            type: string
-            format: uuid
+      - $ref: '#/components/parameters/Domain'
+      - name: X-ANYPNT-ENV-ID
+        in: header
+        required: true
+        description: The environment ID
+        schema:
+          type: string
+          format: uuid
+        example: '500123'
+      - name: X-ANYPNT-ORG-ID
+        in: header
+        required: true
+        description: The organization ID
+        schema:
+          type: string
+          format: uuid
+        example: '500123'
       responses:
         '200':
           description: Application details retrieved successfully
@@ -377,41 +688,102 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Application'
+              examples:
+                Getapplication200Example:
+                  summary: Default getApplication 200 response
+                  x-microcks-default: true
+                  value:
+                    domain: example_value
+                    fullDomain: example_value
+                    status: STARTED
+                    description: A sample description.
+                    region: example_value
+                    muleVersion:
+                      version: example_value
+                      updateId: '500123'
+                      endOfSupportDate: '2026-01-15'
+                    workers:
+                      amount: 10
+                      type:
+                        name: Micro
+                        weight: 0.1
+                        cpu: example_value
+                        memory: example_value
+                    properties: example_value
+                    lastUpdateTime: 10
+                    fileName: example_value
+                    monitoringEnabled: true
+                    monitoringAutoRestart: true
+                    staticIPsEnabled: true
+                    persistentQueues: true
+                    persistentQueuesEncrypted: true
+                    objectStoreV1: true
+                    loggingNgEnabled: true
+                    trackingSettings:
+                      trackingLevel: DISABLED
+                    vpnId: '500123'
+                    vpnConfig:
+                      vpnId: '500123'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     put:
       operationId: updateApplication
-      summary: MuleSoft Update application
+      summary: Mulesoft Update Application
       description: >-
         Updates the configuration of an existing CloudHub application. Can be
         used to change runtime version, worker configuration, properties,
         or redeploy with a new application archive.
       tags:
-        - Applications
+      - Applications
       parameters:
-        - $ref: '#/components/parameters/Domain'
-        - name: X-ANYPNT-ENV-ID
-          in: header
-          required: true
-          description: The environment ID
-          schema:
-            type: string
-            format: uuid
-        - name: X-ANYPNT-ORG-ID
-          in: header
-          required: true
-          description: The organization ID
-          schema:
-            type: string
-            format: uuid
+      - $ref: '#/components/parameters/Domain'
+      - name: X-ANYPNT-ENV-ID
+        in: header
+        required: true
+        description: The environment ID
+        schema:
+          type: string
+          format: uuid
+        example: '500123'
+      - name: X-ANYPNT-ORG-ID
+        in: header
+        required: true
+        description: The organization ID
+        schema:
+          type: string
+          format: uuid
+        example: '500123'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/ApplicationUpdate'
+            examples:
+              UpdateapplicationRequestExample:
+                summary: Default updateApplication request
+                x-microcks-default: true
+                value:
+                  muleVersion:
+                    version: example_value
+                  workers:
+                    amount: 10
+                    type:
+                      name: Micro
+                      weight: 0.1
+                      cpu: example_value
+                      memory: example_value
+                  properties: example_value
+                  monitoringAutoRestart: true
+                  region: example_value
+                  staticIPsEnabled: true
+                  loggingNgEnabled: true
+                  persistentQueues: true
       responses:
         '200':
           description: Application updated successfully
@@ -419,36 +791,77 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Application'
+              examples:
+                Updateapplication200Example:
+                  summary: Default updateApplication 200 response
+                  x-microcks-default: true
+                  value:
+                    domain: example_value
+                    fullDomain: example_value
+                    status: STARTED
+                    description: A sample description.
+                    region: example_value
+                    muleVersion:
+                      version: example_value
+                      updateId: '500123'
+                      endOfSupportDate: '2026-01-15'
+                    workers:
+                      amount: 10
+                      type:
+                        name: Micro
+                        weight: 0.1
+                        cpu: example_value
+                        memory: example_value
+                    properties: example_value
+                    lastUpdateTime: 10
+                    fileName: example_value
+                    monitoringEnabled: true
+                    monitoringAutoRestart: true
+                    staticIPsEnabled: true
+                    persistentQueues: true
+                    persistentQueuesEncrypted: true
+                    objectStoreV1: true
+                    loggingNgEnabled: true
+                    trackingSettings:
+                      trackingLevel: DISABLED
+                    vpnId: '500123'
+                    vpnConfig:
+                      vpnId: '500123'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteApplication
-      summary: MuleSoft Delete application
+      summary: Mulesoft Delete Application
       description: >-
         Deletes a CloudHub application and stops all running workers. The
         application domain becomes available for reuse after deletion.
       tags:
-        - Applications
+      - Applications
       parameters:
-        - $ref: '#/components/parameters/Domain'
-        - name: X-ANYPNT-ENV-ID
-          in: header
-          required: true
-          description: The environment ID
-          schema:
-            type: string
-            format: uuid
-        - name: X-ANYPNT-ORG-ID
-          in: header
-          required: true
-          description: The organization ID
-          schema:
-            type: string
-            format: uuid
+      - $ref: '#/components/parameters/Domain'
+      - name: X-ANYPNT-ENV-ID
+        in: header
+        required: true
+        description: The environment ID
+        schema:
+          type: string
+          format: uuid
+        example: '500123'
+      - name: X-ANYPNT-ORG-ID
+        in: header
+        required: true
+        description: The organization ID
+        schema:
+          type: string
+          format: uuid
+        example: '500123'
       responses:
         '204':
           description: Application deleted successfully
@@ -456,31 +869,36 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /cloudhub/api/v2/applications/{domain}/status:
     get:
       operationId: getApplicationStatus
-      summary: MuleSoft Get application status
+      summary: Mulesoft Get Application Status
       description: >-
         Retrieves the current deployment status of a CloudHub application,
         including the status of each worker instance.
       tags:
-        - Applications
+      - Applications
       parameters:
-        - $ref: '#/components/parameters/Domain'
-        - name: X-ANYPNT-ENV-ID
-          in: header
-          required: true
-          description: The environment ID
-          schema:
-            type: string
-            format: uuid
-        - name: X-ANYPNT-ORG-ID
-          in: header
-          required: true
-          description: The organization ID
-          schema:
-            type: string
-            format: uuid
+      - $ref: '#/components/parameters/Domain'
+      - name: X-ANYPNT-ENV-ID
+        in: header
+        required: true
+        description: The environment ID
+        schema:
+          type: string
+          format: uuid
+        example: '500123'
+      - name: X-ANYPNT-ORG-ID
+        in: header
+        required: true
+        description: The organization ID
+        schema:
+          type: string
+          format: uuid
+        example: '500123'
       responses:
         '200':
           description: Application status retrieved successfully
@@ -488,10 +906,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApplicationStatus'
+              examples:
+                Getapplicationstatus200Example:
+                  summary: Default getApplicationStatus 200 response
+                  x-microcks-default: true
+                  value:
+                    domain: example_value
+                    status: example_value
+                    deploymentUpdateStatus: example_value
+                    workers:
+                    - id: abc123
+                      host: example_value
+                      port: 10
+                      status: example_value
+                      deployedRegion: example_value
+                      staticIPAddress: example_value
         '401':
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     bearerAuth:
@@ -552,67 +988,82 @@ components:
         the top-level containers that hold all platform resources including
         users, environments, and deployed applications.
       required:
-        - id
-        - name
+      - id
+      - name
       properties:
         id:
           type: string
           format: uuid
           description: Unique identifier of the organization
+          example: abc123
         name:
           type: string
           description: Display name of the organization
+          example: Example Title
         createdAt:
           type: string
           format: date-time
           description: Timestamp when the organization was created
+          example: '2026-01-15T10:30:00Z'
         updatedAt:
           type: string
           format: date-time
           description: Timestamp when the organization was last updated
+          example: '2026-01-15T10:30:00Z'
         ownerId:
           type: string
           format: uuid
           description: User ID of the organization owner
+          example: '500123'
         clientId:
           type: string
           description: Client ID for the organization used in API authentication
+          example: '500123'
         idprovider_id:
           type: string
           description: Identity provider ID if external identity management is configured
+          example: '500123'
         isFederated:
           type: boolean
           description: Whether the organization uses federated identity management
+          example: true
         parentOrganizationIds:
           type: array
           items:
             type: string
             format: uuid
           description: IDs of parent organizations in the business group hierarchy
+          example: []
         subOrganizationIds:
           type: array
           items:
             type: string
             format: uuid
           description: IDs of child business groups
+          example: []
         tenantOrganizationIds:
           type: array
           items:
             type: string
             format: uuid
           description: IDs of tenant organizations
+          example: []
         mfaRequired:
           type: boolean
           description: Whether multi-factor authentication is required
+          example: true
         isAutomaticAdminPromotionExempt:
           type: boolean
           description: Whether automatic admin promotion is disabled
+          example: true
         domain:
           type: string
           description: Domain associated with the organization
+          example: example_value
         isMaster:
           type: boolean
           description: Whether this is the root (master) organization
+          example: true
         subscription:
           $ref: '#/components/schemas/Subscription'
         entitlements:
@@ -622,6 +1073,7 @@ components:
           items:
             $ref: '#/components/schemas/Environment'
           description: Environments belonging to this organization
+          example: []
     OrganizationUpdate:
       type: object
       description: Fields that can be updated on an organization
@@ -629,18 +1081,22 @@ components:
         name:
           type: string
           description: Display name of the organization
+          example: Example Title
         ownerId:
           type: string
           format: uuid
           description: User ID of the new organization owner
+          example: '500123'
         sessionTimeout:
           type: integer
           description: Session timeout in minutes
           minimum: 15
           maximum: 180
+          example: 10
         mfaRequired:
           type: boolean
           description: Whether multi-factor authentication is required
+          example: true
     Subscription:
       type: object
       description: Subscription plan details for the organization
@@ -648,13 +1104,16 @@ components:
         category:
           type: string
           description: Subscription category
+          example: example_value
         type:
           type: string
           description: Subscription type
+          example: example_value
         expiration:
           type: string
           format: date-time
           description: Subscription expiration date
+          example: '2026-01-15T10:30:00Z'
     Entitlements:
       type: object
       description: Platform entitlements and resource limits for the organization
@@ -662,12 +1121,15 @@ components:
         createEnvironments:
           type: boolean
           description: Whether the organization can create new environments
+          example: true
         globalDeployment:
           type: boolean
           description: Whether global deployment is enabled
+          example: true
         createSubOrgs:
           type: boolean
           description: Whether the organization can create sub-organizations
+          example: true
         vCoresProduction:
           $ref: '#/components/schemas/ResourceAllocation'
         vCoresSandbox:
@@ -687,9 +1149,11 @@ components:
         assigned:
           type: number
           description: Number of resources assigned to this organization
+          example: 42.5
         reassigned:
           type: number
           description: Number of resources reassigned to sub-organizations
+          example: 42.5
     Environment:
       type: object
       description: >-
@@ -697,60 +1161,70 @@ components:
         isolated contexts for deploying Mule applications, with types including
         Design, Sandbox, and Production.
       required:
-        - id
-        - name
-        - organizationId
-        - type
+      - id
+      - name
+      - organizationId
+      - type
       properties:
         id:
           type: string
           format: uuid
           description: Unique identifier of the environment
+          example: abc123
         name:
           type: string
           description: Display name of the environment
+          example: Example Title
         organizationId:
           type: string
           format: uuid
           description: ID of the organization this environment belongs to
+          example: '500123'
         isProduction:
           type: boolean
           description: Whether this is a production environment
+          example: true
         type:
           type: string
           description: The environment type classification
           enum:
-            - design
-            - sandbox
-            - production
+          - design
+          - sandbox
+          - production
+          example: design
         clientId:
           type: string
           description: Client ID associated with this environment
+          example: '500123'
         createdAt:
           type: string
           format: date-time
           description: Timestamp when the environment was created
+          example: '2026-01-15T10:30:00Z'
         updatedAt:
           type: string
           format: date-time
           description: Timestamp when the environment was last updated
+          example: '2026-01-15T10:30:00Z'
     EnvironmentCreate:
       type: object
       description: Request body for creating a new environment
       required:
-        - name
-        - type
+      - name
+      - type
       properties:
         name:
           type: string
           description: Display name for the new environment
+          example: Example Title
         type:
           type: string
           description: The environment type classification
           enum:
-            - design
-            - sandbox
-            - production
+          - design
+          - sandbox
+          - production
+          example: design
     EnvironmentUpdate:
       type: object
       description: Request body for updating an environment
@@ -758,13 +1232,15 @@ components:
         name:
           type: string
           description: New display name for the environment
+          example: Example Title
         type:
           type: string
           description: New environment type classification
           enum:
-            - design
-            - sandbox
-            - production
+          - design
+          - sandbox
+          - production
+          example: design
     Application:
       type: object
       description: >-
@@ -772,8 +1248,8 @@ components:
         application configuration, deployment status, worker settings, and
         runtime properties.
       required:
-        - domain
-        - status
+      - domain
+      - status
       properties:
         domain:
           type: string
@@ -781,32 +1257,36 @@ components:
             Unique domain name for the application, used as the subdomain in
             the CloudHub URL (e.g., myapp.cloudhub.io)
           pattern: '^[a-z0-9-]+$'
+          example: example_value
         fullDomain:
           type: string
           description: Full domain including the cloudhub.io suffix
+          example: example_value
         status:
           type: string
           description: Current deployment status of the application
           enum:
-            - STARTED
-            - STARTING
-            - STOPPED
-            - UNDEPLOYED
-            - DEPLOYING
-            - DEPLOY_FAILED
-            - UPDATING
+          - STARTED
+          - STARTING
+          - STOPPED
+          - UNDEPLOYED
+          - DEPLOYING
+          - DEPLOY_FAILED
+          - UPDATING
+          example: STARTED
         description:
           type: string
           description: Human-readable description of the application
+          example: A sample description.
         region:
           type: string
           description: CloudHub region where the application is deployed
           examples:
-            - us-east-1
-            - us-west-2
-            - eu-west-1
-            - ap-southeast-1
-            - ap-southeast-2
+          - us-east-1
+          - us-west-2
+          - eu-west-1
+          - ap-southeast-1
+          - ap-southeast-2
         muleVersion:
           type: object
           description: Mule runtime version information
@@ -821,6 +1301,7 @@ components:
               type: string
               format: date
               description: Date when this runtime version reaches end of support
+          example: example_value
         workers:
           $ref: '#/components/schemas/WorkerConfig'
         properties:
@@ -828,34 +1309,44 @@ components:
           additionalProperties:
             type: string
           description: Application properties passed to the Mule runtime
+          example: example_value
         lastUpdateTime:
           type: integer
           format: int64
           description: Unix timestamp of the last application update
+          example: 10
         fileName:
           type: string
           description: Name of the deployed application archive file
+          example: example_value
         monitoringEnabled:
           type: boolean
           description: Whether Anypoint Monitoring is enabled for this application
+          example: true
         monitoringAutoRestart:
           type: boolean
           description: Whether automatic restart on failure is enabled
+          example: true
         staticIPsEnabled:
           type: boolean
           description: Whether static IPs are allocated to this application
+          example: true
         persistentQueues:
           type: boolean
           description: Whether persistent queues are enabled
+          example: true
         persistentQueuesEncrypted:
           type: boolean
           description: Whether persistent queue data is encrypted
+          example: true
         objectStoreV1:
           type: boolean
           description: Whether the application uses Object Store v1
+          example: true
         loggingNgEnabled:
           type: boolean
           description: Whether next-generation logging is enabled
+          example: true
         trackingSettings:
           type: object
           description: Transaction tracking configuration
@@ -864,12 +1355,14 @@ components:
               type: string
               description: Level of tracking detail
               enum:
-                - DISABLED
-                - API_ANALYTICS
-                - DEBUG
+              - DISABLED
+              - API_ANALYTICS
+              - DEBUG
+          example: example_value
         vpnId:
           type: string
           description: ID of the VPN if the application is connected to one
+          example: '500123'
         vpnConfig:
           type: object
           description: VPN configuration for the application
@@ -877,30 +1370,34 @@ components:
             vpnId:
               type: string
               description: VPN identifier
+          example: example_value
     ApplicationCreate:
       type: object
       description: Request body for creating a new CloudHub application
       required:
-        - domain
-        - muleVersion
-        - workers
+      - domain
+      - muleVersion
+      - workers
       properties:
         domain:
           type: string
           description: Unique domain name for the application
           pattern: '^[a-z0-9-]+$'
+          example: example_value
         muleVersion:
           type: object
           description: Target Mule runtime version
           required:
-            - version
+          - version
           properties:
             version:
               type: string
               description: Mule runtime version to deploy
+          example: example_value
         region:
           type: string
           description: CloudHub region to deploy to
+          example: example_value
         workers:
           $ref: '#/components/schemas/WorkerConfig'
         properties:
@@ -908,22 +1405,27 @@ components:
           additionalProperties:
             type: string
           description: Application properties
+          example: example_value
         monitoringAutoRestart:
           type: boolean
           description: Enable automatic restart on failure
           default: true
+          example: true
         persistentQueues:
           type: boolean
           description: Enable persistent queues
           default: false
+          example: true
         staticIPsEnabled:
           type: boolean
           description: Enable static IP allocation
           default: false
+          example: true
         loggingNgEnabled:
           type: boolean
           description: Enable next-generation logging
           default: true
+          example: true
     ApplicationUpdate:
       type: object
       description: Request body for updating an existing CloudHub application
@@ -935,6 +1437,7 @@ components:
             version:
               type: string
               description: Mule runtime version
+          example: example_value
         workers:
           $ref: '#/components/schemas/WorkerConfig'
         properties:
@@ -942,35 +1445,42 @@ components:
           additionalProperties:
             type: string
           description: Updated application properties
+          example: example_value
         monitoringAutoRestart:
           type: boolean
           description: Enable or disable automatic restart
+          example: true
         region:
           type: string
           description: Target CloudHub region
+          example: example_value
         staticIPsEnabled:
           type: boolean
           description: Enable or disable static IPs
+          example: true
         loggingNgEnabled:
           type: boolean
           description: Enable or disable next-generation logging
+          example: true
         persistentQueues:
           type: boolean
           description: Enable or disable persistent queues
+          example: true
     WorkerConfig:
       type: object
       description: >-
         Worker configuration defining the compute resources allocated to a
         CloudHub application, including the number of workers and their size.
       required:
-        - amount
-        - type
+      - amount
+      - type
       properties:
         amount:
           type: integer
           description: Number of worker instances
           minimum: 1
           maximum: 8
+          example: 10
         type:
           type: object
           description: Worker type defining the vCore size and memory
@@ -979,30 +1489,31 @@ components:
               type: string
               description: Worker size name
               enum:
-                - Micro
-                - Small
-                - Medium
-                - Large
-                - xLarge
-                - xxLarge
-                - 4xLarge
+              - Micro
+              - Small
+              - Medium
+              - Large
+              - xLarge
+              - xxLarge
+              - 4xLarge
             weight:
               type: number
               description: vCore weight of the worker type
               enum:
-                - 0.1
-                - 0.2
-                - 1
-                - 2
-                - 4
-                - 8
-                - 16
+              - 0.1
+              - 0.2
+              - 1
+              - 2
+              - 4
+              - 8
+              - 16
             cpu:
               type: string
               description: CPU allocation description
             memory:
               type: string
               description: Memory allocation description
+          example: example_value
     ApplicationStatus:
       type: object
       description: Detailed deployment status of a CloudHub application
@@ -1010,12 +1521,15 @@ components:
         domain:
           type: string
           description: Application domain name
+          example: example_value
         status:
           type: string
           description: Overall application status
+          example: example_value
         deploymentUpdateStatus:
           type: string
           description: Status of the most recent deployment update
+          example: example_value
         workers:
           type: array
           items:
@@ -1039,6 +1553,7 @@ components:
               staticIPAddress:
                 type: string
                 description: Static IP address if allocated
+          example: []
     Error:
       type: object
       description: Error response from the Anypoint Platform API
@@ -1046,6 +1561,8 @@ components:
         status:
           type: integer
           description: HTTP status code
+          example: 10
         message:
           type: string
           description: Human-readable error message
+          example: example_value

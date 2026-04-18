@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WorkerConfig",
+  "type": "object",
+  "description": "Worker configuration defining the compute resources allocated to a CloudHub application, including the number of workers and their size.",
+  "properties": {
+    "amount": {
+      "type": "integer",
+      "description": "Number of worker instances"
+    },
+    "type": {
+      "type": "object",
+      "description": "Worker type defining the vCore size and memory"
+    }
+  }
+}

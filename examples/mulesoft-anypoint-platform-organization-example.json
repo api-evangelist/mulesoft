@@ -1,0 +1,18 @@
+{
+  "id": "abc123",
+  "name": "Example Title",
+  "createdAt": "example_value",
+  "updatedAt": "example_value",
+  "ownerId": "500123",
+  "clientId": "500123",
+  "idprovider_id": "500123",
+  "isFederated": true,
+  "parentOrganizationIds": [],
+  "subOrganizationIds": [],
+  "tenantOrganizationIds": [],
+  "mfaRequired": true,
+  "isAutomaticAdminPromotionExempt": true,
+  "domain": "example_value",
+  "isMaster": true,
+  "environments": []
+}

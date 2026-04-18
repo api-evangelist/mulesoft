@@ -1,0 +1,10 @@
+{
+  "id": "abc123",
+  "name": "Example Title",
+  "organizationId": "500123",
+  "isProduction": true,
+  "type": "example_value",
+  "clientId": "500123",
+  "createdAt": "example_value",
+  "updatedAt": "example_value"
+}

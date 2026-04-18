@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Subscription",
+  "type": "object",
+  "description": "Subscription plan details for the organization",
+  "properties": {
+    "category": {
+      "type": "string",
+      "description": "Subscription category"
+    },
+    "type": {
+      "type": "string",
+      "description": "Subscription type"
+    },
+    "expiration": {
+      "type": "string",
+      "description": "Subscription expiration date"
+    }
+  }
+}

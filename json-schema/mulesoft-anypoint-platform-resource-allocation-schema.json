@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ResourceAllocation",
+  "type": "object",
+  "description": "Resource allocation with assigned and reassigned counts",
+  "properties": {
+    "assigned": {
+      "type": "number",
+      "description": "Number of resources assigned to this organization"
+    },
+    "reassigned": {
+      "type": "number",
+      "description": "Number of resources reassigned to sub-organizations"
+    }
+  }
+}

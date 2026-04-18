@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ApplicationUpdate",
+  "type": "object",
+  "description": "Request body for updating an existing CloudHub application",
+  "properties": {
+    "muleVersion": {
+      "type": "object",
+      "description": "New Mule runtime version"
+    },
+    "properties": {
+      "type": "object",
+      "description": "Updated application properties"
+    },
+    "monitoringAutoRestart": {
+      "type": "boolean",
+      "description": "Enable or disable automatic restart"
+    },
+    "region": {
+      "type": "string",
+      "description": "Target CloudHub region"
+    },
+    "staticIPsEnabled": {
+      "type": "boolean",
+      "description": "Enable or disable static IPs"
+    },
+    "loggingNgEnabled": {
+      "type": "boolean",
+      "description": "Enable or disable next-generation logging"
+    },
+    "persistentQueues": {
+      "type": "boolean",
+      "description": "Enable or disable persistent queues"
+    }
+  }
+}

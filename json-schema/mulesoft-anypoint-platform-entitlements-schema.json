@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Entitlements",
+  "type": "object",
+  "description": "Platform entitlements and resource limits for the organization",
+  "properties": {
+    "createEnvironments": {
+      "type": "boolean",
+      "description": "Whether the organization can create new environments"
+    },
+    "globalDeployment": {
+      "type": "boolean",
+      "description": "Whether global deployment is enabled"
+    },
+    "createSubOrgs": {
+      "type": "boolean",
+      "description": "Whether the organization can create sub-organizations"
+    }
+  }
+}

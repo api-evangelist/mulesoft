@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Application",
+  "type": "object",
+  "description": "A Mule application deployed to CloudHub. Contains metadata about the application configuration, deployment status, worker settings, and runtime properties.",
+  "properties": {
+    "domain": {
+      "type": "string",
+      "description": "Unique domain name for the application, used as the subdomain in the CloudHub URL (e.g., myapp.cloudhub.io)"
+    },
+    "fullDomain": {
+      "type": "string",
+      "description": "Full domain including the cloudhub.io suffix"
+    },
+    "status": {
+      "type": "string",
+      "description": "Current deployment status of the application"
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of the application"
+    },
+    "region": {
+      "type": "string",
+      "description": "CloudHub region where the application is deployed"
+    },
+    "muleVersion": {
+      "type": "object",
+      "description": "Mule runtime version information"
+    },
+    "properties": {
+      "type": "object",
+      "description": "Application properties passed to the Mule runtime"
+    },
+    "lastUpdateTime": {
+      "type": "integer",
+      "description": "Unix timestamp of the last application update"
+    },
+    "fileName": {
+      "type": "string",
+      "description": "Name of the deployed application archive file"
+    },
+    "monitoringEnabled": {
+      "type": "boolean",
+      "description": "Whether Anypoint Monitoring is enabled for this application"
+    },
+    "monitoringAutoRestart": {
+      "type": "boolean",
+      "description": "Whether automatic restart on failure is enabled"
+    },
+    "staticIPsEnabled": {
+      "type": "boolean",
+      "description": "Whether static IPs are allocated to this application"
+    },
+    "persistentQueues": {
+      "type": "boolean",
+      "description": "Whether persistent queues are enabled"
+    },
+    "persistentQueuesEncrypted": {
+      "type": "boolean",
+      "description": "Whether persistent queue data is encrypted"
+    },
+    "objectStoreV1": {
+      "type": "boolean",
+      "description": "Whether the application uses Object Store v1"
+    },
+    "loggingNgEnabled": {
+      "type": "boolean",
+      "description": "Whether next-generation logging is enabled"
+    },
+    "trackingSettings": {
+      "type": "object",
+      "description": "Transaction tracking configuration"
+    },
+    "vpnId": {
+      "type": "string",
+      "description": "ID of the VPN if the application is connected to one"
+    },
+    "vpnConfig": {
+      "type": "object",
+      "description": "VPN configuration for the application"
+    }
+  }
+}
