@@ -1,0 +1,172 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  name: MuleSoft Organization and Environment Management
+  description: Discover and manage Anypoint Platform organizations and environments
+  version: 1.0.0
+
+import:
+  - name: accounts
+    location: shared/accounts.yaml
+
+capability:
+  exposes:
+    - type: rest
+      port: 8112
+      namespace: mulesoft-org-env-rest
+      resources:
+        - path: "/organizations"
+          name: organizations
+          label: "List Organizations"
+          description: "List all accessible Anypoint Platform organizations"
+          operations:
+            - method: GET
+              call: accounts.listOrganizations
+              outputParameters:
+                - type: array
+                  mapping: "$."
+                  items:
+                    type: object
+
+        - path: "/organizations/{orgId}"
+          name: organization
+          label: "Get Organization"
+          description: "Get details for a specific organization"
+          operations:
+            - method: GET
+              call: accounts.getOrganization
+              inputParameters:
+                - name: orgId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Organization ID"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: "/organizations/{orgId}/environments"
+          name: environments
+          label: "List Environments"
+          description: "List environments within an organization"
+          operations:
+            - method: GET
+              call: accounts.listEnvironments
+              inputParameters:
+                - name: orgId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Organization ID"
+              outputParameters:
+                - type: array
+                  mapping: "$."
+                  items:
+                    type: object
+
+        - path: "/organizations/{orgId}/environments/{envId}"
+          name: environment
+          label: "Get Environment"
+          description: "Get details for a specific environment"
+          operations:
+            - method: GET
+              call: accounts.getEnvironment
+              inputParameters:
+                - name: orgId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Organization ID"
+                - name: envId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Environment ID"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      address: "0.0.0.0"
+      port: 9112
+      namespace: mulesoft-org-env
+      description: "MuleSoft Anypoint organization and environment management — discover orgs, list environments, inspect configuration"
+      tools:
+        - name: list-organizations
+          description: "List all MuleSoft Anypoint organizations accessible to the authenticated user"
+          hints:
+            readOnly: true
+          call: accounts.listOrganizations
+          outputParameters:
+            - type: array
+              mapping: "$."
+              items:
+                type: object
+
+        - name: get-organization
+          description: "Get details for a specific Anypoint organization including entitlements and settings"
+          hints:
+            readOnly: true
+          call: accounts.getOrganization
+          inputParameters:
+            - name: orgId
+              type: string
+              required: true
+              description: "Organization ID"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-environments
+          description: "List all environments (production, sandbox, design) within an Anypoint organization"
+          hints:
+            readOnly: true
+          call: accounts.listEnvironments
+          inputParameters:
+            - name: orgId
+              type: string
+              required: true
+              description: "Organization ID"
+          outputParameters:
+            - type: array
+              mapping: "$."
+              items:
+                type: object
+
+        - name: get-environment
+          description: "Get details for a specific Anypoint environment including type and client ID"
+          hints:
+            readOnly: true
+          call: accounts.getEnvironment
+          inputParameters:
+            - name: orgId
+              type: string
+              required: true
+              description: "Organization ID"
+            - name: envId
+              type: string
+              required: true
+              description: "Environment ID"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-environment
+          description: "Create a new environment within a MuleSoft Anypoint organization"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: accounts.createEnvironment
+          inputParameters:
+            - name: orgId
+              type: string
+              required: true
+              description: "Organization ID"
+            - name: body
+              type: object
+              required: true
+              description: "Environment definition including name and type"
+          outputParameters:
+            - type: object
+              mapping: "$."

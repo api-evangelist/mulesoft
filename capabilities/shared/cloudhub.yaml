@@ -1,0 +1,192 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  name: MuleSoft CloudHub Applications
+  description: Application lifecycle management via the CloudHub v2 API
+  version: 1.0.0
+
+binds:
+  - name: MULESOFT_ACCESS_TOKEN
+    env: MULESOFT_ACCESS_TOKEN
+
+capability:
+  consumes:
+    - namespace: cloudhub
+      type: http
+      baseUri: "https://anypoint.mulesoft.com/cloudhub/api/v2"
+      authentication:
+        type: bearer
+        token: "{{MULESOFT_ACCESS_TOKEN}}"
+      resources:
+        - name: applications
+          path: "/applications"
+          operations:
+            - name: listApplications
+              method: GET
+            - name: createApplication
+              method: POST
+
+        - name: application
+          path: "/applications/{domain}"
+          operations:
+            - name: getApplication
+              method: GET
+            - name: updateApplication
+              method: PUT
+            - name: deleteApplication
+              method: DELETE
+
+        - name: applicationStatus
+          path: "/applications/{domain}/status"
+          operations:
+            - name: getApplicationStatus
+              method: GET
+
+  exposes:
+    - type: rest
+      port: 8111
+      namespace: mulesoft-cloudhub-rest
+      resources:
+        - path: "/applications"
+          name: applications
+          label: "List Applications"
+          description: "List all CloudHub applications"
+          operations:
+            - method: GET
+              call: cloudhub.listApplications
+              outputParameters:
+                - type: array
+                  mapping: "$."
+                  items:
+                    type: object
+
+        - path: "/applications/{domain}"
+          name: application
+          label: "Get Application"
+          description: "Get details for a specific CloudHub application"
+          operations:
+            - method: GET
+              call: cloudhub.getApplication
+              inputParameters:
+                - name: domain
+                  in: path
+                  type: string
+                  required: true
+                  description: "Application domain name"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: "/applications/{domain}/status"
+          name: applicationStatus
+          label: "Get Application Status"
+          description: "Get the runtime status of a CloudHub application"
+          operations:
+            - method: GET
+              call: cloudhub.getApplicationStatus
+              inputParameters:
+                - name: domain
+                  in: path
+                  type: string
+                  required: true
+                  description: "Application domain name"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      address: "0.0.0.0"
+      port: 9111
+      namespace: mulesoft-cloudhub
+      description: "MuleSoft CloudHub application deployment and management tools"
+      tools:
+        - name: list-applications
+          description: "List all deployed CloudHub applications"
+          hints:
+            readOnly: true
+          call: cloudhub.listApplications
+          outputParameters:
+            - type: array
+              mapping: "$."
+              items:
+                type: object
+
+        - name: get-application
+          description: "Get details for a specific CloudHub application by domain"
+          hints:
+            readOnly: true
+          call: cloudhub.getApplication
+          inputParameters:
+            - name: domain
+              type: string
+              required: true
+              description: "Application domain name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-application-status
+          description: "Get the current runtime status of a CloudHub application"
+          hints:
+            readOnly: true
+          call: cloudhub.getApplicationStatus
+          inputParameters:
+            - name: domain
+              type: string
+              required: true
+              description: "Application domain name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-application
+          description: "Deploy a new application to CloudHub"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: cloudhub.createApplication
+          inputParameters:
+            - name: body
+              type: object
+              required: true
+              description: "Application deployment configuration"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: update-application
+          description: "Update an existing CloudHub application configuration or redeploy"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: cloudhub.updateApplication
+          inputParameters:
+            - name: domain
+              type: string
+              required: true
+              description: "Application domain name"
+            - name: body
+              type: object
+              required: true
+              description: "Updated application configuration"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: delete-application
+          description: "Delete and undeploy a CloudHub application"
+          hints:
+            readOnly: false
+            destructive: true
+            idempotent: true
+          call: cloudhub.deleteApplication
+          inputParameters:
+            - name: domain
+              type: string
+              required: true
+              description: "Application domain name"
+          outputParameters:
+            - type: object
+              mapping: "$."
