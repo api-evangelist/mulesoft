@@ -4,110 +4,62 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: MuleSoft
 providerId: mulesoft
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
-  - API Gateway
-  - API Management
-  - Enterprise
-  - Integration
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the MuleSoft API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
+  - API Management
+  - Integration Platform
+  - Anypoint Platform
+description: MuleSoft's Anypoint Platform does not impose a single global call-per-second cap. Throttling
+  is applied by the customer at the API Manager / Flex Gateway layer using the Rate-Limiting and Rate-Limiting
+  SLA policies — the customer defines numbers per API and per client application contract. Platform-side
+  consumption is sized by the subscribed Mule Flow / Mule Message capacity (vCores), not by HTTP rate.
+sources:
+  - https://docs.mulesoft.com/api-manager/latest/rate-limiting-and-throttling-sla-based-policies
+  - https://docs.mulesoft.com/general/pricing
 headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+  limit: X-Ratelimit-Limit
+  remaining: X-Ratelimit-Remaining
+  reset: X-Ratelimit-Reset
 responseCodes:
-  throttled: 429
+  invalidCredentials: 401
   quotaExceeded: 429
-  serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - MuleSoft Anypoint Platform
-      - MuleSoft Anypoint Platform Management API
-      - MuleSoft Anypoint Exchange API
-      - MuleSoft Anypoint Runtime Manager API
-      - MuleSoft Anypoint MQ API
-      - MuleSoft Anypoint Design Center API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - MuleSoft Anypoint Platform
-      - MuleSoft Anypoint Platform Management API
-      - MuleSoft Anypoint Exchange API
-      - MuleSoft Anypoint Runtime Manager API
-      - MuleSoft Anypoint MQ API
-      - MuleSoft Anypoint Design Center API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - MuleSoft Anypoint Platform
-      - MuleSoft Anypoint Platform Management API
-      - MuleSoft Anypoint Exchange API
-      - MuleSoft Anypoint Runtime Manager API
-      - MuleSoft Anypoint MQ API
-      - MuleSoft Anypoint Design Center API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - MuleSoft Anypoint Platform
-      - MuleSoft Anypoint Platform Management API
-      - MuleSoft Anypoint Exchange API
-      - MuleSoft Anypoint Runtime Manager API
-      - MuleSoft Anypoint MQ API
-      - MuleSoft Anypoint Design Center API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - MuleSoft Anypoint Platform
-      - MuleSoft Anypoint Platform Management API
-      - MuleSoft Anypoint Exchange API
-      - MuleSoft Anypoint Runtime Manager API
-      - MuleSoft Anypoint MQ API
-      - MuleSoft Anypoint Design Center API
+  - name: Customer-defined per API (Rate-Limiting policy)
+    scope: api
+    metric: requests_per_window
+    limit: customer-defined per API
+    notes: Defined as max requests per time window in API Manager; applied by Flex Gateway / Mule runtime.
+  - name: Customer-defined per client app (Rate-Limiting SLA policy)
+    scope: client_application
+    metric: requests_per_window
+    limit: customer-defined per SLA tier
+    notes: SLA-tier limits are bound to a contract between a registered client application and the API.
+  - name: Platform capacity (Mule Flow / Mule Message)
+    scope: subscription
+    metric: vCore_capacity
+    limit: per subscribed package
+    notes: Platform-side throughput is governed by the subscribed Integration Starter / Advanced / API
+      Management package capacity rather than by an HTTP rate ceiling.
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: Customer-owned throttling
+    description: MuleSoft's role is to enforce policies the API owner configures — there is no MuleSoft-supplied
+      default RPS for customer APIs. Choose Rate-Limiting (single-threshold) or Rate-Limiting SLA (per-client-app
+      contract).
+  - name: Distributed quotas
+    description: When 'Distributed' is enabled on Flex Gateway, quotas are shared across replicas via
+      shared storage; if storage is unreachable, the 'Block on unknown quota' option determines whether
+      requests are blocked or allowed.
+  - name: Replica scope
+    description: A Rate-Limiting SLA policy is scoped to Flex Gateway replicas, not the gateway as a whole.
+      Local Mode does not support the policy.
+  - name: Header exposure
+    description: When 'Expose Headers' is enabled, X-Ratelimit-Limit, X-Ratelimit-Remaining, and X-Ratelimit-Reset
+      (in milliseconds) are returned to the client.
+  - name: Credential failures
+    description: 401 is returned when the client_id (and optional client_secret) DataWeave expression
+      cannot resolve a valid registered client application.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
