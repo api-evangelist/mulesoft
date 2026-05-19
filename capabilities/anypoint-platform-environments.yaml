@@ -1,0 +1,197 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: MuleSoft Anypoint Platform API — Environments
+  description: 'MuleSoft Anypoint Platform API — Environments. 5 operations. Lead operation: Mulesoft List Environments. Self-contained
+    Naftiko capability covering one Mulesoft business surface.'
+  tags:
+  - Mulesoft
+  - Environments
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    MULESOFT_API_KEY: MULESOFT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: anypoint-platform-environments
+    baseUri: https://anypoint.mulesoft.com
+    description: MuleSoft Anypoint Platform API — Environments business capability. Self-contained, no shared references.
+    resources:
+    - name: accounts-api-organizations-orgId-environments
+      path: /accounts/api/organizations/{orgId}/environments
+      operations:
+      - name: listenvironments
+        method: GET
+        description: Mulesoft List Environments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createenvironment
+        method: POST
+        description: Mulesoft Create Environment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: accounts-api-organizations-orgId-environments-envId
+      path: /accounts/api/organizations/{orgId}/environments/{envId}
+      operations:
+      - name: getenvironment
+        method: GET
+        description: Mulesoft Get Environment Details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateenvironment
+        method: PUT
+        description: Mulesoft Update Environment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteenvironment
+        method: DELETE
+        description: Mulesoft Delete Environment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.MULESOFT_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: anypoint-platform-environments-rest
+    port: 8080
+    description: REST adapter for MuleSoft Anypoint Platform API — Environments. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/accounts/api/organizations/{orgid}/environments
+      name: accounts-api-organizations-orgid-environments
+      description: REST surface for accounts-api-organizations-orgId-environments.
+      operations:
+      - method: GET
+        name: listenvironments
+        description: Mulesoft List Environments
+        call: anypoint-platform-environments.listenvironments
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createenvironment
+        description: Mulesoft Create Environment
+        call: anypoint-platform-environments.createenvironment
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/accounts/api/organizations/{orgid}/environments/{envid}
+      name: accounts-api-organizations-orgid-environments-envid
+      description: REST surface for accounts-api-organizations-orgId-environments-envId.
+      operations:
+      - method: GET
+        name: getenvironment
+        description: Mulesoft Get Environment Details
+        call: anypoint-platform-environments.getenvironment
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateenvironment
+        description: Mulesoft Update Environment
+        call: anypoint-platform-environments.updateenvironment
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteenvironment
+        description: Mulesoft Delete Environment
+        call: anypoint-platform-environments.deleteenvironment
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: anypoint-platform-environments-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for MuleSoft Anypoint Platform API — Environments. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: mulesoft-list-environments
+      description: Mulesoft List Environments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: anypoint-platform-environments.listenvironments
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: mulesoft-create-environment
+      description: Mulesoft Create Environment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: anypoint-platform-environments.createenvironment
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: mulesoft-get-environment-details
+      description: Mulesoft Get Environment Details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: anypoint-platform-environments.getenvironment
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: mulesoft-update-environment
+      description: Mulesoft Update Environment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: anypoint-platform-environments.updateenvironment
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: mulesoft-delete-environment
+      description: Mulesoft Delete Environment
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: anypoint-platform-environments.deleteenvironment
+      outputParameters:
+      - type: object
+        mapping: $.

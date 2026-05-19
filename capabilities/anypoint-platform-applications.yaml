@@ -1,0 +1,325 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: MuleSoft Anypoint Platform API — Applications
+  description: 'MuleSoft Anypoint Platform API — Applications. 6 operations. Lead operation: Mulesoft List Applications. Self-contained
+    Naftiko capability covering one Mulesoft business surface.'
+  tags:
+  - Mulesoft
+  - Applications
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    MULESOFT_API_KEY: MULESOFT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: anypoint-platform-applications
+    baseUri: https://anypoint.mulesoft.com
+    description: MuleSoft Anypoint Platform API — Applications business capability. Self-contained, no shared references.
+    resources:
+    - name: cloudhub-api-v2-applications
+      path: /cloudhub/api/v2/applications
+      operations:
+      - name: listapplications
+        method: GET
+        description: Mulesoft List Applications
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-ANYPNT-ENV-ID
+          in: header
+          type: string
+          description: The environment ID to list applications from
+          required: true
+        - name: X-ANYPNT-ORG-ID
+          in: header
+          type: string
+          description: The organization ID
+          required: true
+      - name: createapplication
+        method: POST
+        description: Mulesoft Create Application
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-ANYPNT-ENV-ID
+          in: header
+          type: string
+          description: The environment ID to deploy to
+          required: true
+        - name: X-ANYPNT-ORG-ID
+          in: header
+          type: string
+          description: The organization ID
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: cloudhub-api-v2-applications-domain
+      path: /cloudhub/api/v2/applications/{domain}
+      operations:
+      - name: getapplication
+        method: GET
+        description: Mulesoft Get Application Details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-ANYPNT-ENV-ID
+          in: header
+          type: string
+          description: The environment ID
+          required: true
+        - name: X-ANYPNT-ORG-ID
+          in: header
+          type: string
+          description: The organization ID
+          required: true
+      - name: updateapplication
+        method: PUT
+        description: Mulesoft Update Application
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-ANYPNT-ENV-ID
+          in: header
+          type: string
+          description: The environment ID
+          required: true
+        - name: X-ANYPNT-ORG-ID
+          in: header
+          type: string
+          description: The organization ID
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteapplication
+        method: DELETE
+        description: Mulesoft Delete Application
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-ANYPNT-ENV-ID
+          in: header
+          type: string
+          description: The environment ID
+          required: true
+        - name: X-ANYPNT-ORG-ID
+          in: header
+          type: string
+          description: The organization ID
+          required: true
+    - name: cloudhub-api-v2-applications-domain-status
+      path: /cloudhub/api/v2/applications/{domain}/status
+      operations:
+      - name: getapplicationstatus
+        method: GET
+        description: Mulesoft Get Application Status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-ANYPNT-ENV-ID
+          in: header
+          type: string
+          description: The environment ID
+          required: true
+        - name: X-ANYPNT-ORG-ID
+          in: header
+          type: string
+          description: The organization ID
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.MULESOFT_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: anypoint-platform-applications-rest
+    port: 8080
+    description: REST adapter for MuleSoft Anypoint Platform API — Applications. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/cloudhub/api/v2/applications
+      name: cloudhub-api-v2-applications
+      description: REST surface for cloudhub-api-v2-applications.
+      operations:
+      - method: GET
+        name: listapplications
+        description: Mulesoft List Applications
+        call: anypoint-platform-applications.listapplications
+        with:
+          X-ANYPNT-ENV-ID: rest.X-ANYPNT-ENV-ID
+          X-ANYPNT-ORG-ID: rest.X-ANYPNT-ORG-ID
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createapplication
+        description: Mulesoft Create Application
+        call: anypoint-platform-applications.createapplication
+        with:
+          X-ANYPNT-ENV-ID: rest.X-ANYPNT-ENV-ID
+          X-ANYPNT-ORG-ID: rest.X-ANYPNT-ORG-ID
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/cloudhub/api/v2/applications/{domain}
+      name: cloudhub-api-v2-applications-domain
+      description: REST surface for cloudhub-api-v2-applications-domain.
+      operations:
+      - method: GET
+        name: getapplication
+        description: Mulesoft Get Application Details
+        call: anypoint-platform-applications.getapplication
+        with:
+          X-ANYPNT-ENV-ID: rest.X-ANYPNT-ENV-ID
+          X-ANYPNT-ORG-ID: rest.X-ANYPNT-ORG-ID
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateapplication
+        description: Mulesoft Update Application
+        call: anypoint-platform-applications.updateapplication
+        with:
+          X-ANYPNT-ENV-ID: rest.X-ANYPNT-ENV-ID
+          X-ANYPNT-ORG-ID: rest.X-ANYPNT-ORG-ID
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteapplication
+        description: Mulesoft Delete Application
+        call: anypoint-platform-applications.deleteapplication
+        with:
+          X-ANYPNT-ENV-ID: rest.X-ANYPNT-ENV-ID
+          X-ANYPNT-ORG-ID: rest.X-ANYPNT-ORG-ID
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/cloudhub/api/v2/applications/{domain}/status
+      name: cloudhub-api-v2-applications-domain-status
+      description: REST surface for cloudhub-api-v2-applications-domain-status.
+      operations:
+      - method: GET
+        name: getapplicationstatus
+        description: Mulesoft Get Application Status
+        call: anypoint-platform-applications.getapplicationstatus
+        with:
+          X-ANYPNT-ENV-ID: rest.X-ANYPNT-ENV-ID
+          X-ANYPNT-ORG-ID: rest.X-ANYPNT-ORG-ID
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: anypoint-platform-applications-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for MuleSoft Anypoint Platform API — Applications. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: mulesoft-list-applications
+      description: Mulesoft List Applications
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: anypoint-platform-applications.listapplications
+      with:
+        X-ANYPNT-ENV-ID: tools.X-ANYPNT-ENV-ID
+        X-ANYPNT-ORG-ID: tools.X-ANYPNT-ORG-ID
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: mulesoft-create-application
+      description: Mulesoft Create Application
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: anypoint-platform-applications.createapplication
+      with:
+        X-ANYPNT-ENV-ID: tools.X-ANYPNT-ENV-ID
+        X-ANYPNT-ORG-ID: tools.X-ANYPNT-ORG-ID
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: mulesoft-get-application-details
+      description: Mulesoft Get Application Details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: anypoint-platform-applications.getapplication
+      with:
+        X-ANYPNT-ENV-ID: tools.X-ANYPNT-ENV-ID
+        X-ANYPNT-ORG-ID: tools.X-ANYPNT-ORG-ID
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: mulesoft-update-application
+      description: Mulesoft Update Application
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: anypoint-platform-applications.updateapplication
+      with:
+        X-ANYPNT-ENV-ID: tools.X-ANYPNT-ENV-ID
+        X-ANYPNT-ORG-ID: tools.X-ANYPNT-ORG-ID
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: mulesoft-delete-application
+      description: Mulesoft Delete Application
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: anypoint-platform-applications.deleteapplication
+      with:
+        X-ANYPNT-ENV-ID: tools.X-ANYPNT-ENV-ID
+        X-ANYPNT-ORG-ID: tools.X-ANYPNT-ORG-ID
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: mulesoft-get-application-status
+      description: Mulesoft Get Application Status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: anypoint-platform-applications.getapplicationstatus
+      with:
+        X-ANYPNT-ENV-ID: tools.X-ANYPNT-ENV-ID
+        X-ANYPNT-ORG-ID: tools.X-ANYPNT-ORG-ID
+      outputParameters:
+      - type: object
+        mapping: $.

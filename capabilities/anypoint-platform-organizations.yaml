@@ -1,0 +1,162 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: MuleSoft Anypoint Platform API — Organizations
+  description: 'MuleSoft Anypoint Platform API — Organizations. 4 operations. Lead operation: Mulesoft List Organizations.
+    Self-contained Naftiko capability covering one Mulesoft business surface.'
+  tags:
+  - Mulesoft
+  - Organizations
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    MULESOFT_API_KEY: MULESOFT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: anypoint-platform-organizations
+    baseUri: https://anypoint.mulesoft.com
+    description: MuleSoft Anypoint Platform API — Organizations business capability. Self-contained, no shared references.
+    resources:
+    - name: accounts-api-organizations
+      path: /accounts/api/organizations
+      operations:
+      - name: listorganizations
+        method: GET
+        description: Mulesoft List Organizations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: accounts-api-organizations-orgId
+      path: /accounts/api/organizations/{orgId}
+      operations:
+      - name: getorganization
+        method: GET
+        description: Mulesoft Get Organization Details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateorganization
+        method: PUT
+        description: Mulesoft Update Organization
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteorganization
+        method: DELETE
+        description: Mulesoft Delete Organization
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.MULESOFT_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: anypoint-platform-organizations-rest
+    port: 8080
+    description: REST adapter for MuleSoft Anypoint Platform API — Organizations. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/accounts/api/organizations
+      name: accounts-api-organizations
+      description: REST surface for accounts-api-organizations.
+      operations:
+      - method: GET
+        name: listorganizations
+        description: Mulesoft List Organizations
+        call: anypoint-platform-organizations.listorganizations
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/accounts/api/organizations/{orgid}
+      name: accounts-api-organizations-orgid
+      description: REST surface for accounts-api-organizations-orgId.
+      operations:
+      - method: GET
+        name: getorganization
+        description: Mulesoft Get Organization Details
+        call: anypoint-platform-organizations.getorganization
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateorganization
+        description: Mulesoft Update Organization
+        call: anypoint-platform-organizations.updateorganization
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteorganization
+        description: Mulesoft Delete Organization
+        call: anypoint-platform-organizations.deleteorganization
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: anypoint-platform-organizations-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for MuleSoft Anypoint Platform API — Organizations. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: mulesoft-list-organizations
+      description: Mulesoft List Organizations
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: anypoint-platform-organizations.listorganizations
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: mulesoft-get-organization-details
+      description: Mulesoft Get Organization Details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: anypoint-platform-organizations.getorganization
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: mulesoft-update-organization
+      description: Mulesoft Update Organization
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: anypoint-platform-organizations.updateorganization
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: mulesoft-delete-organization
+      description: Mulesoft Delete Organization
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: anypoint-platform-organizations.deleteorganization
+      outputParameters:
+      - type: object
+        mapping: $.
