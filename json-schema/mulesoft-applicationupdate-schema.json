@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ApplicationUpdate",
+  "title": "ApplicationUpdate",
+  "type": "object",
+  "description": "Request body for updating an existing CloudHub application",
+  "properties": {
+    "muleVersion": {
+      "type": "object",
+      "description": "New Mule runtime version",
+      "properties": {
+        "version": {
+          "type": "string",
+          "description": "Mule runtime version"
+        }
+      },
+      "example": "example_value"
+    },
+    "workers": {
+      "$ref": "#/components/schemas/WorkerConfig"
+    },
+    "properties": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Updated application properties",
+      "example": "example_value"
+    },
+    "monitoringAutoRestart": {
+      "type": "boolean",
+      "description": "Enable or disable automatic restart",
+      "example": true
+    },
+    "region": {
+      "type": "string",
+      "description": "Target CloudHub region",
+      "example": "example_value"
+    },
+    "staticIPsEnabled": {
+      "type": "boolean",
+      "description": "Enable or disable static IPs",
+      "example": true
+    },
+    "loggingNgEnabled": {
+      "type": "boolean",
+      "description": "Enable or disable next-generation logging",
+      "example": true
+    },
+    "persistentQueues": {
+      "type": "boolean",
+      "description": "Enable or disable persistent queues",
+      "example": true
+    }
+  }
+}

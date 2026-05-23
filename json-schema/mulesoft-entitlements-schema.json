@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Entitlements",
+  "title": "Entitlements",
+  "type": "object",
+  "description": "Platform entitlements and resource limits for the organization",
+  "properties": {
+    "createEnvironments": {
+      "type": "boolean",
+      "description": "Whether the organization can create new environments",
+      "example": true
+    },
+    "globalDeployment": {
+      "type": "boolean",
+      "description": "Whether global deployment is enabled",
+      "example": true
+    },
+    "createSubOrgs": {
+      "type": "boolean",
+      "description": "Whether the organization can create sub-organizations",
+      "example": true
+    },
+    "vCoresProduction": {
+      "$ref": "#/components/schemas/ResourceAllocation"
+    },
+    "vCoresSandbox": {
+      "$ref": "#/components/schemas/ResourceAllocation"
+    },
+    "vCoresDesign": {
+      "$ref": "#/components/schemas/ResourceAllocation"
+    },
+    "staticIps": {
+      "$ref": "#/components/schemas/ResourceAllocation"
+    },
+    "vpcs": {
+      "$ref": "#/components/schemas/ResourceAllocation"
+    },
+    "loadBalancer": {
+      "$ref": "#/components/schemas/ResourceAllocation"
+    }
+  }
+}

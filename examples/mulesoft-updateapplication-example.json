@@ -1,0 +1,77 @@
+{
+  "operationId": "updateApplication",
+  "method": "PUT",
+  "path": "/cloudhub/api/v2/applications/{domain}",
+  "summary": "Mulesoft Update Application",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "UpdateapplicationRequestExample",
+      "example": {
+        "muleVersion": {
+          "version": "example_value"
+        },
+        "workers": {
+          "amount": 10,
+          "type": {
+            "name": "Micro",
+            "weight": 0.1,
+            "cpu": "example_value",
+            "memory": "example_value"
+          }
+        },
+        "properties": "example_value",
+        "monitoringAutoRestart": true,
+        "region": "example_value",
+        "staticIPsEnabled": true,
+        "loggingNgEnabled": true,
+        "persistentQueues": true
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Updateapplication200Example",
+      "example": {
+        "domain": "example_value",
+        "fullDomain": "example_value",
+        "status": "STARTED",
+        "description": "A sample description.",
+        "region": "example_value",
+        "muleVersion": {
+          "version": "example_value",
+          "updateId": "500123",
+          "endOfSupportDate": "2026-01-15"
+        },
+        "workers": {
+          "amount": 10,
+          "type": {
+            "name": "Micro",
+            "weight": 0.1,
+            "cpu": "example_value",
+            "memory": "example_value"
+          }
+        },
+        "properties": "example_value",
+        "lastUpdateTime": 10,
+        "fileName": "example_value",
+        "monitoringEnabled": true,
+        "monitoringAutoRestart": true,
+        "staticIPsEnabled": true,
+        "persistentQueues": true,
+        "persistentQueuesEncrypted": true,
+        "objectStoreV1": true,
+        "loggingNgEnabled": true,
+        "trackingSettings": {
+          "trackingLevel": "DISABLED"
+        },
+        "vpnId": "500123",
+        "vpnConfig": {
+          "vpnId": "500123"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Subscription",
+  "title": "Subscription",
+  "type": "object",
+  "description": "Subscription plan details for the organization",
+  "properties": {
+    "category": {
+      "type": "string",
+      "description": "Subscription category",
+      "example": "example_value"
+    },
+    "type": {
+      "type": "string",
+      "description": "Subscription type",
+      "example": "example_value"
+    },
+    "expiration": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Subscription expiration date",
+      "example": "2026-01-15T10:30:00Z"
+    }
+  }
+}

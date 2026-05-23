@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/OrganizationUpdate",
+  "title": "OrganizationUpdate",
+  "type": "object",
+  "description": "Fields that can be updated on an organization",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Display name of the organization",
+      "example": "Example Title"
+    },
+    "ownerId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "User ID of the new organization owner",
+      "example": "500123"
+    },
+    "sessionTimeout": {
+      "type": "integer",
+      "description": "Session timeout in minutes",
+      "minimum": 15,
+      "maximum": 180,
+      "example": 10
+    },
+    "mfaRequired": {
+      "type": "boolean",
+      "description": "Whether multi-factor authentication is required",
+      "example": true
+    }
+  }
+}

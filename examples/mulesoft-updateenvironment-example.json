@@ -1,0 +1,33 @@
+{
+  "operationId": "updateEnvironment",
+  "method": "PUT",
+  "path": "/accounts/api/organizations/{orgId}/environments/{envId}",
+  "summary": "Mulesoft Update Environment",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "UpdateenvironmentRequestExample",
+      "example": {
+        "name": "Example Title",
+        "type": "design"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Updateenvironment200Example",
+      "example": {
+        "id": "abc123",
+        "name": "Example Title",
+        "organizationId": "500123",
+        "isProduction": true,
+        "type": "design",
+        "clientId": "500123",
+        "createdAt": "2026-01-15T10:30:00Z",
+        "updatedAt": "2026-01-15T10:30:00Z"
+      }
+    }
+  ]
+}

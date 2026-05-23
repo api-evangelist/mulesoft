@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ApplicationStatus",
+  "title": "ApplicationStatus",
+  "type": "object",
+  "description": "Detailed deployment status of a CloudHub application",
+  "properties": {
+    "domain": {
+      "type": "string",
+      "description": "Application domain name",
+      "example": "example_value"
+    },
+    "status": {
+      "type": "string",
+      "description": "Overall application status",
+      "example": "example_value"
+    },
+    "deploymentUpdateStatus": {
+      "type": "string",
+      "description": "Status of the most recent deployment update",
+      "example": "example_value"
+    },
+    "workers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Worker instance identifier"
+          },
+          "host": {
+            "type": "string",
+            "description": "Hostname of the worker instance"
+          },
+          "port": {
+            "type": "integer",
+            "description": "Port number the worker is listening on"
+          },
+          "status": {
+            "type": "string",
+            "description": "Status of this worker instance"
+          },
+          "deployedRegion": {
+            "type": "string",
+            "description": "Region where this worker is running"
+          },
+          "staticIPAddress": {
+            "type": "string",
+            "description": "Static IP address if allocated"
+          }
+        }
+      },
+      "example": []
+    }
+  }
+}

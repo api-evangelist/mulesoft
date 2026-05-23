@@ -1,0 +1,44 @@
+{
+  "operationId": "listOrganizations",
+  "method": "GET",
+  "path": "/accounts/api/organizations",
+  "summary": "Mulesoft List Organizations",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listorganizations200Example",
+      "example": {
+        "data": [
+          {
+            "id": "abc123",
+            "name": "Example Title",
+            "createdAt": "2026-01-15T10:30:00Z",
+            "updatedAt": "2026-01-15T10:30:00Z",
+            "ownerId": "500123",
+            "clientId": "500123",
+            "idprovider_id": "500123",
+            "isFederated": true,
+            "parentOrganizationIds": [
+              {}
+            ],
+            "subOrganizationIds": [
+              {}
+            ],
+            "tenantOrganizationIds": [
+              {}
+            ],
+            "mfaRequired": true,
+            "isAutomaticAdminPromotionExempt": true,
+            "domain": "example_value",
+            "isMaster": true,
+            "environments": [
+              {}
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

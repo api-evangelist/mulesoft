@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Error",
+  "title": "Error",
+  "type": "object",
+  "description": "Error response from the Anypoint Platform API",
+  "properties": {
+    "status": {
+      "type": "integer",
+      "description": "HTTP status code",
+      "example": 10
+    },
+    "message": {
+      "type": "string",
+      "description": "Human-readable error message",
+      "example": "example_value"
+    }
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ApplicationCreate",
+  "title": "ApplicationCreate",
+  "type": "object",
+  "description": "Request body for creating a new CloudHub application",
+  "required": [
+    "domain",
+    "muleVersion",
+    "workers"
+  ],
+  "properties": {
+    "domain": {
+      "type": "string",
+      "description": "Unique domain name for the application",
+      "pattern": "^[a-z0-9-]+$",
+      "example": "example_value"
+    },
+    "muleVersion": {
+      "type": "object",
+      "description": "Target Mule runtime version",
+      "required": [
+        "version"
+      ],
+      "properties": {
+        "version": {
+          "type": "string",
+          "description": "Mule runtime version to deploy"
+        }
+      },
+      "example": "example_value"
+    },
+    "region": {
+      "type": "string",
+      "description": "CloudHub region to deploy to",
+      "example": "example_value"
+    },
+    "workers": {
+      "$ref": "#/components/schemas/WorkerConfig"
+    },
+    "properties": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Application properties",
+      "example": "example_value"
+    },
+    "monitoringAutoRestart": {
+      "type": "boolean",
+      "description": "Enable automatic restart on failure",
+      "default": true,
+      "example": true
+    },
+    "persistentQueues": {
+      "type": "boolean",
+      "description": "Enable persistent queues",
+      "default": false,
+      "example": true
+    },
+    "staticIPsEnabled": {
+      "type": "boolean",
+      "description": "Enable static IP allocation",
+      "default": false,
+      "example": true
+    },
+    "loggingNgEnabled": {
+      "type": "boolean",
+      "description": "Enable next-generation logging",
+      "default": true,
+      "example": true
+    }
+  }
+}

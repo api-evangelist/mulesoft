@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/EnvironmentCreate",
+  "title": "EnvironmentCreate",
+  "type": "object",
+  "description": "Request body for creating a new environment",
+  "required": [
+    "name",
+    "type"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Display name for the new environment",
+      "example": "Example Title"
+    },
+    "type": {
+      "type": "string",
+      "description": "The environment type classification",
+      "enum": [
+        "design",
+        "sandbox",
+        "production"
+      ],
+      "example": "design"
+    }
+  }
+}

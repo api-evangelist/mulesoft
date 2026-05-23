@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/EnvironmentUpdate",
+  "title": "EnvironmentUpdate",
+  "type": "object",
+  "description": "Request body for updating an environment",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "New display name for the environment",
+      "example": "Example Title"
+    },
+    "type": {
+      "type": "string",
+      "description": "New environment type classification",
+      "enum": [
+        "design",
+        "sandbox",
+        "production"
+      ],
+      "example": "design"
+    }
+  }
+}

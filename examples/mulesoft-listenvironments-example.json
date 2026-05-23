@@ -1,0 +1,29 @@
+{
+  "operationId": "listEnvironments",
+  "method": "GET",
+  "path": "/accounts/api/organizations/{orgId}/environments",
+  "summary": "Mulesoft List Environments",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listenvironments200Example",
+      "example": {
+        "data": [
+          {
+            "id": "abc123",
+            "name": "Example Title",
+            "organizationId": "500123",
+            "isProduction": true,
+            "type": "design",
+            "clientId": "500123",
+            "createdAt": "2026-01-15T10:30:00Z",
+            "updatedAt": "2026-01-15T10:30:00Z"
+          }
+        ],
+        "total": 10
+      }
+    }
+  ]
+}

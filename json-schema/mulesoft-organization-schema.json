@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Organization",
+  "title": "Organization",
+  "type": "object",
+  "description": "An Anypoint Platform organization or business group. Organizations are the top-level containers that hold all platform resources including users, environments, and deployed applications.",
+  "required": [
+    "id",
+    "name"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier of the organization",
+      "example": "abc123"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the organization",
+      "example": "Example Title"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the organization was created",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the organization was last updated",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "ownerId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "User ID of the organization owner",
+      "example": "500123"
+    },
+    "clientId": {
+      "type": "string",
+      "description": "Client ID for the organization used in API authentication",
+      "example": "500123"
+    },
+    "idprovider_id": {
+      "type": "string",
+      "description": "Identity provider ID if external identity management is configured",
+      "example": "500123"
+    },
+    "isFederated": {
+      "type": "boolean",
+      "description": "Whether the organization uses federated identity management",
+      "example": true
+    },
+    "parentOrganizationIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "description": "IDs of parent organizations in the business group hierarchy",
+      "example": []
+    },
+    "subOrganizationIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "description": "IDs of child business groups",
+      "example": []
+    },
+    "tenantOrganizationIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "description": "IDs of tenant organizations",
+      "example": []
+    },
+    "mfaRequired": {
+      "type": "boolean",
+      "description": "Whether multi-factor authentication is required",
+      "example": true
+    },
+    "isAutomaticAdminPromotionExempt": {
+      "type": "boolean",
+      "description": "Whether automatic admin promotion is disabled",
+      "example": true
+    },
+    "domain": {
+      "type": "string",
+      "description": "Domain associated with the organization",
+      "example": "example_value"
+    },
+    "isMaster": {
+      "type": "boolean",
+      "description": "Whether this is the root (master) organization",
+      "example": true
+    },
+    "subscription": {
+      "$ref": "#/components/schemas/Subscription"
+    },
+    "entitlements": {
+      "$ref": "#/components/schemas/Entitlements"
+    },
+    "environments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Environment"
+      },
+      "description": "Environments belonging to this organization",
+      "example": []
+    }
+  }
+}

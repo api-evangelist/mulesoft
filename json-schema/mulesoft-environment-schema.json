@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Environment",
+  "title": "Environment",
+  "type": "object",
+  "description": "A deployment environment within an organization. Environments provide isolated contexts for deploying Mule applications, with types including Design, Sandbox, and Production.",
+  "required": [
+    "id",
+    "name",
+    "organizationId",
+    "type"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier of the environment",
+      "example": "abc123"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the environment",
+      "example": "Example Title"
+    },
+    "organizationId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "ID of the organization this environment belongs to",
+      "example": "500123"
+    },
+    "isProduction": {
+      "type": "boolean",
+      "description": "Whether this is a production environment",
+      "example": true
+    },
+    "type": {
+      "type": "string",
+      "description": "The environment type classification",
+      "enum": [
+        "design",
+        "sandbox",
+        "production"
+      ],
+      "example": "design"
+    },
+    "clientId": {
+      "type": "string",
+      "description": "Client ID associated with this environment",
+      "example": "500123"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the environment was created",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the environment was last updated",
+      "example": "2026-01-15T10:30:00Z"
+    }
+  }
+}

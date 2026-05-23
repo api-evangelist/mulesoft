@@ -1,0 +1,252 @@
+{
+  "provider": "MuleSoft",
+  "providerId": "mulesoft",
+  "kind": "json-structure",
+  "description": "Structural overview of the MuleSoft API surface; extracted from openapi/.",
+  "schemaCount": 14,
+  "operationCount": 15,
+  "schemas": [
+    {
+      "name": "Organization",
+      "type": "object",
+      "propertyCount": 18,
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    {
+      "name": "OrganizationUpdate",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "Subscription",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "Entitlements",
+      "type": "object",
+      "propertyCount": 9,
+      "required": []
+    },
+    {
+      "name": "ResourceAllocation",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "Environment",
+      "type": "object",
+      "propertyCount": 8,
+      "required": [
+        "id",
+        "name",
+        "organizationId",
+        "type"
+      ]
+    },
+    {
+      "name": "EnvironmentCreate",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "name",
+        "type"
+      ]
+    },
+    {
+      "name": "EnvironmentUpdate",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "Application",
+      "type": "object",
+      "propertyCount": 20,
+      "required": [
+        "domain",
+        "status"
+      ]
+    },
+    {
+      "name": "ApplicationCreate",
+      "type": "object",
+      "propertyCount": 9,
+      "required": [
+        "domain",
+        "muleVersion",
+        "workers"
+      ]
+    },
+    {
+      "name": "ApplicationUpdate",
+      "type": "object",
+      "propertyCount": 8,
+      "required": []
+    },
+    {
+      "name": "WorkerConfig",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "amount",
+        "type"
+      ]
+    },
+    {
+      "name": "ApplicationStatus",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "Error",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    }
+  ],
+  "operations": [
+    {
+      "method": "GET",
+      "path": "/accounts/api/organizations",
+      "operationId": "listOrganizations",
+      "summary": "Mulesoft List Organizations",
+      "tags": [
+        "Organizations"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/accounts/api/organizations/{orgId}",
+      "operationId": "getOrganization",
+      "summary": "Mulesoft Get Organization Details",
+      "tags": [
+        "Organizations"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/accounts/api/organizations/{orgId}",
+      "operationId": "updateOrganization",
+      "summary": "Mulesoft Update Organization",
+      "tags": [
+        "Organizations"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/accounts/api/organizations/{orgId}",
+      "operationId": "deleteOrganization",
+      "summary": "Mulesoft Delete Organization",
+      "tags": [
+        "Organizations"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/accounts/api/organizations/{orgId}/environments",
+      "operationId": "listEnvironments",
+      "summary": "Mulesoft List Environments",
+      "tags": [
+        "Environments"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/accounts/api/organizations/{orgId}/environments",
+      "operationId": "createEnvironment",
+      "summary": "Mulesoft Create Environment",
+      "tags": [
+        "Environments"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/accounts/api/organizations/{orgId}/environments/{envId}",
+      "operationId": "getEnvironment",
+      "summary": "Mulesoft Get Environment Details",
+      "tags": [
+        "Environments"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/accounts/api/organizations/{orgId}/environments/{envId}",
+      "operationId": "updateEnvironment",
+      "summary": "Mulesoft Update Environment",
+      "tags": [
+        "Environments"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/accounts/api/organizations/{orgId}/environments/{envId}",
+      "operationId": "deleteEnvironment",
+      "summary": "Mulesoft Delete Environment",
+      "tags": [
+        "Environments"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/cloudhub/api/v2/applications",
+      "operationId": "listApplications",
+      "summary": "Mulesoft List Applications",
+      "tags": [
+        "Applications"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/cloudhub/api/v2/applications",
+      "operationId": "createApplication",
+      "summary": "Mulesoft Create Application",
+      "tags": [
+        "Applications"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/cloudhub/api/v2/applications/{domain}",
+      "operationId": "getApplication",
+      "summary": "Mulesoft Get Application Details",
+      "tags": [
+        "Applications"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/cloudhub/api/v2/applications/{domain}",
+      "operationId": "updateApplication",
+      "summary": "Mulesoft Update Application",
+      "tags": [
+        "Applications"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/cloudhub/api/v2/applications/{domain}",
+      "operationId": "deleteApplication",
+      "summary": "Mulesoft Delete Application",
+      "tags": [
+        "Applications"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/cloudhub/api/v2/applications/{domain}/status",
+      "operationId": "getApplicationStatus",
+      "summary": "Mulesoft Get Application Status",
+      "tags": [
+        "Applications"
+      ]
+    }
+  ]
+}
