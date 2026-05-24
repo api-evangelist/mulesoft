@@ -250,6 +250,8 @@ common:
     description: Connector for sending notifications, creating channels, and automating workflows within Slack workspaces.
   - name: NetSuite
     description: Pre-built connector for Oracle NetSuite ERP enabling financial, inventory, and order management integration.
+- type: LLMsTxt
+  url: https://docs.mulesoft.com/llms.txt
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
