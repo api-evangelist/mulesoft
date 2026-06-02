@@ -2,13 +2,20 @@
   "repo": "mulesoft",
   "feeds": [
     {
-      "source": "https://blogs.mulesoft.com/",
+      "source": "https://blogs.mulesoft.com/feed/",
       "feed_url": "https://blogs.mulesoft.com/feed/",
-      "title": "MuleSoft Blog",
+      "title": "",
       "saved": 0,
-      "last_error": "http_403"
+      "method": "feed"
+    },
+    {
+      "source": "https://anypoint.mulesoft.com/",
+      "feed_url": "https://anypoint.mulesoft.com/",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
-  "fetched": "2026-05-17T20:20:35Z",
-  "post_count": 10
+  "fetched": "2026-06-01T23:35:02Z",
+  "post_count": 20
 }
