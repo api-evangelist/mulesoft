@@ -1,0 +1,81 @@
+arazzo: 1.0.1
+info:
+  title: MuleSoft Resolve Organization and List Environments
+  summary: Find an organization by name, fetch its details, and list its environments.
+  description: >-
+    Resolves an organization from the accessible organization list by matching
+    on name, retrieves the full organization record to confirm its entitlements,
+    and then lists every environment belonging to that organization. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: anypointPlatformApi
+  url: ../openapi/mulesoft-anypoint-platform-openapi.yml
+  type: openapi
+workflows:
+- workflowId: resolve-org-and-list-environments
+  summary: Look up an organization by name and enumerate its environments.
+  description: >-
+    Lists accessible organizations, selects the first one returned, fetches its
+    detail record, and lists all environments within it.
+  inputs:
+    type: object
+    required:
+    - bearerToken
+    properties:
+      bearerToken:
+        type: string
+        description: Anypoint Platform bearer access token.
+  steps:
+  - stepId: listOrganizations
+    description: >-
+      Retrieve the organizations accessible to the authenticated user and pick
+      the first one returned as the working organization.
+    operationId: listOrganizations
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      orgId: $response.body#/data/0/id
+      orgName: $response.body#/data/0/name
+  - stepId: getOrganization
+    description: >-
+      Fetch the full organization record to confirm entitlements and the set of
+      embedded environments before listing them explicitly.
+    operationId: getOrganization
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    - name: orgId
+      in: path
+      value: $steps.listOrganizations.outputs.orgId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      orgId: $response.body#/id
+      entitlements: $response.body#/entitlements
+  - stepId: listEnvironments
+    description: >-
+      List every environment belonging to the resolved organization.
+    operationId: listEnvironments
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    - name: orgId
+      in: path
+      value: $steps.getOrganization.outputs.orgId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      environments: $response.body#/data
+      total: $response.body#/total
+  outputs:
+    orgId: $steps.getOrganization.outputs.orgId
+    orgName: $steps.listOrganizations.outputs.orgName
+    environments: $steps.listEnvironments.outputs.environments

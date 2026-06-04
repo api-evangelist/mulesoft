@@ -1,0 +1,127 @@
+arazzo: 1.0.1
+info:
+  title: MuleSoft Upsert Environment
+  summary: Find an environment by name and update it if it exists, otherwise create it.
+  description: >-
+    A common Anypoint administration pattern. The workflow lists the
+    environments in an organization, searches for one whose name matches the
+    supplied value, and then branches: when a match is found it updates the
+    existing environment, and when no match is found it creates a new one. Every
+    step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: anypointPlatformApi
+  url: ../openapi/mulesoft-anypoint-platform-openapi.yml
+  type: openapi
+workflows:
+- workflowId: upsert-environment
+  summary: Upsert a single environment into an organization by name.
+  description: >-
+    Lists the organization's environments, looks for an existing one whose name
+    matches the supplied value, and either updates the matched environment or
+    creates a new one.
+  inputs:
+    type: object
+    required:
+    - bearerToken
+    - orgId
+    - environmentName
+    - environmentType
+    properties:
+      bearerToken:
+        type: string
+        description: Anypoint Platform bearer access token.
+      orgId:
+        type: string
+        description: The organization id to upsert the environment into.
+      environmentName:
+        type: string
+        description: The environment name used to detect an existing environment.
+      environmentType:
+        type: string
+        description: The environment type (design, sandbox, or production).
+  steps:
+  - stepId: findEnvironment
+    description: >-
+      List the organization's environments and capture the id of the first one
+      whose name matches the supplied value, if any.
+    operationId: listEnvironments
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    - name: orgId
+      in: path
+      value: $inputs.orgId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      matchedEnvironmentId: $response.body#/data/0/id
+      matchCount: $response.body#/total
+    onSuccess:
+    - name: environmentExists
+      type: goto
+      stepId: updateExisting
+      criteria:
+      - context: $response.body
+        condition: $.data[?(@.name == $inputs.environmentName)].length > 0
+        type: jsonpath
+    - name: environmentMissing
+      type: goto
+      stepId: createNew
+      criteria:
+      - context: $response.body
+        condition: $.data[?(@.name == $inputs.environmentName)].length == 0
+        type: jsonpath
+  - stepId: updateExisting
+    description: >-
+      Update the matched environment with the supplied name and type.
+    operationId: updateEnvironment
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    - name: orgId
+      in: path
+      value: $inputs.orgId
+    - name: envId
+      in: path
+      value: $steps.findEnvironment.outputs.matchedEnvironmentId
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.environmentName
+        type: $inputs.environmentType
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      environmentId: $response.body#/id
+      environmentName: $response.body#/name
+    onSuccess:
+    - name: done
+      type: end
+  - stepId: createNew
+    description: >-
+      Create a new environment when no existing environment matched the name.
+    operationId: createEnvironment
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    - name: orgId
+      in: path
+      value: $inputs.orgId
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.environmentName
+        type: $inputs.environmentType
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      environmentId: $response.body#/id
+      environmentName: $response.body#/name
+  outputs:
+    environmentId: $steps.updateExisting.outputs.environmentId
+    createdEnvironmentId: $steps.createNew.outputs.environmentId

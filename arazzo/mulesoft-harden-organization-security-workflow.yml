@@ -1,0 +1,99 @@
+arazzo: 1.0.1
+info:
+  title: MuleSoft Harden Organization Security
+  summary: Read an organization, apply MFA and session-timeout settings, then confirm.
+  description: >-
+    Tightens the security posture of an Anypoint organization. The workflow
+    reads the current organization record, updates it to require multi-factor
+    authentication and a shorter session timeout, and then re-reads the
+    organization to confirm the settings were applied. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: anypointPlatformApi
+  url: ../openapi/mulesoft-anypoint-platform-openapi.yml
+  type: openapi
+workflows:
+- workflowId: harden-organization-security
+  summary: Enforce MFA and a session timeout on an organization and verify it.
+  description: >-
+    Fetches an organization, updates its MFA and session-timeout settings, and
+    re-fetches it to confirm the change.
+  inputs:
+    type: object
+    required:
+    - bearerToken
+    - orgId
+    - sessionTimeout
+    properties:
+      bearerToken:
+        type: string
+        description: Anypoint Platform bearer access token.
+      orgId:
+        type: string
+        description: The organization id to harden.
+      sessionTimeout:
+        type: integer
+        description: Session timeout in minutes (15 to 180).
+  steps:
+  - stepId: getOrganization
+    description: >-
+      Read the current organization record to capture its name before applying
+      security settings.
+    operationId: getOrganization
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    - name: orgId
+      in: path
+      value: $inputs.orgId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      orgId: $response.body#/id
+      orgName: $response.body#/name
+      ownerId: $response.body#/ownerId
+  - stepId: updateOrganization
+    description: >-
+      Update the organization to require MFA and apply the supplied session
+      timeout, preserving its name and owner.
+    operationId: updateOrganization
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    - name: orgId
+      in: path
+      value: $steps.getOrganization.outputs.orgId
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $steps.getOrganization.outputs.orgName
+        ownerId: $steps.getOrganization.outputs.ownerId
+        sessionTimeout: $inputs.sessionTimeout
+        mfaRequired: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      mfaRequired: $response.body#/mfaRequired
+  - stepId: confirmSettings
+    description: >-
+      Re-read the organization to confirm the MFA requirement is now in effect.
+    operationId: getOrganization
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    - name: orgId
+      in: path
+      value: $steps.getOrganization.outputs.orgId
+    successCriteria:
+    - condition: $statusCode == 200
+    - condition: $response.body#/mfaRequired == true
+    outputs:
+      mfaRequired: $response.body#/mfaRequired
+  outputs:
+    orgId: $steps.getOrganization.outputs.orgId
+    mfaRequired: $steps.confirmSettings.outputs.mfaRequired

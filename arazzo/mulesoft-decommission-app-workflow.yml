@@ -1,0 +1,110 @@
+arazzo: 1.0.1
+info:
+  title: MuleSoft Decommission Application
+  summary: Confirm an application exists, delete it, then verify it is gone.
+  description: >-
+    Safely retires a CloudHub application. The workflow first fetches the
+    application to confirm it exists and capture its current status, deletes the
+    application to stop all running workers, and then lists the remaining
+    applications in the environment to verify the domain has been released. Every
+    step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: anypointPlatformApi
+  url: ../openapi/mulesoft-anypoint-platform-openapi.yml
+  type: openapi
+workflows:
+- workflowId: decommission-app
+  summary: Delete a CloudHub application and confirm its removal.
+  description: >-
+    Verifies an application exists, deletes it, and lists applications to confirm
+    the domain is no longer present.
+  inputs:
+    type: object
+    required:
+    - bearerToken
+    - orgId
+    - environmentId
+    - appDomain
+    properties:
+      bearerToken:
+        type: string
+        description: Anypoint Platform bearer access token.
+      orgId:
+        type: string
+        description: The organization id that owns the application.
+      environmentId:
+        type: string
+        description: The environment id the application is deployed in.
+      appDomain:
+        type: string
+        description: The CloudHub domain of the application to decommission.
+  steps:
+  - stepId: getApplication
+    description: >-
+      Confirm the application exists and capture its current status before
+      deleting it.
+    operationId: getApplication
+    parameters:
+    - name: domain
+      in: path
+      value: $inputs.appDomain
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    - name: X-ANYPNT-ORG-ID
+      in: header
+      value: $inputs.orgId
+    - name: X-ANYPNT-ENV-ID
+      in: header
+      value: $inputs.environmentId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      domain: $response.body#/domain
+      status: $response.body#/status
+  - stepId: deleteApplication
+    description: >-
+      Delete the application and stop all running workers, releasing the domain.
+    operationId: deleteApplication
+    parameters:
+    - name: domain
+      in: path
+      value: $steps.getApplication.outputs.domain
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    - name: X-ANYPNT-ORG-ID
+      in: header
+      value: $inputs.orgId
+    - name: X-ANYPNT-ENV-ID
+      in: header
+      value: $inputs.environmentId
+    successCriteria:
+    - condition: $statusCode == 204
+    outputs:
+      deletedStatusCode: $statusCode
+  - stepId: confirmRemoval
+    description: >-
+      List the applications in the environment to verify the deleted domain is
+      no longer present.
+    operationId: listApplications
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    - name: X-ANYPNT-ORG-ID
+      in: header
+      value: $inputs.orgId
+    - name: X-ANYPNT-ENV-ID
+      in: header
+      value: $inputs.environmentId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      remainingApplications: $response.body
+  outputs:
+    deletedDomain: $steps.getApplication.outputs.domain
+    deletedStatusCode: $steps.deleteApplication.outputs.deletedStatusCode
+    remainingApplications: $steps.confirmRemoval.outputs.remainingApplications

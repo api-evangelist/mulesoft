@@ -1,0 +1,111 @@
+arazzo: 1.0.1
+info:
+  title: MuleSoft Promote Application Between Environments
+  summary: Read an application's config in one environment and deploy a copy into another.
+  description: >-
+    Promotes a CloudHub application from a source environment to a target
+    environment such as Sandbox to Production. The workflow reads the source
+    application to capture its runtime version and region, then deploys a new
+    application with the same configuration into the target environment under a
+    new domain. Every step spells out its request inline so the flow can be read
+    and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: anypointPlatformApi
+  url: ../openapi/mulesoft-anypoint-platform-openapi.yml
+  type: openapi
+workflows:
+- workflowId: promote-app-between-environments
+  summary: Copy an application's runtime configuration into a different environment.
+  description: >-
+    Fetches a source application to read its runtime version and region, then
+    deploys a matching application into the target environment.
+  inputs:
+    type: object
+    required:
+    - bearerToken
+    - orgId
+    - sourceEnvironmentId
+    - targetEnvironmentId
+    - sourceAppDomain
+    - targetAppDomain
+    properties:
+      bearerToken:
+        type: string
+        description: Anypoint Platform bearer access token.
+      orgId:
+        type: string
+        description: The organization id that owns both environments.
+      sourceEnvironmentId:
+        type: string
+        description: The environment id the source application runs in.
+      targetEnvironmentId:
+        type: string
+        description: The environment id to promote the application into.
+      sourceAppDomain:
+        type: string
+        description: The CloudHub domain of the source application.
+      targetAppDomain:
+        type: string
+        description: The CloudHub domain for the promoted application.
+  steps:
+  - stepId: getSourceApplication
+    description: >-
+      Read the source application to capture its runtime version and region for
+      the promotion.
+    operationId: getApplication
+    parameters:
+    - name: domain
+      in: path
+      value: $inputs.sourceAppDomain
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    - name: X-ANYPNT-ORG-ID
+      in: header
+      value: $inputs.orgId
+    - name: X-ANYPNT-ENV-ID
+      in: header
+      value: $inputs.sourceEnvironmentId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      muleVersion: $response.body#/muleVersion/version
+      region: $response.body#/region
+  - stepId: deployToTarget
+    description: >-
+      Deploy a new application into the target environment using the source
+      application's runtime version and region.
+    operationId: createApplication
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    - name: X-ANYPNT-ORG-ID
+      in: header
+      value: $inputs.orgId
+    - name: X-ANYPNT-ENV-ID
+      in: header
+      value: $inputs.targetEnvironmentId
+    requestBody:
+      contentType: application/json
+      payload:
+        domain: $inputs.targetAppDomain
+        muleVersion:
+          version: $steps.getSourceApplication.outputs.muleVersion
+        region: $steps.getSourceApplication.outputs.region
+        workers:
+          amount: 1
+          type:
+            name: Micro
+            weight: 0.1
+        monitoringAutoRestart: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      promotedDomain: $response.body#/fullDomain
+      status: $response.body#/status
+  outputs:
+    sourceMuleVersion: $steps.getSourceApplication.outputs.muleVersion
+    promotedDomain: $steps.deployToTarget.outputs.promotedDomain
+    promotedStatus: $steps.deployToTarget.outputs.status

@@ -1,0 +1,131 @@
+arazzo: 1.0.1
+info:
+  title: MuleSoft Update Application Runtime and Verify
+  summary: Update a CloudHub application's runtime version then verify it redeploys.
+  description: >-
+    Updates the Mule runtime version and worker configuration of an existing
+    CloudHub application, reads back the application record to confirm the change
+    was accepted, and then checks the deployment status to verify the
+    redeployment is progressing. Every step spells out its request inline so the
+    flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: anypointPlatformApi
+  url: ../openapi/mulesoft-anypoint-platform-openapi.yml
+  type: openapi
+workflows:
+- workflowId: update-app-runtime-and-verify
+  summary: Change an application's runtime version and confirm the redeployment.
+  description: >-
+    Updates an application's Mule runtime version, fetches the application detail
+    to confirm the new configuration, and reads the deployment status.
+  inputs:
+    type: object
+    required:
+    - bearerToken
+    - orgId
+    - environmentId
+    - appDomain
+    - muleVersion
+    properties:
+      bearerToken:
+        type: string
+        description: Anypoint Platform bearer access token.
+      orgId:
+        type: string
+        description: The organization id that owns the application.
+      environmentId:
+        type: string
+        description: The environment id the application is deployed in.
+      appDomain:
+        type: string
+        description: The CloudHub domain of the application to update.
+      muleVersion:
+        type: string
+        description: The new Mule runtime version to deploy.
+  steps:
+  - stepId: updateApplication
+    description: >-
+      Update the application's Mule runtime version and worker configuration,
+      triggering a redeployment.
+    operationId: updateApplication
+    parameters:
+    - name: domain
+      in: path
+      value: $inputs.appDomain
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    - name: X-ANYPNT-ORG-ID
+      in: header
+      value: $inputs.orgId
+    - name: X-ANYPNT-ENV-ID
+      in: header
+      value: $inputs.environmentId
+    requestBody:
+      contentType: application/json
+      payload:
+        muleVersion:
+          version: $inputs.muleVersion
+        workers:
+          amount: 1
+          type:
+            name: Micro
+            weight: 0.1
+        monitoringAutoRestart: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      domain: $response.body#/domain
+      status: $response.body#/status
+  - stepId: getApplication
+    description: >-
+      Read back the application record to confirm the runtime version was
+      applied.
+    operationId: getApplication
+    parameters:
+    - name: domain
+      in: path
+      value: $steps.updateApplication.outputs.domain
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    - name: X-ANYPNT-ORG-ID
+      in: header
+      value: $inputs.orgId
+    - name: X-ANYPNT-ENV-ID
+      in: header
+      value: $inputs.environmentId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      muleVersion: $response.body#/muleVersion
+      status: $response.body#/status
+  - stepId: verifyStatus
+    description: >-
+      Read the deployment status to verify the redeployment is in progress or
+      has settled.
+    operationId: getApplicationStatus
+    parameters:
+    - name: domain
+      in: path
+      value: $steps.updateApplication.outputs.domain
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    - name: X-ANYPNT-ORG-ID
+      in: header
+      value: $inputs.orgId
+    - name: X-ANYPNT-ENV-ID
+      in: header
+      value: $inputs.environmentId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+      deploymentUpdateStatus: $response.body#/deploymentUpdateStatus
+  outputs:
+    domain: $steps.updateApplication.outputs.domain
+    appliedMuleVersion: $steps.getApplication.outputs.muleVersion
+    deploymentStatus: $steps.verifyStatus.outputs.deploymentUpdateStatus

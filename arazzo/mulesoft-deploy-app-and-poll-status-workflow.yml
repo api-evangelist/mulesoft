@@ -1,0 +1,122 @@
+arazzo: 1.0.1
+info:
+  title: MuleSoft Deploy Application and Poll Until Started
+  summary: Deploy a CloudHub application and poll its status until it reaches STARTED.
+  description: >-
+    Deploys a Mule application to CloudHub and then polls the application status
+    endpoint, branching on the deployment status. When the application reports
+    STARTED the workflow completes; while it is still STARTING or DEPLOYING the
+    workflow loops back to poll again. Every step spells out its request inline
+    so the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: anypointPlatformApi
+  url: ../openapi/mulesoft-anypoint-platform-openapi.yml
+  type: openapi
+workflows:
+- workflowId: deploy-app-and-poll-status
+  summary: Deploy a CloudHub application and wait for it to become STARTED.
+  description: >-
+    Creates a CloudHub application in the target environment, then repeatedly
+    reads the application status until the deployment settles on STARTED.
+  inputs:
+    type: object
+    required:
+    - bearerToken
+    - orgId
+    - environmentId
+    - appDomain
+    - muleVersion
+    - region
+    properties:
+      bearerToken:
+        type: string
+        description: Anypoint Platform bearer access token.
+      orgId:
+        type: string
+        description: The organization id that owns the application.
+      environmentId:
+        type: string
+        description: The environment id to deploy the application into.
+      appDomain:
+        type: string
+        description: Unique CloudHub domain name for the application.
+      muleVersion:
+        type: string
+        description: Mule runtime version to deploy.
+      region:
+        type: string
+        description: CloudHub region to deploy the application to.
+  steps:
+  - stepId: deployApplication
+    description: >-
+      Deploy a new CloudHub application into the target environment.
+    operationId: createApplication
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    - name: X-ANYPNT-ORG-ID
+      in: header
+      value: $inputs.orgId
+    - name: X-ANYPNT-ENV-ID
+      in: header
+      value: $inputs.environmentId
+    requestBody:
+      contentType: application/json
+      payload:
+        domain: $inputs.appDomain
+        muleVersion:
+          version: $inputs.muleVersion
+        region: $inputs.region
+        workers:
+          amount: 1
+          type:
+            name: Micro
+            weight: 0.1
+        monitoringAutoRestart: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      deployedDomain: $response.body#/domain
+  - stepId: pollStatus
+    description: >-
+      Read the application deployment status. Branch on the reported status:
+      finish when STARTED, otherwise loop back to poll again.
+    operationId: getApplicationStatus
+    parameters:
+    - name: domain
+      in: path
+      value: $steps.deployApplication.outputs.deployedDomain
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    - name: X-ANYPNT-ORG-ID
+      in: header
+      value: $inputs.orgId
+    - name: X-ANYPNT-ENV-ID
+      in: header
+      value: $inputs.environmentId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+      deploymentUpdateStatus: $response.body#/deploymentUpdateStatus
+    onSuccess:
+    - name: deploymentSettled
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "STARTED"
+        type: jsonpath
+    - name: keepPolling
+      type: goto
+      stepId: pollStatus
+      criteria:
+      - context: $response.body
+        condition: $.status != "STARTED"
+        type: jsonpath
+  outputs:
+    deployedDomain: $steps.deployApplication.outputs.deployedDomain
+    finalStatus: $steps.pollStatus.outputs.status

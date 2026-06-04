@@ -1,0 +1,105 @@
+arazzo: 1.0.1
+info:
+  title: MuleSoft Tear Down Environment
+  summary: Delete an application from an environment, then delete the environment itself.
+  description: >-
+    Cleans up an Anypoint environment and its workloads. The workflow deletes a
+    CloudHub application running in the environment, confirms no applications
+    remain by listing them, and then deletes the environment from the
+    organization. Every step spells out its request inline so the flow can be
+    read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: anypointPlatformApi
+  url: ../openapi/mulesoft-anypoint-platform-openapi.yml
+  type: openapi
+workflows:
+- workflowId: teardown-environment
+  summary: Remove an application and then delete its environment.
+  description: >-
+    Deletes a CloudHub application, lists remaining applications to confirm the
+    environment is empty, and deletes the environment.
+  inputs:
+    type: object
+    required:
+    - bearerToken
+    - orgId
+    - environmentId
+    - appDomain
+    properties:
+      bearerToken:
+        type: string
+        description: Anypoint Platform bearer access token.
+      orgId:
+        type: string
+        description: The organization id that owns the environment.
+      environmentId:
+        type: string
+        description: The environment id to tear down.
+      appDomain:
+        type: string
+        description: The CloudHub domain of the application to delete first.
+  steps:
+  - stepId: deleteApplication
+    description: >-
+      Delete the CloudHub application running in the environment to free its
+      resources.
+    operationId: deleteApplication
+    parameters:
+    - name: domain
+      in: path
+      value: $inputs.appDomain
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    - name: X-ANYPNT-ORG-ID
+      in: header
+      value: $inputs.orgId
+    - name: X-ANYPNT-ENV-ID
+      in: header
+      value: $inputs.environmentId
+    successCriteria:
+    - condition: $statusCode == 204
+    outputs:
+      deletedStatusCode: $statusCode
+  - stepId: confirmEmpty
+    description: >-
+      List the applications in the environment to confirm it is empty before
+      deleting it.
+    operationId: listApplications
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    - name: X-ANYPNT-ORG-ID
+      in: header
+      value: $inputs.orgId
+    - name: X-ANYPNT-ENV-ID
+      in: header
+      value: $inputs.environmentId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      remainingApplications: $response.body
+  - stepId: deleteEnvironment
+    description: >-
+      Delete the now-empty environment from the organization.
+    operationId: deleteEnvironment
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    - name: orgId
+      in: path
+      value: $inputs.orgId
+    - name: envId
+      in: path
+      value: $inputs.environmentId
+    successCriteria:
+    - condition: $statusCode == 204
+    outputs:
+      deletedEnvironmentStatusCode: $statusCode
+  outputs:
+    appDeleteStatusCode: $steps.deleteApplication.outputs.deletedStatusCode
+    remainingApplications: $steps.confirmEmpty.outputs.remainingApplications
+    environmentDeleteStatusCode: $steps.deleteEnvironment.outputs.deletedEnvironmentStatusCode

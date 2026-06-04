@@ -1,0 +1,118 @@
+arazzo: 1.0.1
+info:
+  title: MuleSoft Provision Environment and Deploy Application
+  summary: Create a new Anypoint environment and deploy a CloudHub application into it.
+  description: >-
+    Stands up a fresh deployment target on the Anypoint Platform and immediately
+    deploys a Mule application into it. The workflow creates an environment in
+    the target organization, captures the new environment id, and then deploys a
+    CloudHub application scoped to that environment using the org and environment
+    headers the CloudHub API requires. Every step spells out its request inline
+    so the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: anypointPlatformApi
+  url: ../openapi/mulesoft-anypoint-platform-openapi.yml
+  type: openapi
+workflows:
+- workflowId: provision-environment-and-deploy-app
+  summary: Create an environment and deploy a CloudHub application into it.
+  description: >-
+    Creates a new environment within an organization, then deploys a CloudHub
+    application targeting that environment by passing the organization and
+    environment ids as headers.
+  inputs:
+    type: object
+    required:
+    - bearerToken
+    - orgId
+    - environmentName
+    - environmentType
+    - appDomain
+    - muleVersion
+    - region
+    properties:
+      bearerToken:
+        type: string
+        description: Anypoint Platform bearer access token.
+      orgId:
+        type: string
+        description: The organization id that owns the new environment and application.
+      environmentName:
+        type: string
+        description: Display name for the new environment.
+      environmentType:
+        type: string
+        description: Environment type classification (design, sandbox, or production).
+      appDomain:
+        type: string
+        description: Unique CloudHub domain name for the application.
+      muleVersion:
+        type: string
+        description: Mule runtime version to deploy.
+      region:
+        type: string
+        description: CloudHub region to deploy the application to.
+  steps:
+  - stepId: createEnvironment
+    description: >-
+      Create a new environment in the target organization. The returned id is
+      used as the deployment target for the application.
+    operationId: createEnvironment
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    - name: orgId
+      in: path
+      value: $inputs.orgId
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.environmentName
+        type: $inputs.environmentType
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      environmentId: $response.body#/id
+      environmentClientId: $response.body#/clientId
+  - stepId: deployApplication
+    description: >-
+      Deploy a new CloudHub application into the newly created environment,
+      passing the organization and environment ids as the required headers.
+    operationId: createApplication
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    - name: X-ANYPNT-ORG-ID
+      in: header
+      value: $inputs.orgId
+    - name: X-ANYPNT-ENV-ID
+      in: header
+      value: $steps.createEnvironment.outputs.environmentId
+    requestBody:
+      contentType: application/json
+      payload:
+        domain: $inputs.appDomain
+        muleVersion:
+          version: $inputs.muleVersion
+        region: $inputs.region
+        workers:
+          amount: 1
+          type:
+            name: Micro
+            weight: 0.1
+        monitoringAutoRestart: true
+        loggingNgEnabled: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      appDomain: $response.body#/domain
+      fullDomain: $response.body#/fullDomain
+      status: $response.body#/status
+  outputs:
+    environmentId: $steps.createEnvironment.outputs.environmentId
+    deployedDomain: $steps.deployApplication.outputs.fullDomain
+    deploymentStatus: $steps.deployApplication.outputs.status
