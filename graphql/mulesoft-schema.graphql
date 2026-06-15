@@ -1,0 +1,967 @@
+"""
+MuleSoft Anypoint Platform GraphQL Schema
+Conceptual schema derived from MuleSoft REST APIs covering access management,
+CloudHub deployment, Exchange assets, Runtime Manager, and Anypoint MQ.
+"""
+
+# ─── Scalars ──────────────────────────────────────────────────────────────────
+
+scalar DateTime
+scalar JSON
+scalar URL
+
+# ─── Enums ────────────────────────────────────────────────────────────────────
+
+enum ApplicationStatus {
+  STARTED
+  STOPPED
+  FAILED
+  DEPLOYING
+  UNDEPLOYING
+  STARTING
+  STOPPING
+  PARTIALLY_STARTED
+  DEPLOYMENT_FAILED
+  UNKNOWN
+}
+
+enum EnvironmentType {
+  PRODUCTION
+  SANDBOX
+  DESIGN
+}
+
+enum AssetType {
+  REST_API
+  SOAP_API
+  HTTP_API
+  RAML_FRAGMENT
+  OAS_COMPONENT
+  CONNECTOR
+  TEMPLATE
+  EXAMPLE
+  POLICY
+  CUSTOM
+  APP
+  MULE_APPLICATION
+}
+
+enum AssetStatus {
+  PUBLISHED
+  DEPRECATED
+  DELETED
+}
+
+enum DeploymentTarget {
+  CLOUDHUB
+  CLOUDHUB_2
+  RUNTIME_FABRIC
+  HYBRID
+  SERVER
+  SERVER_GROUP
+  CLUSTER
+}
+
+enum LogLevel {
+  TRACE
+  DEBUG_LEVEL
+  INFO
+  WARN
+  ERROR
+  FATAL
+}
+
+enum MessageStatus {
+  RECEIVED
+  IN_FLIGHT
+  DELIVERED
+  DEAD
+}
+
+enum QueueType {
+  STANDARD
+  FIFO
+  DEAD_LETTER
+}
+
+enum ApiStatus {
+  ACTIVE
+  INACTIVE
+  DEPRECATED
+}
+
+enum WorkerType {
+  MICRO
+  SMALL
+  MEDIUM
+  LARGE
+  XLARGE
+  XXLARGE
+  FOUR_XLARGE
+}
+
+enum PolicyCategory {
+  SECURITY
+  QUALITY_OF_SERVICE
+  COMPLIANCE
+  TRANSFORMATION
+  TROUBLESHOOTING
+}
+
+enum AlertSeverity {
+  INFO
+  WARNING
+  CRITICAL
+}
+
+enum ConnectorCategory {
+  SALESFORCE
+  SAP
+  DATABASE
+  FILE
+  HTTP
+  JMS
+  MQ
+  EMAIL
+  SOCIAL
+  ANALYTICS
+  ERP
+  CRM
+  CUSTOM
+}
+
+# ─── Core Types ───────────────────────────────────────────────────────────────
+
+"""An Anypoint Platform organization (top-level tenant)."""
+type Organization {
+  id: ID!
+  name: String!
+  domain: String
+  isFederated: Boolean
+  parentOrganizationId: ID
+  parentOrganization: Organization
+  subOrganizations: [Organization!]!
+  environments: [Environment!]!
+  users: [User!]!
+  roles: [Role!]!
+  entitlements: Entitlements
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A deployment environment within an organization."""
+type Environment {
+  id: ID!
+  name: String!
+  type: EnvironmentType!
+  organizationId: ID!
+  organization: Organization!
+  isProduction: Boolean!
+  clientId: String
+  applications: [Application!]!
+  apis: [ApiInstance!]!
+  createdAt: DateTime!
+}
+
+"""An Anypoint Platform user account."""
+type User {
+  id: ID!
+  username: String!
+  firstName: String
+  lastName: String
+  email: String!
+  phoneNumber: String
+  enabled: Boolean!
+  isFederated: Boolean
+  organizationId: ID!
+  organization: Organization!
+  roles: [RoleAssignment!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A permission role that can be assigned to users."""
+type Role {
+  id: ID!
+  name: String!
+  description: String
+  organizationId: ID!
+  isAssignable: Boolean
+  permissions: [String!]!
+  assignedUsers: [User!]!
+}
+
+"""Role assignment linking a user to a role in a context."""
+type RoleAssignment {
+  roleId: ID!
+  role: Role!
+  userId: ID!
+  user: User!
+  contextId: ID
+  contextType: String
+  assignedAt: DateTime!
+}
+
+"""Platform entitlements and quotas for an organization."""
+type Entitlements {
+  apiGateway: Boolean!
+  runtimeManager: Boolean!
+  exchange: Boolean!
+  analyticsEnabled: Boolean!
+  mqEnabled: Boolean!
+  objectStoreEnabled: Boolean!
+  workerLoggingEnabled: Boolean!
+  maxWorkers: Int
+  maxApisInApiManager: Int
+  maxEnvironments: Int
+}
+
+# ─── CloudHub & Runtime Manager ───────────────────────────────────────────────
+
+"""A Mule application deployed to a target."""
+type Application {
+  id: ID!
+  domain: String!
+  fullDomain: String
+  status: ApplicationStatus!
+  deploymentTarget: DeploymentTarget!
+  environmentId: ID!
+  environment: Environment!
+  organizationId: ID!
+  workers: WorkerConfig
+  muleVersion: MuleVersion
+  properties: [ApplicationProperty!]!
+  deploymentHistory: [Deployment!]!
+  metrics: ApplicationMetrics
+  logs: [LogEvent!]!
+  alerts: [ApplicationAlert!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  lastDeployedAt: DateTime
+}
+
+"""Worker configuration for a CloudHub application."""
+type WorkerConfig {
+  type: WorkerType!
+  amount: Int!
+  weight: Float
+  cpu: String
+  memory: String
+}
+
+"""Mule runtime version information."""
+type MuleVersion {
+  version: String!
+  updateId: String
+  latestUpdateId: String
+  endOfSupportDate: DateTime
+}
+
+"""A key/value property on an application."""
+type ApplicationProperty {
+  key: String!
+  value: String
+  secure: Boolean!
+}
+
+"""A deployment event for an application."""
+type Deployment {
+  id: ID!
+  applicationId: ID!
+  application: Application!
+  status: ApplicationStatus!
+  deployedAt: DateTime!
+  deployedBy: String
+  artifactUrl: String
+  muleVersion: MuleVersion
+  errorMessage: String
+}
+
+"""Aggregated runtime metrics for an application."""
+type ApplicationMetrics {
+  applicationId: ID!
+  cpuUsagePercent: Float
+  memoryUsedMb: Float
+  heapUsedMb: Float
+  heapTotalMb: Float
+  threadCount: Int
+  requestsPerMinute: Float
+  errorRatePercent: Float
+  responseTimeMs: Float
+  periodStart: DateTime!
+  periodEnd: DateTime!
+}
+
+"""A single log event from a Mule application."""
+type LogEvent {
+  applicationId: ID!
+  timestamp: DateTime!
+  level: LogLevel!
+  message: String!
+  logger: String
+  threadName: String
+  workerId: String
+}
+
+"""An alert configured for a deployed application."""
+type ApplicationAlert {
+  id: ID!
+  applicationId: ID!
+  name: String!
+  severity: AlertSeverity!
+  condition: String!
+  threshold: Float
+  enabled: Boolean!
+  notificationEmails: [String!]!
+  triggeredAt: DateTime
+}
+
+# ─── Anypoint Exchange ────────────────────────────────────────────────────────
+
+"""An asset published in Anypoint Exchange."""
+type ExchangeAsset {
+  id: ID!
+  groupId: String!
+  assetId: String!
+  version: String!
+  name: String!
+  description: String
+  type: AssetType!
+  status: AssetStatus!
+  organizationId: ID!
+  organization: Organization!
+  categories: [AssetCategory!]!
+  tags: [String!]!
+  files: [AssetFile!]!
+  pages: [AssetPage!]!
+  rating: AssetRating
+  reviews: [AssetReview!]!
+  dependencies: [ExchangeAsset!]!
+  publishedBy: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  publishedAt: DateTime
+}
+
+"""A categorization label for an Exchange asset."""
+type AssetCategory {
+  key: String!
+  value: [String!]!
+  displayName: String
+}
+
+"""A file artifact attached to an Exchange asset."""
+type AssetFile {
+  assetId: ID!
+  classifier: String!
+  packaging: String
+  externalLink: URL
+  md5: String
+  sha1: String
+  createdAt: DateTime!
+}
+
+"""A documentation page for an Exchange asset."""
+type AssetPage {
+  id: ID!
+  assetId: ID!
+  name: String!
+  path: String!
+  content: String
+  contentType: String
+  orderWeight: Int
+}
+
+"""Aggregated rating data for an Exchange asset."""
+type AssetRating {
+  assetId: ID!
+  average: Float!
+  total: Int!
+  distribution: [RatingBucket!]!
+}
+
+"""Count of ratings at a specific star level."""
+type RatingBucket {
+  stars: Int!
+  count: Int!
+}
+
+"""A user review of an Exchange asset."""
+type AssetReview {
+  id: ID!
+  assetId: ID!
+  rating: Int!
+  comment: String
+  userId: String
+  createdAt: DateTime!
+}
+
+# ─── API Manager ──────────────────────────────────────────────────────────────
+
+"""A managed API instance in API Manager."""
+type ApiInstance {
+  id: ID!
+  apiId: String!
+  name: String!
+  version: String!
+  status: ApiStatus!
+  environmentId: ID!
+  environment: Environment!
+  organizationId: ID!
+  endpoint: ApiEndpoint
+  policies: [AppliedPolicy!]!
+  sla: [SlaTier!]!
+  contracts: [ApiContract!]!
+  analytics: ApiAnalytics
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Endpoint configuration for a managed API."""
+type ApiEndpoint {
+  uri: URL!
+  proxyUri: URL
+  isCloudHub: Boolean!
+  muleVersion4OrAbove: Boolean!
+  deploymentType: String
+  validationMode: String
+}
+
+"""A policy applied to an API instance."""
+type AppliedPolicy {
+  id: ID!
+  apiInstanceId: ID!
+  policyTemplateId: String!
+  name: String!
+  description: String
+  category: PolicyCategory!
+  enabled: Boolean!
+  configuration: JSON
+  order: Int
+  appliedAt: DateTime!
+}
+
+"""An SLA tier defining rate limits for API access."""
+type SlaTier {
+  id: ID!
+  apiInstanceId: ID!
+  name: String!
+  description: String
+  autoApprove: Boolean!
+  limits: [RateLimit!]!
+}
+
+"""A rate limit specification within an SLA tier."""
+type RateLimit {
+  tierId: ID!
+  maximumRequests: Int!
+  timePeriodInMilliseconds: Int!
+  visible: Boolean!
+}
+
+"""A contract granting an app access to an API under an SLA tier."""
+type ApiContract {
+  id: ID!
+  apiInstanceId: ID!
+  applicationId: ID!
+  slaTierId: ID!
+  slaTier: SlaTier!
+  status: String!
+  approvedAt: DateTime
+  requestedAt: DateTime!
+}
+
+"""Aggregated analytics for an API instance."""
+type ApiAnalytics {
+  apiInstanceId: ID!
+  totalRequests: Int!
+  totalErrors: Int!
+  averageResponseTimeMs: Float
+  successRate: Float
+  errorRate: Float
+  topConsumers: [ApiConsumer!]!
+  requestsByHour: [TimeSeriesPoint!]!
+  periodStart: DateTime!
+  periodEnd: DateTime!
+}
+
+"""A consumer application with its request count."""
+type ApiConsumer {
+  applicationId: ID!
+  applicationName: String!
+  requestCount: Int!
+}
+
+"""A single data point in a time-series chart."""
+type TimeSeriesPoint {
+  timestamp: DateTime!
+  value: Float!
+  label: String
+}
+
+# ─── Anypoint MQ ──────────────────────────────────────────────────────────────
+
+"""An Anypoint MQ queue."""
+type MQQueue {
+  id: ID!
+  name: String!
+  type: QueueType!
+  environmentId: ID!
+  region: String!
+  defaultTtl: Int
+  defaultLockTtl: Int
+  encrypted: Boolean!
+  deadLetterQueueId: ID
+  deadLetterQueue: MQQueue
+  messageCount: Int
+  inflightCount: Int
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""An Anypoint MQ exchange (broadcast endpoint)."""
+type MQExchange {
+  id: ID!
+  name: String!
+  environmentId: ID!
+  region: String!
+  encrypted: Boolean!
+  boundQueues: [MQQueue!]!
+  createdAt: DateTime!
+}
+
+"""A message stored in or retrieved from an MQ queue."""
+type MQMessage {
+  id: ID!
+  queueId: ID!
+  body: String
+  headers: JSON
+  properties: JSON
+  status: MessageStatus!
+  lockId: String
+  publishedAt: DateTime
+  expiresAt: DateTime
+  deliveryCount: Int
+}
+
+"""Statistics snapshot for an MQ queue."""
+type MQQueueStats {
+  queueId: ID!
+  messagesVisible: Int!
+  messagesInFlight: Int!
+  messagesDelayed: Int!
+  oldestMessageAgeSeconds: Int
+  sampledAt: DateTime!
+}
+
+# ─── Design Center ────────────────────────────────────────────────────────────
+
+"""A design project (API spec or fragment) in Design Center."""
+type DesignProject {
+  id: ID!
+  name: String!
+  type: String!
+  organizationId: ID!
+  ownerId: ID!
+  files: [DesignFile!]!
+  collaborators: [DesignCollaborator!]!
+  publishedAssetId: ID
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A file within a Design Center project."""
+type DesignFile {
+  projectId: ID!
+  path: String!
+  content: String
+  mediaType: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A user with access to a Design Center project."""
+type DesignCollaborator {
+  projectId: ID!
+  userId: ID!
+  user: User!
+  role: String!
+  addedAt: DateTime!
+}
+
+# ─── Connected Apps & OAuth ───────────────────────────────────────────────────
+
+"""An OAuth connected application registered in Anypoint."""
+type ConnectedApp {
+  id: ID!
+  name: String!
+  clientId: String!
+  description: String
+  grantTypes: [String!]!
+  redirectUris: [String!]!
+  scopes: [ConnectedAppScope!]!
+  organizationId: ID!
+  enabled: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A permission scope available to a connected application."""
+type ConnectedAppScope {
+  name: String!
+  description: String
+  category: String
+}
+
+# ─── Connectors ───────────────────────────────────────────────────────────────
+
+"""A connector asset available in the Anypoint ecosystem."""
+type Connector {
+  id: ID!
+  name: String!
+  description: String
+  version: String!
+  category: ConnectorCategory!
+  vendor: String
+  exchangeAsset: ExchangeAsset
+  supportedOperations: [ConnectorOperation!]!
+  configurationParameters: [ConnectorParameter!]!
+  certified: Boolean!
+  premiumFeature: Boolean!
+}
+
+"""An operation exposed by a connector."""
+type ConnectorOperation {
+  name: String!
+  displayName: String!
+  description: String
+  inputParameters: [ConnectorParameter!]!
+  outputType: String
+}
+
+"""A configuration parameter for a connector or operation."""
+type ConnectorParameter {
+  name: String!
+  displayName: String!
+  description: String
+  type: String!
+  required: Boolean!
+  defaultValue: String
+  allowedValues: [String!]
+}
+
+# ─── Monitoring & Alerts ──────────────────────────────────────────────────────
+
+"""A monitoring dashboard definition."""
+type Dashboard {
+  id: ID!
+  name: String!
+  description: String
+  organizationId: ID!
+  environmentId: ID
+  widgets: [DashboardWidget!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A widget on a monitoring dashboard."""
+type DashboardWidget {
+  id: ID!
+  dashboardId: ID!
+  title: String!
+  widgetType: String!
+  metricQuery: String
+  visualization: String
+  position: WidgetPosition!
+}
+
+"""Grid position for a dashboard widget."""
+type WidgetPosition {
+  row: Int!
+  col: Int!
+  width: Int!
+  height: Int!
+}
+
+"""A platform-level notification sent to users."""
+type Notification {
+  id: ID!
+  userId: ID!
+  subject: String!
+  message: String!
+  read: Boolean!
+  severity: AlertSeverity
+  href: URL
+  createdAt: DateTime!
+  readAt: DateTime
+}
+
+# ─── Audit Log ────────────────────────────────────────────────────────────────
+
+"""A record of an action performed on the platform."""
+type AuditRecord {
+  id: ID!
+  organizationId: ID!
+  userId: ID!
+  user: User
+  action: String!
+  objectType: String!
+  objectId: String!
+  objectName: String
+  environmentId: ID
+  success: Boolean!
+  metadata: JSON
+  timestamp: DateTime!
+  ipAddress: String
+}
+
+# ─── Input Types ──────────────────────────────────────────────────────────────
+
+input CreateEnvironmentInput {
+  name: String!
+  type: EnvironmentType!
+  organizationId: ID!
+}
+
+input DeployApplicationInput {
+  domain: String!
+  environmentId: ID!
+  muleVersion: String!
+  workerType: WorkerType!
+  workerCount: Int!
+  artifactUrl: String!
+  properties: [ApplicationPropertyInput!]
+}
+
+input ApplicationPropertyInput {
+  key: String!
+  value: String!
+  secure: Boolean
+}
+
+input PublishAssetInput {
+  groupId: String!
+  assetId: String!
+  version: String!
+  name: String!
+  description: String
+  type: AssetType!
+  tags: [String!]
+}
+
+input CreateQueueInput {
+  name: String!
+  environmentId: ID!
+  region: String!
+  type: QueueType
+  defaultTtl: Int
+  encrypted: Boolean
+}
+
+input CreateApiInstanceInput {
+  name: String!
+  version: String!
+  environmentId: ID!
+  endpointUri: String!
+}
+
+input CreateSlaTierInput {
+  apiInstanceId: ID!
+  name: String!
+  description: String
+  autoApprove: Boolean!
+  limits: [RateLimitInput!]!
+}
+
+input RateLimitInput {
+  maximumRequests: Int!
+  timePeriodInMilliseconds: Int!
+  visible: Boolean
+}
+
+input CreateUserInput {
+  username: String!
+  firstName: String!
+  lastName: String!
+  email: String!
+  organizationId: ID!
+}
+
+input ApplyPolicyInput {
+  apiInstanceId: ID!
+  policyTemplateId: String!
+  configuration: JSON
+  order: Int
+}
+
+# ─── Pagination ───────────────────────────────────────────────────────────────
+
+"""Pagination arguments."""
+input PaginationInput {
+  offset: Int
+  limit: Int
+}
+
+"""Paginated list of organizations."""
+type OrganizationPage {
+  items: [Organization!]!
+  total: Int!
+  offset: Int!
+  limit: Int!
+}
+
+"""Paginated list of Exchange assets."""
+type ExchangeAssetPage {
+  items: [ExchangeAsset!]!
+  total: Int!
+  offset: Int!
+  limit: Int!
+}
+
+"""Paginated list of applications."""
+type ApplicationPage {
+  items: [Application!]!
+  total: Int!
+  offset: Int!
+  limit: Int!
+}
+
+"""Paginated list of API instances."""
+type ApiInstancePage {
+  items: [ApiInstance!]!
+  total: Int!
+  offset: Int!
+  limit: Int!
+}
+
+"""Paginated list of audit records."""
+type AuditRecordPage {
+  items: [AuditRecord!]!
+  total: Int!
+  offset: Int!
+  limit: Int!
+}
+
+# ─── Query ────────────────────────────────────────────────────────────────────
+
+type Query {
+  # Organizations & Access Management
+  organization(id: ID!): Organization
+  organizations(pagination: PaginationInput): OrganizationPage!
+  me: User
+  user(id: ID!): User
+  users(organizationId: ID!, pagination: PaginationInput): [User!]!
+  role(id: ID!): Role
+  roles(organizationId: ID!): [Role!]!
+  connectedApp(id: ID!): ConnectedApp
+  connectedApps(organizationId: ID!): [ConnectedApp!]!
+
+  # Environments
+  environment(id: ID!): Environment
+  environments(organizationId: ID!): [Environment!]!
+
+  # Runtime Manager / CloudHub
+  application(id: ID!): Application
+  applications(environmentId: ID!, pagination: PaginationInput): ApplicationPage!
+  applicationLogs(applicationId: ID!, level: LogLevel, limit: Int): [LogEvent!]!
+  applicationMetrics(applicationId: ID!): ApplicationMetrics
+  deployment(id: ID!): Deployment
+  deployments(applicationId: ID!): [Deployment!]!
+
+  # Anypoint Exchange
+  exchangeAsset(groupId: String!, assetId: String!, version: String): ExchangeAsset
+  exchangeAssets(organizationId: ID, type: AssetType, query: String, pagination: PaginationInput): ExchangeAssetPage!
+  assetReviews(groupId: String!, assetId: String!, version: String!): [AssetReview!]!
+
+  # API Manager
+  apiInstance(id: ID!): ApiInstance
+  apiInstances(environmentId: ID!, pagination: PaginationInput): ApiInstancePage!
+  appliedPolicies(apiInstanceId: ID!): [AppliedPolicy!]!
+  slaTiers(apiInstanceId: ID!): [SlaTier!]!
+  apiContracts(apiInstanceId: ID!): [ApiContract!]!
+  apiAnalytics(apiInstanceId: ID!, start: DateTime, end: DateTime): ApiAnalytics
+
+  # Anypoint MQ
+  mqQueue(id: ID!): MQQueue
+  mqQueues(environmentId: ID!, region: String!): [MQQueue!]!
+  mqQueueStats(queueId: ID!): MQQueueStats
+  mqExchange(id: ID!): MQExchange
+  mqExchanges(environmentId: ID!, region: String!): [MQExchange!]!
+  mqMessages(queueId: ID!, limit: Int): [MQMessage!]!
+
+  # Design Center
+  designProject(id: ID!): DesignProject
+  designProjects(organizationId: ID!): [DesignProject!]!
+
+  # Connectors
+  connector(id: ID!): Connector
+  connectors(category: ConnectorCategory, query: String): [Connector!]!
+
+  # Monitoring
+  dashboard(id: ID!): Dashboard
+  dashboards(organizationId: ID!): [Dashboard!]!
+  notifications(userId: ID!, unreadOnly: Boolean): [Notification!]!
+
+  # Audit Log
+  auditRecords(organizationId: ID!, pagination: PaginationInput): AuditRecordPage!
+}
+
+# ─── Mutation ─────────────────────────────────────────────────────────────────
+
+type Mutation {
+  # Environments
+  createEnvironment(input: CreateEnvironmentInput!): Environment!
+  deleteEnvironment(id: ID!): Boolean!
+
+  # Applications
+  deployApplication(input: DeployApplicationInput!): Application!
+  startApplication(id: ID!): Application!
+  stopApplication(id: ID!): Application!
+  deleteApplication(id: ID!): Boolean!
+  updateApplicationProperties(applicationId: ID!, properties: [ApplicationPropertyInput!]!): Application!
+
+  # Exchange
+  publishAsset(input: PublishAssetInput!): ExchangeAsset!
+  deprecateAsset(groupId: String!, assetId: String!, version: String!): ExchangeAsset!
+  deleteAsset(groupId: String!, assetId: String!, version: String!): Boolean!
+  rateAsset(groupId: String!, assetId: String!, version: String!, rating: Int!, comment: String): AssetReview!
+
+  # API Manager
+  createApiInstance(input: CreateApiInstanceInput!): ApiInstance!
+  deleteApiInstance(id: ID!): Boolean!
+  applyPolicy(input: ApplyPolicyInput!): AppliedPolicy!
+  removePolicy(policyId: ID!): Boolean!
+  createSlaTier(input: CreateSlaTierInput!): SlaTier!
+  deleteSlaTier(id: ID!): Boolean!
+  approveApiContract(contractId: ID!): ApiContract!
+  revokeApiContract(contractId: ID!): Boolean!
+
+  # Anypoint MQ
+  createQueue(input: CreateQueueInput!): MQQueue!
+  deleteQueue(id: ID!): Boolean!
+  purgeQueue(id: ID!): Boolean!
+  publishMessage(queueId: ID!, body: String!, properties: JSON): MQMessage!
+  acknowledgeMessage(queueId: ID!, messageId: ID!, lockId: String!): Boolean!
+  nackMessage(queueId: ID!, messageId: ID!, lockId: String!): Boolean!
+
+  # Users & Roles
+  createUser(input: CreateUserInput!): User!
+  assignRole(userId: ID!, roleId: ID!, contextId: ID): RoleAssignment!
+  revokeRole(userId: ID!, roleId: ID!, contextId: ID): Boolean!
+  disableUser(id: ID!): User!
+  enableUser(id: ID!): User!
+
+  # Notifications
+  markNotificationRead(id: ID!): Notification!
+  markAllNotificationsRead(userId: ID!): Int!
+}
+
+# ─── Subscription ─────────────────────────────────────────────────────────────
+
+type Subscription {
+  applicationStatusChanged(applicationId: ID!): Application!
+  newLogEvent(applicationId: ID!, level: LogLevel): LogEvent!
+  mqMessageArrived(queueId: ID!): MQMessage!
+  alertTriggered(organizationId: ID!): ApplicationAlert!
+  apiContractRequested(apiInstanceId: ID!): ApiContract!
+}
