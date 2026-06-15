@@ -1,194 +1,192 @@
 # MuleSoft (mulesoft)
+
 MuleSoft Anypoint Platform is an enterprise integration and API management platform offering an API gateway, design center, exchange marketplace, and monitoring for hybrid deployments connecting applications and data.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/mulesoft/refs/heads/main/apis.yml)
+**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/mulesoft/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/mulesoft/refs/heads/main/apis.yml)
 
-**Run:** [Capabilities Using Naftiko](https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=company-api-evangelist&utm_content=repo)
+## Scope
 
-## Tags:
+- **Type:** Index
 
- - API Gateway, API Management, Enterprise, Integration
+## Tags
+
+- API Gateway
+- API Management
+- Enterprise
+- Integration
 
 ## Timestamps
 
 - **Created:** 2026-03-18
-- **Modified:** 2026-04-18
+- **Modified:** 2026-05-19
 
 ## APIs
 
 ### MuleSoft Anypoint Platform
+
 MuleSoft Anypoint Platform unifies API management with integration, providing a complete solution to connect any application, data source, or device with reusable APIs and integrations.
 
-**Human URL:** [https://www.mulesoft.com/platform/api](https://www.mulesoft.com/platform/api)
+- **Human URL:** [https://www.mulesoft.com/platform/api](https://www.mulesoft.com/platform/api)
 
-#### Tags:
+#### Tags
 
- - API Gateway, API Management, Enterprise
+- API Gateway
+- API Management
+- Enterprise
 
 #### Properties
 
 - [Documentation](https://docs.mulesoft.com/)
-- [GettingStarted](https://docs.mulesoft.com/general/)
+- [Getting Started](https://docs.mulesoft.com/general/)
+- [Postman Collection](collections/mulesoft-anypoint-platform.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/mulesoft-anypoint-platform.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### MuleSoft Anypoint Platform Management API
-The Anypoint Platform Management API provides programmatic access to manage organizations, business groups, environments, and users within the MuleSoft Anypoint Platform.
 
-**Human URL:** [https://docs.mulesoft.com/access-management/](https://docs.mulesoft.com/access-management/)
+The Anypoint Platform Management API provides programmatic access to manage organizations, business groups, environments, and users within the MuleSoft Anypoint Platform. It enables automation of platform administration tasks including configuring access management, managing connected applications, and controlling role-based access control across the platform.
 
-#### Tags:
+- **Human URL:** [https://docs.mulesoft.com/access-management/](https://docs.mulesoft.com/access-management/)
+- **Base URL:** `https://anypoint.mulesoft.com`
 
- - Administration, API Management, Enterprise, REST
+#### Tags
+
+- Administration
+- API Management
+- Enterprise
+- REST
 
 #### Properties
 
 - [Documentation](https://docs.mulesoft.com/access-management/)
-- [APIReference](https://anypoint.mulesoft.com/exchange/portals/anypoint-platform/)
+- [API Reference](https://anypoint.mulesoft.com/exchange/portals/anypoint-platform/)
 - [Authentication](https://docs.mulesoft.com/access-management/connected-apps-overview)
-- [OpenAPI](openapi/mulesoft-anypoint-platform-openapi.yml)
-- [JSONSchema](json-schema/mulesoft-application-schema.json)
-- [JSONLD](json-ld/mulesoft-context.jsonld)
+- [OpenAPI](openapi/mulesoft-anypoint-platform-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/mulesoft-anypoint-platform.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/mulesoft-anypoint-platform.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [JSON Schema](json-schema/mulesoft-application-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON-LD](json-ld/mulesoft-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
 
 ### MuleSoft Anypoint Exchange API
-The Anypoint Exchange API provides programmatic access to MuleSoft's asset marketplace, enabling discovery, publishing, and management of reusable integration assets.
 
-**Human URL:** [https://docs.mulesoft.com/exchange/](https://docs.mulesoft.com/exchange/)
+The Anypoint Exchange API provides programmatic access to MuleSoft's asset marketplace, enabling discovery, publishing, and management of reusable integration assets including APIs, connectors, templates, examples, and custom pages. It allows organizations to automate asset lifecycle management and promote API reuse across teams.
 
-#### Tags:
+- **Human URL:** [https://docs.mulesoft.com/exchange/](https://docs.mulesoft.com/exchange/)
+- **Base URL:** `https://anypoint.mulesoft.com/exchange/api/v2`
 
- - API Catalog, Asset Management, Enterprise, Marketplace
+#### Tags
+
+- API Catalog
+- Asset Management
+- Enterprise
+- Marketplace
 
 #### Properties
 
 - [Documentation](https://docs.mulesoft.com/exchange/)
-- [APIReference](https://anypoint.mulesoft.com/exchange/portals/anypoint-platform/f1e97bc6-315a-4490-82a7-23abe036327a.anypoint-platform/exchange-experience-api/)
-- [GettingStarted](https://docs.mulesoft.com/exchange/to-publish-assets-maven)
+- [API Reference](https://anypoint.mulesoft.com/exchange/portals/anypoint-platform/f1e97bc6-315a-4490-82a7-23abe036327a.anypoint-platform/exchange-experience-api/)
+- [Getting Started](https://docs.mulesoft.com/exchange/to-publish-assets-maven)
+- [Postman Collection](collections/mulesoft-anypoint-platform.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/mulesoft-anypoint-platform.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### MuleSoft Anypoint Runtime Manager API
-The Anypoint Runtime Manager API provides programmatic control over Mule application deployments across CloudHub, Runtime Fabric, and hybrid deployment targets.
 
-**Human URL:** [https://docs.mulesoft.com/runtime-manager/](https://docs.mulesoft.com/runtime-manager/)
+The Anypoint Runtime Manager API provides programmatic control over Mule application deployments across CloudHub, Runtime Fabric, and hybrid deployment targets. It enables CI/CD automation for deploying, updating, starting, stopping, and monitoring Mule applications and their runtime environments.
 
-#### Tags:
+- **Human URL:** [https://docs.mulesoft.com/runtime-manager/](https://docs.mulesoft.com/runtime-manager/)
+- **Base URL:** `https://anypoint.mulesoft.com/cloudhub/api`
 
- - CI/CD, CloudHub, Deployment, Runtime Manager
+#### Tags
+
+- CI/CD
+- CloudHub
+- Deployment
+- Runtime Manager
 
 #### Properties
 
 - [Documentation](https://docs.mulesoft.com/runtime-manager/)
-- [APIReference](https://docs.mulesoft.com/runtime-manager/cloudhub-api)
-- [GettingStarted](https://docs.mulesoft.com/runtime-manager/deploying-to-cloudhub)
+- [API Reference](https://docs.mulesoft.com/runtime-manager/cloudhub-api)
+- [Getting Started](https://docs.mulesoft.com/runtime-manager/deploying-to-cloudhub)
+- [Postman Collection](collections/mulesoft-anypoint-platform.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/mulesoft-anypoint-platform.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### MuleSoft Anypoint MQ API
-The Anypoint MQ API provides a cloud messaging service built on the Anypoint Platform for asynchronous messaging between Mule applications and other systems.
 
-**Human URL:** [https://docs.mulesoft.com/mq/](https://docs.mulesoft.com/mq/)
+The Anypoint MQ API provides a cloud messaging service built on the Anypoint Platform for asynchronous messaging between Mule applications and other systems. It supports queues, exchanges, and dead-letter queues for reliable message delivery and decoupled integration patterns.
 
-#### Tags:
+- **Human URL:** [https://docs.mulesoft.com/mq/](https://docs.mulesoft.com/mq/)
+- **Base URL:** `https://anypoint.mulesoft.com/mq/stats/api/v1`
 
- - Async, Cloud, Messaging, Queue
+#### Tags
+
+- Async
+- Cloud
+- Messaging
+- Queue
 
 #### Properties
 
 - [Documentation](https://docs.mulesoft.com/mq/)
-- [APIReference](https://docs.mulesoft.com/mq/mq-apis)
-- [GettingStarted](https://docs.mulesoft.com/mq/mq-tutorial)
+- [API Reference](https://docs.mulesoft.com/mq/mq-apis)
+- [Getting Started](https://docs.mulesoft.com/mq/mq-tutorial)
+- [Postman Collection](collections/mulesoft-anypoint-platform.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/mulesoft-anypoint-platform.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### MuleSoft Anypoint Design Center API
-The Anypoint Design Center API provides access to the MuleSoft web-based API design environment for creating and editing API specifications in RAML and OAS formats.
 
-**Human URL:** [https://docs.mulesoft.com/design-center/](https://docs.mulesoft.com/design-center/)
+The Anypoint Design Center API provides access to the MuleSoft web-based API design environment for creating and editing API specifications in RAML and OAS formats. It supports project management, file operations, and publishing designed APIs to Anypoint Exchange for reuse across the organization.
 
-#### Tags:
+- **Human URL:** [https://docs.mulesoft.com/design-center/](https://docs.mulesoft.com/design-center/)
+- **Base URL:** `https://anypoint.mulesoft.com/designcenter/api-designer`
 
- - API Design, Design Center, OpenAPI, RAML
+#### Tags
+
+- API Design
+- Design Center
+- OpenAPI
+- RAML
 
 #### Properties
 
 - [Documentation](https://docs.mulesoft.com/design-center/)
-- [GettingStarted](https://docs.mulesoft.com/design-center/design-create-publish-api-specs)
+- [Getting Started](https://docs.mulesoft.com/design-center/design-create-publish-api-specs)
+- [Postman Collection](collections/mulesoft-anypoint-platform.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/mulesoft-anypoint-platform.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ## Common Properties
 
+- [Arazzo Workflows](arazzo/) — [Arazzo Specification](https://spec.openapis.org/arazzo/latest.html)
+- [LinkedIn](https://www.linkedin.com/company/mulesoft)
 - [Portal](https://www.mulesoft.com/)
-- [DeveloperPortal](https://anypoint.mulesoft.com/exchange/portals/anypoint-platform/)
+- [Developer Portal](https://anypoint.mulesoft.com/exchange/portals/anypoint-platform/)
 - [Documentation](https://docs.mulesoft.com/)
-- [GettingStarted](https://docs.mulesoft.com/general/)
+- [Getting Started](https://docs.mulesoft.com/general/)
 - [Authentication](https://docs.mulesoft.com/access-management/connected-apps-overview)
 - [Console](https://anypoint.mulesoft.com/)
 - [Blog](https://blogs.mulesoft.com/)
-- [ChangeLog](https://docs.mulesoft.com/release-notes/)
-- [StatusPage](https://trust.mulesoft.com/)
+- [Changelog](https://docs.mulesoft.com/release-notes/)
+- [Status Page](https://trust.mulesoft.com/)
 - [Support](https://help.mulesoft.com/s/support)
 - [Pricing](https://www.mulesoft.com/platform/mule-esb-open-source-esb/pricing)
-- [TermsOfService](https://www.mulesoft.com/legal/terms/EULA)
-- [PrivacyPolicy](https://www.mulesoft.com/legal/privacy)
-- [GitHubOrganization](https://github.com/mulesoft)
-- [GitHubRepository](https://github.com/mulesoft/anypoint-examples)
-- [StackOverflow](https://stackoverflow.com/questions/tagged/mule)
+- [Terms of Service](https://www.mulesoft.com/legal/terms/EULA)
+- [Privacy Policy](https://www.mulesoft.com/legal/privacy)
+- [GitHub Organization](https://github.com/mulesoft)
+- [GitHub Repository](https://github.com/mulesoft/anypoint-examples)
+- [Stack Overflow](https://stackoverflow.com/questions/tagged/mule)
 - [YouTube](https://www.youtube.com/user/mulesofttv)
 - [SDK](https://docs.mulesoft.com/mule-sdk/latest/)
 - [Glossary](https://docs.mulesoft.com/general/glossary)
-- [SignUp](https://anypoint.mulesoft.com/login/signup?apintent=generic)
+- [Sign Up](https://anypoint.mulesoft.com/login/signup?apintent=generic)
 - [Login](https://anypoint.mulesoft.com/login/signin?apintent=generic)
 - [Partners](https://www.mulesoft.com/integration-partner/partnermax-retirement)
-
-## Features
-
-| Name | Description |
-|------|-------------|
-| API Gateway | Enterprise-grade API gateway for securing, governing, and managing API traffic across cloud and on-premises environments. |
-| Anypoint Exchange | Centralized marketplace for discovering, sharing, and reusing APIs, connectors, templates, and integration assets across the organization. |
-| Design Center | Web-based API design environment for creating and editing API specifications in RAML and OAS formats with real-time collaboration. |
-| Runtime Manager | Unified management console for deploying, monitoring, and managing Mule applications across CloudHub, Runtime Fabric, and hybrid targets. |
-| Anypoint MQ | Cloud-native messaging service supporting queues, exchanges, and dead-letter queues for reliable asynchronous integration patterns. |
-| DataWeave | Powerful data transformation language for mapping and converting data between formats within Mule integration flows. |
-| Anypoint Studio | Eclipse-based IDE for building Mule applications with visual flow design and integrated debugging capabilities. |
-| Flow Designer | Browser-based low-code tool for building simple integrations and automations without needing Anypoint Studio. |
-| API Governance | Policy enforcement and governance framework for ensuring API consistency, security, and compliance across the platform. |
-| Anypoint Monitoring | Real-time visibility into API and integration performance with dashboards, alerts, and log management. |
-
-## Use Cases
-
-| Name | Description |
-|------|-------------|
-| Application Integration | Connect SaaS and on-premises applications to create unified business processes and eliminate data silos. |
-| API-Led Connectivity | Build reusable APIs organized in system, process, and experience layers to accelerate digital transformation. |
-| B2B Integration | Automate partner onboarding and EDI/AS2 data exchange with trading partners using pre-built connectors. |
-| Cloud Migration | Migrate on-premises integrations to the cloud while maintaining connectivity with legacy systems. |
-| Customer 360 | Unify customer data across CRM, ERP, and marketing systems to create a single view of the customer. |
-| AI Agent Integration | Connect AI agents to enterprise systems, models, and vector stores to orchestrate complex agentic workflows. |
-
-## Integrations
-
-| Name | Description |
-|------|-------------|
-| Salesforce | Native integration with Salesforce CRM, Service Cloud, and Marketing Cloud for bidirectional data sync and event-driven workflows. |
-| SAP | Pre-built connector for SAP ERP, S/4HANA, and BTP enabling real-time data exchange with SAP systems. |
-| Workday | Connector for syncing HR, finance, and planning data between Workday and other enterprise applications. |
-| ServiceNow | Integration with ServiceNow ITSM and ITOM for automated ticket creation, incident management, and CMDB sync. |
-| AWS | Connectors for Amazon S3, SQS, SNS, Lambda, and other AWS services for hybrid cloud integration. |
-| Microsoft Azure | Integration with Azure Service Bus, Blob Storage, SQL Database, and Active Directory services. |
-| Slack | Connector for sending notifications, creating channels, and automating workflows within Slack workspaces. |
-| NetSuite | Pre-built connector for Oracle NetSuite ERP enabling financial, inventory, and order management integration. |
-
-## Artifacts
-
-Machine-readable API specifications organized by format.
-
-### OpenAPI
-
-- [MuleSoft Anypoint Platform API](openapi/mulesoft-anypoint-platform-openapi.yml)
-
-## Rules
-
-- [MuleSoft Spectral Rules](rules/mulesoft-spectral-rules.yml)
-
-## Vocabulary
-
-- [MuleSoft Vocabulary](vocabulary/mulesoft-vocabulary.yaml)
+- [Spectral Rules](rules/mulesoft-spectral-rules.yml)
+- [Vocabulary](vocabulary/mulesoft-vocabulary.yaml)
+- [Features](https://www.mulesoft.com/platform)
+- [Use Cases](https://www.mulesoft.com/integration-solutions)
+- [Integrations](https://www.mulesoft.com/exchange/)
+- [L L Ms Txt](https://docs.mulesoft.com/llms.txt)
 
 ## Maintainers
 
 **FN:** Kin Lane
-
 **Email:** kin@apievangelist.com
