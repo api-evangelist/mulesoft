@@ -141,44 +141,36 @@ apis:
 common:
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/mulesoft/overview
-- type: ArazzoWorkflows
-  url: arazzo/
-  workflows:
-  - url: arazzo/mulesoft-audit-application-inventory-workflow.yml
-    name: MuleSoft Audit Application Inventory
-    summary: Walk from organization to environment to the applications running in
-      it.
-  - url: arazzo/mulesoft-decommission-app-workflow.yml
-    name: MuleSoft Decommission Application
-    summary: Confirm an application exists, delete it, then verify it is gone.
-  - url: arazzo/mulesoft-deploy-app-and-poll-status-workflow.yml
-    name: MuleSoft Deploy Application and Poll Until Started
-    summary: Deploy a CloudHub application and poll its status until it reaches STARTED.
-  - url: arazzo/mulesoft-harden-organization-security-workflow.yml
-    name: MuleSoft Harden Organization Security
-    summary: Read an organization, apply MFA and session-timeout settings, then confirm.
-  - url: arazzo/mulesoft-promote-app-between-environments-workflow.yml
-    name: MuleSoft Promote Application Between Environments
-    summary: Read an application's config in one environment and deploy a copy into
-      another.
-  - url: arazzo/mulesoft-provision-environment-and-deploy-app-workflow.yml
-    name: MuleSoft Provision Environment and Deploy Application
-    summary: Create a new Anypoint environment and deploy a CloudHub application into
-      it.
-  - url: arazzo/mulesoft-resolve-org-and-list-environments-workflow.yml
-    name: MuleSoft Resolve Organization and List Environments
-    summary: Find an organization by name, fetch its details, and list its environments.
-  - url: arazzo/mulesoft-teardown-environment-workflow.yml
-    name: MuleSoft Tear Down Environment
-    summary: Delete an application from an environment, then delete the environment
-      itself.
-  - url: arazzo/mulesoft-update-app-runtime-and-verify-workflow.yml
-    name: MuleSoft Update Application Runtime and Verify
-    summary: Update a CloudHub application's runtime version then verify it redeploys.
-  - url: arazzo/mulesoft-upsert-environment-workflow.yml
-    name: MuleSoft Upsert Environment
-    summary: Find an environment by name and update it if it exists, otherwise create
-      it.
+- type: Arazzo
+  url: arazzo/mulesoft-audit-application-inventory-workflow.yml
+  name: MuleSoft Audit Application Inventory
+- type: Arazzo
+  url: arazzo/mulesoft-decommission-app-workflow.yml
+  name: MuleSoft Decommission Application
+- type: Arazzo
+  url: arazzo/mulesoft-deploy-app-and-poll-status-workflow.yml
+  name: MuleSoft Deploy Application and Poll Until Started
+- type: Arazzo
+  url: arazzo/mulesoft-harden-organization-security-workflow.yml
+  name: MuleSoft Harden Organization Security
+- type: Arazzo
+  url: arazzo/mulesoft-promote-app-between-environments-workflow.yml
+  name: MuleSoft Promote Application Between Environments
+- type: Arazzo
+  url: arazzo/mulesoft-provision-environment-and-deploy-app-workflow.yml
+  name: MuleSoft Provision Environment and Deploy Application
+- type: Arazzo
+  url: arazzo/mulesoft-resolve-org-and-list-environments-workflow.yml
+  name: MuleSoft Resolve Organization and List Environments
+- type: Arazzo
+  url: arazzo/mulesoft-teardown-environment-workflow.yml
+  name: MuleSoft Tear Down Environment
+- type: Arazzo
+  url: arazzo/mulesoft-update-app-runtime-and-verify-workflow.yml
+  name: MuleSoft Update Application Runtime and Verify
+- type: Arazzo
+  url: arazzo/mulesoft-upsert-environment-workflow.yml
+  name: MuleSoft Upsert Environment
 - type: LinkedIn
   url: https://www.linkedin.com/company/mulesoft
 - type: Portal
@@ -215,11 +207,11 @@ common:
   url: https://stackoverflow.com/questions/tagged/mule
 - type: YouTube
   url: https://www.youtube.com/user/mulesofttv
-- type: SDK
+- type: SDKs
   url: https://docs.mulesoft.com/mule-sdk/latest/
 - type: Glossary
   url: https://docs.mulesoft.com/general/glossary
-- type: SignUp
+- type: Signup
   url: https://anypoint.mulesoft.com/login/signup?apintent=generic
 - type: Login
   url: https://anypoint.mulesoft.com/login/signin?apintent=generic
@@ -310,7 +302,7 @@ common:
   - name: NetSuite
     description: Pre-built connector for Oracle NetSuite ERP enabling financial, inventory,
       and order management integration.
-- type: LLMsTxt
+- type: LlmsText
   url: https://docs.mulesoft.com/llms.txt
 maintainers:
 - FN: Kin Lane
