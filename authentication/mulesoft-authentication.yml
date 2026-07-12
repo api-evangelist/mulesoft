@@ -1,0 +1,14 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/mulesoft-anypoint-platform-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: Anypoint Platform access token obtained via the Access Management API login endpoint
+    or a connected app OAuth 2.0 flow.
+  sources:
+  - openapi/mulesoft-anypoint-platform-openapi.yml

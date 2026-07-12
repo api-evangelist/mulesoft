@@ -139,6 +139,10 @@ apis:
   - type: GettingStarted
     url: https://docs.mulesoft.com/design-center/design-create-publish-api-specs
 common:
+- type: DomainSecurity
+  url: security/mulesoft-domain-security.yml
+- type: Authentication
+  url: authentication/mulesoft-authentication.yml
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/mulesoft/overview
 - type: Arazzo
