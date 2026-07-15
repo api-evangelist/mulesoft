@@ -139,6 +139,8 @@ apis:
   - type: GettingStarted
     url: https://docs.mulesoft.com/design-center/design-create-publish-api-specs
 common:
+- type: AgenticAccess
+  url: agentic-access/mulesoft-agentic-access.yml
 - type: DomainSecurity
   url: security/mulesoft-domain-security.yml
 - type: Authentication
