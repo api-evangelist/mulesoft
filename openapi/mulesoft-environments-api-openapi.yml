@@ -1,0 +1,368 @@
+openapi: 3.1.0
+info:
+  title: MuleSoft Anypoint Platform Applications Environments API
+  description: The Anypoint Platform API provides programmatic access to manage organizations, environments, and applications within the MuleSoft Anypoint Platform. It enables automation of platform administration tasks including creating and configuring organizations and business groups, managing deployment environments, and controlling the lifecycle of Mule applications across CloudHub, Runtime Fabric, and hybrid deployment targets.
+  version: 1.0.0
+  contact:
+    name: MuleSoft Support
+    url: https://help.mulesoft.com/s/support
+  termsOfService: https://www.mulesoft.com/legal/terms/EULA
+  license:
+    name: MuleSoft EULA
+    url: https://www.mulesoft.com/legal/terms/EULA
+servers:
+- url: https://anypoint.mulesoft.com
+  description: Anypoint Platform US Control Plane
+- url: https://eu1.anypoint.mulesoft.com
+  description: Anypoint Platform EU Control Plane
+security:
+- bearerAuth: []
+tags:
+- name: Environments
+  description: Manage deployment environments within an organization. Environments provide isolated contexts for deploying and running Mule applications, such as Design, Sandbox, and Production.
+paths:
+  /accounts/api/organizations/{orgId}/environments:
+    get:
+      operationId: listEnvironments
+      summary: Mulesoft List Environments
+      description: Retrieves all environments within the specified organization. Each environment represents an isolated deployment target such as Design, Sandbox, or Production.
+      tags:
+      - Environments
+      parameters:
+      - $ref: '#/components/parameters/OrgId'
+      responses:
+        '200':
+          description: List of environments retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Environment'
+                  total:
+                    type: integer
+                    description: Total number of environments
+              examples:
+                Listenvironments200Example:
+                  summary: Default listEnvironments 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - id: abc123
+                      name: Example Title
+                      organizationId: '500123'
+                      isProduction: true
+                      type: design
+                      clientId: '500123'
+                      createdAt: '2026-01-15T10:30:00Z'
+                      updatedAt: '2026-01-15T10:30:00Z'
+                    total: 10
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createEnvironment
+      summary: Mulesoft Create Environment
+      description: Creates a new environment within the specified organization. The environment type determines its purpose and available features.
+      tags:
+      - Environments
+      parameters:
+      - $ref: '#/components/parameters/OrgId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnvironmentCreate'
+            examples:
+              CreateenvironmentRequestExample:
+                summary: Default createEnvironment request
+                x-microcks-default: true
+                value:
+                  name: Example Title
+                  type: design
+      responses:
+        '201':
+          description: Environment created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Environment'
+              examples:
+                Createenvironment201Example:
+                  summary: Default createEnvironment 201 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    organizationId: '500123'
+                    isProduction: true
+                    type: design
+                    clientId: '500123'
+                    createdAt: '2026-01-15T10:30:00Z'
+                    updatedAt: '2026-01-15T10:30:00Z'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          description: Environment with this name already exists
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /accounts/api/organizations/{orgId}/environments/{envId}:
+    get:
+      operationId: getEnvironment
+      summary: Mulesoft Get Environment Details
+      description: Retrieves detailed information about a specific environment, including its type, client ID, and configuration settings.
+      tags:
+      - Environments
+      parameters:
+      - $ref: '#/components/parameters/OrgId'
+      - $ref: '#/components/parameters/EnvId'
+      responses:
+        '200':
+          description: Environment details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Environment'
+              examples:
+                Getenvironment200Example:
+                  summary: Default getEnvironment 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    organizationId: '500123'
+                    isProduction: true
+                    type: design
+                    clientId: '500123'
+                    createdAt: '2026-01-15T10:30:00Z'
+                    updatedAt: '2026-01-15T10:30:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: updateEnvironment
+      summary: Mulesoft Update Environment
+      description: Updates the properties of an existing environment, such as its name or type classification.
+      tags:
+      - Environments
+      parameters:
+      - $ref: '#/components/parameters/OrgId'
+      - $ref: '#/components/parameters/EnvId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnvironmentUpdate'
+            examples:
+              UpdateenvironmentRequestExample:
+                summary: Default updateEnvironment request
+                x-microcks-default: true
+                value:
+                  name: Example Title
+                  type: design
+      responses:
+        '200':
+          description: Environment updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Environment'
+              examples:
+                Updateenvironment200Example:
+                  summary: Default updateEnvironment 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    organizationId: '500123'
+                    isProduction: true
+                    type: design
+                    clientId: '500123'
+                    createdAt: '2026-01-15T10:30:00Z'
+                    updatedAt: '2026-01-15T10:30:00Z'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteEnvironment
+      summary: Mulesoft Delete Environment
+      description: Deletes an environment and all resources deployed within it. Production environments may require additional confirmation.
+      tags:
+      - Environments
+      parameters:
+      - $ref: '#/components/parameters/OrgId'
+      - $ref: '#/components/parameters/EnvId'
+      responses:
+        '204':
+          description: Environment deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters or body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Environment:
+      type: object
+      description: A deployment environment within an organization. Environments provide isolated contexts for deploying Mule applications, with types including Design, Sandbox, and Production.
+      required:
+      - id
+      - name
+      - organizationId
+      - type
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier of the environment
+          example: abc123
+        name:
+          type: string
+          description: Display name of the environment
+          example: Example Title
+        organizationId:
+          type: string
+          format: uuid
+          description: ID of the organization this environment belongs to
+          example: '500123'
+        isProduction:
+          type: boolean
+          description: Whether this is a production environment
+          example: true
+        type:
+          type: string
+          description: The environment type classification
+          enum:
+          - design
+          - sandbox
+          - production
+          example: design
+        clientId:
+          type: string
+          description: Client ID associated with this environment
+          example: '500123'
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the environment was created
+          example: '2026-01-15T10:30:00Z'
+        updatedAt:
+          type: string
+          format: date-time
+          description: Timestamp when the environment was last updated
+          example: '2026-01-15T10:30:00Z'
+    EnvironmentCreate:
+      type: object
+      description: Request body for creating a new environment
+      required:
+      - name
+      - type
+      properties:
+        name:
+          type: string
+          description: Display name for the new environment
+          example: Example Title
+        type:
+          type: string
+          description: The environment type classification
+          enum:
+          - design
+          - sandbox
+          - production
+          example: design
+    EnvironmentUpdate:
+      type: object
+      description: Request body for updating an environment
+      properties:
+        name:
+          type: string
+          description: New display name for the environment
+          example: Example Title
+        type:
+          type: string
+          description: New environment type classification
+          enum:
+          - design
+          - sandbox
+          - production
+          example: design
+    Error:
+      type: object
+      description: Error response from the Anypoint Platform API
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Human-readable error message
+          example: example_value
+  parameters:
+    EnvId:
+      name: envId
+      in: path
+      required: true
+      description: The unique identifier of the environment
+      schema:
+        type: string
+        format: uuid
+    OrgId:
+      name: orgId
+      in: path
+      required: true
+      description: The unique identifier of the organization
+      schema:
+        type: string
+        format: uuid
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Anypoint Platform access token obtained via the Access Management API login endpoint or a connected app OAuth 2.0 flow.
+externalDocs:
+  description: Anypoint Platform API Documentation
+  url: https://docs.mulesoft.com/access-management/

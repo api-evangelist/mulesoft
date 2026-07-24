@@ -1,0 +1,502 @@
+openapi: 3.1.0
+info:
+  title: MuleSoft Anypoint Platform Applications Organizations API
+  description: The Anypoint Platform API provides programmatic access to manage organizations, environments, and applications within the MuleSoft Anypoint Platform. It enables automation of platform administration tasks including creating and configuring organizations and business groups, managing deployment environments, and controlling the lifecycle of Mule applications across CloudHub, Runtime Fabric, and hybrid deployment targets.
+  version: 1.0.0
+  contact:
+    name: MuleSoft Support
+    url: https://help.mulesoft.com/s/support
+  termsOfService: https://www.mulesoft.com/legal/terms/EULA
+  license:
+    name: MuleSoft EULA
+    url: https://www.mulesoft.com/legal/terms/EULA
+servers:
+- url: https://anypoint.mulesoft.com
+  description: Anypoint Platform US Control Plane
+- url: https://eu1.anypoint.mulesoft.com
+  description: Anypoint Platform EU Control Plane
+security:
+- bearerAuth: []
+tags:
+- name: Organizations
+  description: Manage organizations and business groups within the Anypoint Platform. Organizations are the top-level containers for all platform resources including environments, users, and applications.
+paths:
+  /accounts/api/organizations:
+    get:
+      operationId: listOrganizations
+      summary: Mulesoft List Organizations
+      description: Retrieves a list of organizations accessible to the authenticated user, including the root organization and any business groups.
+      tags:
+      - Organizations
+      responses:
+        '200':
+          description: List of organizations retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Organization'
+              examples:
+                Listorganizations200Example:
+                  summary: Default listOrganizations 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - id: abc123
+                      name: Example Title
+                      createdAt: '2026-01-15T10:30:00Z'
+                      updatedAt: '2026-01-15T10:30:00Z'
+                      ownerId: '500123'
+                      clientId: '500123'
+                      idprovider_id: '500123'
+                      isFederated: true
+                      parentOrganizationIds:
+                      - {}
+                      subOrganizationIds:
+                      - {}
+                      tenantOrganizationIds:
+                      - {}
+                      mfaRequired: true
+                      isAutomaticAdminPromotionExempt: true
+                      domain: example_value
+                      isMaster: true
+                      environments:
+                      - {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /accounts/api/organizations/{orgId}:
+    get:
+      operationId: getOrganization
+      summary: Mulesoft Get Organization Details
+      description: Retrieves detailed information about a specific organization, including its name, owner, entitlements, and associated business groups.
+      tags:
+      - Organizations
+      parameters:
+      - $ref: '#/components/parameters/OrgId'
+      responses:
+        '200':
+          description: Organization details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+              examples:
+                Getorganization200Example:
+                  summary: Default getOrganization 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    createdAt: '2026-01-15T10:30:00Z'
+                    updatedAt: '2026-01-15T10:30:00Z'
+                    ownerId: '500123'
+                    clientId: '500123'
+                    idprovider_id: '500123'
+                    isFederated: true
+                    parentOrganizationIds:
+                    - example_value
+                    subOrganizationIds:
+                    - example_value
+                    tenantOrganizationIds:
+                    - example_value
+                    mfaRequired: true
+                    isAutomaticAdminPromotionExempt: true
+                    domain: example_value
+                    isMaster: true
+                    subscription:
+                      category: example_value
+                      type: example_value
+                      expiration: '2026-01-15T10:30:00Z'
+                    entitlements:
+                      createEnvironments: true
+                      globalDeployment: true
+                      createSubOrgs: true
+                    environments:
+                    - id: abc123
+                      name: Example Title
+                      organizationId: '500123'
+                      isProduction: true
+                      type: design
+                      clientId: '500123'
+                      createdAt: '2026-01-15T10:30:00Z'
+                      updatedAt: '2026-01-15T10:30:00Z'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: updateOrganization
+      summary: Mulesoft Update Organization
+      description: Updates the properties of an existing organization, such as its name, session timeout, or entitlement settings.
+      tags:
+      - Organizations
+      parameters:
+      - $ref: '#/components/parameters/OrgId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganizationUpdate'
+            examples:
+              UpdateorganizationRequestExample:
+                summary: Default updateOrganization request
+                x-microcks-default: true
+                value:
+                  name: Example Title
+                  ownerId: '500123'
+                  sessionTimeout: 10
+                  mfaRequired: true
+      responses:
+        '200':
+          description: Organization updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+              examples:
+                Updateorganization200Example:
+                  summary: Default updateOrganization 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    name: Example Title
+                    createdAt: '2026-01-15T10:30:00Z'
+                    updatedAt: '2026-01-15T10:30:00Z'
+                    ownerId: '500123'
+                    clientId: '500123'
+                    idprovider_id: '500123'
+                    isFederated: true
+                    parentOrganizationIds:
+                    - example_value
+                    subOrganizationIds:
+                    - example_value
+                    tenantOrganizationIds:
+                    - example_value
+                    mfaRequired: true
+                    isAutomaticAdminPromotionExempt: true
+                    domain: example_value
+                    isMaster: true
+                    subscription:
+                      category: example_value
+                      type: example_value
+                      expiration: '2026-01-15T10:30:00Z'
+                    entitlements:
+                      createEnvironments: true
+                      globalDeployment: true
+                      createSubOrgs: true
+                    environments:
+                    - id: abc123
+                      name: Example Title
+                      organizationId: '500123'
+                      isProduction: true
+                      type: design
+                      clientId: '500123'
+                      createdAt: '2026-01-15T10:30:00Z'
+                      updatedAt: '2026-01-15T10:30:00Z'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteOrganization
+      summary: Mulesoft Delete Organization
+      description: Deletes a business group. The root organization cannot be deleted. All environments and resources within the business group are removed.
+      tags:
+      - Organizations
+      parameters:
+      - $ref: '#/components/parameters/OrgId'
+      responses:
+        '204':
+          description: Organization deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters or body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Environment:
+      type: object
+      description: A deployment environment within an organization. Environments provide isolated contexts for deploying Mule applications, with types including Design, Sandbox, and Production.
+      required:
+      - id
+      - name
+      - organizationId
+      - type
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier of the environment
+          example: abc123
+        name:
+          type: string
+          description: Display name of the environment
+          example: Example Title
+        organizationId:
+          type: string
+          format: uuid
+          description: ID of the organization this environment belongs to
+          example: '500123'
+        isProduction:
+          type: boolean
+          description: Whether this is a production environment
+          example: true
+        type:
+          type: string
+          description: The environment type classification
+          enum:
+          - design
+          - sandbox
+          - production
+          example: design
+        clientId:
+          type: string
+          description: Client ID associated with this environment
+          example: '500123'
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the environment was created
+          example: '2026-01-15T10:30:00Z'
+        updatedAt:
+          type: string
+          format: date-time
+          description: Timestamp when the environment was last updated
+          example: '2026-01-15T10:30:00Z'
+    Entitlements:
+      type: object
+      description: Platform entitlements and resource limits for the organization
+      properties:
+        createEnvironments:
+          type: boolean
+          description: Whether the organization can create new environments
+          example: true
+        globalDeployment:
+          type: boolean
+          description: Whether global deployment is enabled
+          example: true
+        createSubOrgs:
+          type: boolean
+          description: Whether the organization can create sub-organizations
+          example: true
+        vCoresProduction:
+          $ref: '#/components/schemas/ResourceAllocation'
+        vCoresSandbox:
+          $ref: '#/components/schemas/ResourceAllocation'
+        vCoresDesign:
+          $ref: '#/components/schemas/ResourceAllocation'
+        staticIps:
+          $ref: '#/components/schemas/ResourceAllocation'
+        vpcs:
+          $ref: '#/components/schemas/ResourceAllocation'
+        loadBalancer:
+          $ref: '#/components/schemas/ResourceAllocation'
+    Subscription:
+      type: object
+      description: Subscription plan details for the organization
+      properties:
+        category:
+          type: string
+          description: Subscription category
+          example: example_value
+        type:
+          type: string
+          description: Subscription type
+          example: example_value
+        expiration:
+          type: string
+          format: date-time
+          description: Subscription expiration date
+          example: '2026-01-15T10:30:00Z'
+    OrganizationUpdate:
+      type: object
+      description: Fields that can be updated on an organization
+      properties:
+        name:
+          type: string
+          description: Display name of the organization
+          example: Example Title
+        ownerId:
+          type: string
+          format: uuid
+          description: User ID of the new organization owner
+          example: '500123'
+        sessionTimeout:
+          type: integer
+          description: Session timeout in minutes
+          minimum: 15
+          maximum: 180
+          example: 10
+        mfaRequired:
+          type: boolean
+          description: Whether multi-factor authentication is required
+          example: true
+    ResourceAllocation:
+      type: object
+      description: Resource allocation with assigned and reassigned counts
+      properties:
+        assigned:
+          type: number
+          description: Number of resources assigned to this organization
+          example: 42.5
+        reassigned:
+          type: number
+          description: Number of resources reassigned to sub-organizations
+          example: 42.5
+    Error:
+      type: object
+      description: Error response from the Anypoint Platform API
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Human-readable error message
+          example: example_value
+    Organization:
+      type: object
+      description: An Anypoint Platform organization or business group. Organizations are the top-level containers that hold all platform resources including users, environments, and deployed applications.
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier of the organization
+          example: abc123
+        name:
+          type: string
+          description: Display name of the organization
+          example: Example Title
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the organization was created
+          example: '2026-01-15T10:30:00Z'
+        updatedAt:
+          type: string
+          format: date-time
+          description: Timestamp when the organization was last updated
+          example: '2026-01-15T10:30:00Z'
+        ownerId:
+          type: string
+          format: uuid
+          description: User ID of the organization owner
+          example: '500123'
+        clientId:
+          type: string
+          description: Client ID for the organization used in API authentication
+          example: '500123'
+        idprovider_id:
+          type: string
+          description: Identity provider ID if external identity management is configured
+          example: '500123'
+        isFederated:
+          type: boolean
+          description: Whether the organization uses federated identity management
+          example: true
+        parentOrganizationIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: IDs of parent organizations in the business group hierarchy
+          example: []
+        subOrganizationIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: IDs of child business groups
+          example: []
+        tenantOrganizationIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: IDs of tenant organizations
+          example: []
+        mfaRequired:
+          type: boolean
+          description: Whether multi-factor authentication is required
+          example: true
+        isAutomaticAdminPromotionExempt:
+          type: boolean
+          description: Whether automatic admin promotion is disabled
+          example: true
+        domain:
+          type: string
+          description: Domain associated with the organization
+          example: example_value
+        isMaster:
+          type: boolean
+          description: Whether this is the root (master) organization
+          example: true
+        subscription:
+          $ref: '#/components/schemas/Subscription'
+        entitlements:
+          $ref: '#/components/schemas/Entitlements'
+        environments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Environment'
+          description: Environments belonging to this organization
+          example: []
+  parameters:
+    OrgId:
+      name: orgId
+      in: path
+      required: true
+      description: The unique identifier of the organization
+      schema:
+        type: string
+        format: uuid
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Anypoint Platform access token obtained via the Access Management API login endpoint or a connected app OAuth 2.0 flow.
+externalDocs:
+  description: Anypoint Platform API Documentation
+  url: https://docs.mulesoft.com/access-management/
