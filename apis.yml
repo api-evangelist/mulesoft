@@ -4,7 +4,20 @@ description: MuleSoft Anypoint Platform is an enterprise integration and API man
   platform offering an API gateway, design center, exchange marketplace, and monitoring
   for hybrid deployments connecting applications and data.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/mulesoft.png
 tags:
 - API Gateway
 - API Management
@@ -17,9 +30,9 @@ specificationVersion: '0.19'
 apis:
 - aid: mulesoft:mulesoft
   name: MuleSoft Anypoint Platform
-  description: MuleSoft Anypoint Platform unifies API management with integration,
-    providing a complete solution to connect any application, data source, or device
-    with reusable APIs and integrations.
+  description: >-
+    MuleSoft Anypoint Platform unifies API management with integration, providing a complete solution
+    to connect any application, data source, or device with reusable APIs and integrations.
   humanURL: https://www.mulesoft.com/platform/api
   tags:
   - API Gateway
@@ -32,40 +45,13 @@ apis:
     url: https://docs.mulesoft.com/general/
   - url: graphql/mulesoft-graphql.md
     type: GraphQL
-- aid: mulesoft:mulesoft-anypoint-platform-api
-  name: MuleSoft Anypoint Platform Management API
-  description: The Anypoint Platform Management API provides programmatic access to
-    manage organizations, business groups, environments, and users within the MuleSoft
-    Anypoint Platform. It enables automation of platform administration tasks including
-    configuring access management, managing connected applications, and controlling
-    role-based access control across the platform.
-  humanURL: https://docs.mulesoft.com/access-management/
-  baseURL: https://anypoint.mulesoft.com
-  tags:
-  - Administration
-  - API Management
-  - Enterprise
-  - REST
-  properties:
-  - type: Documentation
-    url: https://docs.mulesoft.com/access-management/
-  - type: APIReference
-    url: https://anypoint.mulesoft.com/exchange/portals/anypoint-platform/
-  - type: Authentication
-    url: https://docs.mulesoft.com/access-management/connected-apps-overview
-  - type: OpenAPI
-    url: openapi/mulesoft-anypoint-platform-openapi.yml
-  - type: JSONSchema
-    url: json-schema/mulesoft-application-schema.json
-  - type: JSONLD
-    url: json-ld/mulesoft-context.jsonld
 - aid: mulesoft:mulesoft-anypoint-exchange-api
   name: MuleSoft Anypoint Exchange API
-  description: The Anypoint Exchange API provides programmatic access to MuleSoft's
-    asset marketplace, enabling discovery, publishing, and management of reusable
-    integration assets including APIs, connectors, templates, examples, and custom
-    pages. It allows organizations to automate asset lifecycle management and promote
-    API reuse across teams.
+  description: >-
+    The Anypoint Exchange API provides programmatic access to MuleSoft's asset marketplace, enabling discovery,
+    publishing, and management of reusable integration assets including APIs, connectors, templates, examples,
+    and custom pages. It allows organizations to automate asset lifecycle management and promote API reuse
+    across teams.
   humanURL: https://docs.mulesoft.com/exchange/
   baseURL: https://anypoint.mulesoft.com/exchange/api/v2
   tags:
@@ -77,15 +63,16 @@ apis:
   - type: Documentation
     url: https://docs.mulesoft.com/exchange/
   - type: APIReference
-    url: https://anypoint.mulesoft.com/exchange/portals/anypoint-platform/f1e97bc6-315a-4490-82a7-23abe036327a.anypoint-platform/exchange-experience-api/
+    url: >-
+      https://anypoint.mulesoft.com/exchange/portals/anypoint-platform/f1e97bc6-315a-4490-82a7-23abe036327a.anypoint-platform/exchange-experience-api/
   - type: GettingStarted
     url: https://docs.mulesoft.com/exchange/to-publish-assets-maven
 - aid: mulesoft:mulesoft-anypoint-runtime-manager-api
   name: MuleSoft Anypoint Runtime Manager API
-  description: The Anypoint Runtime Manager API provides programmatic control over
-    Mule application deployments across CloudHub, Runtime Fabric, and hybrid deployment
-    targets. It enables CI/CD automation for deploying, updating, starting, stopping,
-    and monitoring Mule applications and their runtime environments.
+  description: >-
+    The Anypoint Runtime Manager API provides programmatic control over Mule application deployments across
+    CloudHub, Runtime Fabric, and hybrid deployment targets. It enables CI/CD automation for deploying,
+    updating, starting, stopping, and monitoring Mule applications and their runtime environments.
   humanURL: https://docs.mulesoft.com/runtime-manager/
   baseURL: https://anypoint.mulesoft.com/cloudhub/api
   tags:
@@ -102,10 +89,10 @@ apis:
     url: https://docs.mulesoft.com/runtime-manager/deploying-to-cloudhub
 - aid: mulesoft:mulesoft-anypoint-mq-api
   name: MuleSoft Anypoint MQ API
-  description: The Anypoint MQ API provides a cloud messaging service built on the
-    Anypoint Platform for asynchronous messaging between Mule applications and other
-    systems. It supports queues, exchanges, and dead-letter queues for reliable message
-    delivery and decoupled integration patterns.
+  description: >-
+    The Anypoint MQ API provides a cloud messaging service built on the Anypoint Platform for asynchronous
+    messaging between Mule applications and other systems. It supports queues, exchanges, and dead-letter
+    queues for reliable message delivery and decoupled integration patterns.
   humanURL: https://docs.mulesoft.com/mq/
   baseURL: https://anypoint.mulesoft.com/mq/stats/api/v1
   tags:
@@ -122,10 +109,10 @@ apis:
     url: https://docs.mulesoft.com/mq/mq-tutorial
 - aid: mulesoft:mulesoft-anypoint-design-center-api
   name: MuleSoft Anypoint Design Center API
-  description: The Anypoint Design Center API provides access to the MuleSoft web-based
-    API design environment for creating and editing API specifications in RAML and
-    OAS formats. It supports project management, file operations, and publishing designed
-    APIs to Anypoint Exchange for reuse across the organization.
+  description: >-
+    The Anypoint Design Center API provides access to the MuleSoft web-based API design environment for
+    creating and editing API specifications in RAML and OAS formats. It supports project management, file
+    operations, and publishing designed APIs to Anypoint Exchange for reuse across the organization.
   humanURL: https://docs.mulesoft.com/design-center/
   baseURL: https://anypoint.mulesoft.com/designcenter/api-designer
   tags:
@@ -138,6 +125,72 @@ apis:
     url: https://docs.mulesoft.com/design-center/
   - type: GettingStarted
     url: https://docs.mulesoft.com/design-center/design-create-publish-api-specs
+- aid: mulesoft:mulesoft-applications-api
+  name: MuleSoft Applications API
+  description: >-
+    Manage Mule applications deployed to CloudHub, Runtime Fabric, or hybrid targets. Includes operations
+    for deploying, starting, stopping, and monitoring application instances.
+  humanURL: https://www.mulesoft.com/platform/api
+  baseURL: https://anypoint.mulesoft.com
+  tags:
+  - Applications
+  properties:
+  - type: OpenAPI
+    url: openapi/mulesoft-applications-api-openapi.yml
+  - type: Documentation
+    url: https://docs.mulesoft.com/access-management/
+  - type: APIReference
+    url: https://anypoint.mulesoft.com/exchange/portals/anypoint-platform/
+  - type: Authentication
+    url: https://docs.mulesoft.com/access-management/connected-apps-overview
+  - type: JSONSchema
+    url: json-schema/mulesoft-application-schema.json
+  - type: JSONLD
+    url: json-ld/mulesoft-context.jsonld
+- aid: mulesoft:mulesoft-environments-api
+  name: MuleSoft Environments API
+  description: >-
+    Manage deployment environments within an organization. Environments provide isolated contexts for
+    deploying and running Mule applications, such as Design, Sandbox, and Production.
+  humanURL: https://www.mulesoft.com/platform/api
+  baseURL: https://anypoint.mulesoft.com
+  tags:
+  - Environments
+  properties:
+  - type: OpenAPI
+    url: openapi/mulesoft-environments-api-openapi.yml
+  - type: Documentation
+    url: https://docs.mulesoft.com/access-management/
+  - type: APIReference
+    url: https://anypoint.mulesoft.com/exchange/portals/anypoint-platform/
+  - type: Authentication
+    url: https://docs.mulesoft.com/access-management/connected-apps-overview
+  - type: JSONSchema
+    url: json-schema/mulesoft-application-schema.json
+  - type: JSONLD
+    url: json-ld/mulesoft-context.jsonld
+- aid: mulesoft:mulesoft-organizations-api
+  name: MuleSoft Organizations API
+  description: >-
+    Manage organizations and business groups within the Anypoint Platform. Organizations are the top-level
+    containers for all platform resources including environments, users, and applications.
+  humanURL: https://www.mulesoft.com/platform/api
+  baseURL: https://anypoint.mulesoft.com
+  tags:
+  - Organizations
+  properties:
+  - type: OpenAPI
+    url: openapi/mulesoft-organizations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.mulesoft.com/access-management/
+  - type: APIReference
+    url: https://anypoint.mulesoft.com/exchange/portals/anypoint-platform/
+  - type: Authentication
+    url: https://docs.mulesoft.com/access-management/connected-apps-overview
+  - type: JSONSchema
+    url: json-schema/mulesoft-application-schema.json
+  - type: JSONLD
+    url: json-ld/mulesoft-context.jsonld
 common:
 - type: AgenticAccess
   url: agentic-access/mulesoft-agentic-access.yml
