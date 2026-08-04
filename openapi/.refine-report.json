@@ -1,0 +1,18 @@
+{
+  "provider": "mulesoft",
+  "sources": [
+    "mulesoft-applications-api-openapi.yml",
+    "mulesoft-environments-api-openapi.yml",
+    "mulesoft-organizations-api-openapi.yml"
+  ],
+  "outputs": [
+    "mulesoft-applications-api-openapi.yml",
+    "mulesoft-environments-api-openapi.yml",
+    "mulesoft-organizations-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
