@@ -1,0 +1,1682 @@
+{
+  "item": [
+    {
+      "id": "abca5d24-7a9b-41f1-8eae-2e99df219a14",
+      "name": "Applications",
+      "description": {
+        "content": "Manage Mule applications deployed to CloudHub, Runtime Fabric, or hybrid targets. Includes operations for deploying, starting, stopping, and monitoring application instances.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "052ddc86-d236-48ed-8d4a-26da52392ebb",
+          "name": "Mulesoft List Applications",
+          "request": {
+            "name": "Mulesoft List Applications",
+            "description": {
+              "content": "Retrieves a list of all Mule applications deployed to CloudHub within the current environment. Returns application metadata, deployment status, and runtime information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cloudhub",
+                "api",
+                "v2",
+                "applications"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The environment ID to list applications from",
+                "key": "X-ANYPNT-ENV-ID",
+                "value": "<uuid>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) The organization ID",
+                "key": "X-ANYPNT-ORG-ID",
+                "value": "<uuid>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b3ca32b0-3e73-4c02-93ef-696713a0f2e3",
+              "name": "List of applications retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cloudhub",
+                    "api",
+                    "v2",
+                    "applications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The environment ID to list applications from",
+                    "key": "X-ANYPNT-ENV-ID",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The organization ID",
+                    "key": "X-ANYPNT-ORG-ID",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"domain\": \"example_value\",\n    \"fullDomain\": \"example_value\",\n    \"status\": \"STARTED\",\n    \"description\": \"A sample description.\",\n    \"region\": \"example_value\",\n    \"muleVersion\": {\n      \"version\": \"example_value\",\n      \"updateId\": \"500123\",\n      \"endOfSupportDate\": \"2026-01-15\"\n    },\n    \"workers\": {\n      \"amount\": 10,\n      \"type\": {}\n    },\n    \"properties\": \"example_value\",\n    \"lastUpdateTime\": 10,\n    \"fileName\": \"example_value\",\n    \"monitoringEnabled\": true,\n    \"monitoringAutoRestart\": true,\n    \"staticIPsEnabled\": true,\n    \"persistentQueues\": true,\n    \"persistentQueuesEncrypted\": true,\n    \"objectStoreV1\": true,\n    \"loggingNgEnabled\": true,\n    \"trackingSettings\": {\n      \"trackingLevel\": \"DISABLED\"\n    },\n    \"vpnId\": \"500123\",\n    \"vpnConfig\": {\n      \"vpnId\": \"500123\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f0275505-f013-46b8-b7ce-b24b2534b687",
+              "name": "Authentication credentials are missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cloudhub",
+                    "api",
+                    "v2",
+                    "applications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The environment ID to list applications from",
+                    "key": "X-ANYPNT-ENV-ID",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The organization ID",
+                    "key": "X-ANYPNT-ORG-ID",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "446145af-1cdd-4107-9c7f-ee96db5f7c11",
+          "name": "Mulesoft Create Application",
+          "request": {
+            "name": "Mulesoft Create Application",
+            "description": {
+              "content": "Deploys a new Mule application to CloudHub. The application configuration includes the runtime version, worker size, number of workers, and application properties.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cloudhub",
+                "api",
+                "v2",
+                "applications"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The environment ID to deploy to",
+                "key": "X-ANYPNT-ENV-ID",
+                "value": "<uuid>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) The organization ID",
+                "key": "X-ANYPNT-ORG-ID",
+                "value": "<uuid>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"domain\": \"<string>\",\n  \"muleVersion\": {\n    \"version\": \"<string>\"\n  },\n  \"workers\": {\n    \"amount\": \"<integer>\",\n    \"type\": {\n      \"name\": \"<string>\",\n      \"weight\": \"<number>\",\n      \"cpu\": \"<string>\",\n      \"memory\": \"<string>\"\n    }\n  },\n  \"region\": \"<string>\",\n  \"properties\": {\n    \"key_0\": \"<string>\"\n  },\n  \"monitoringAutoRestart\": true,\n  \"persistentQueues\": false,\n  \"staticIPsEnabled\": false,\n  \"loggingNgEnabled\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "42f760bf-065b-4b1c-9310-b89fb57439bb",
+              "name": "Application created and deployment initiated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cloudhub",
+                    "api",
+                    "v2",
+                    "applications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The environment ID to deploy to",
+                    "key": "X-ANYPNT-ENV-ID",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The organization ID",
+                    "key": "X-ANYPNT-ORG-ID",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"domain\": \"example_value\",\n  \"muleVersion\": {\n    \"version\": \"example_value\"\n  },\n  \"region\": \"example_value\",\n  \"workers\": {\n    \"amount\": 10,\n    \"type\": {\n      \"name\": \"Micro\",\n      \"weight\": 0.1,\n      \"cpu\": \"example_value\",\n      \"memory\": \"example_value\"\n    }\n  },\n  \"properties\": \"example_value\",\n  \"monitoringAutoRestart\": true,\n  \"persistentQueues\": true,\n  \"staticIPsEnabled\": true,\n  \"loggingNgEnabled\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"domain\": \"example_value\",\n  \"fullDomain\": \"example_value\",\n  \"status\": \"STARTED\",\n  \"description\": \"A sample description.\",\n  \"region\": \"example_value\",\n  \"muleVersion\": {\n    \"version\": \"example_value\",\n    \"updateId\": \"500123\",\n    \"endOfSupportDate\": \"2026-01-15\"\n  },\n  \"workers\": {\n    \"amount\": 10,\n    \"type\": {\n      \"name\": \"Micro\",\n      \"weight\": 0.1,\n      \"cpu\": \"example_value\",\n      \"memory\": \"example_value\"\n    }\n  },\n  \"properties\": \"example_value\",\n  \"lastUpdateTime\": 10,\n  \"fileName\": \"example_value\",\n  \"monitoringEnabled\": true,\n  \"monitoringAutoRestart\": true,\n  \"staticIPsEnabled\": true,\n  \"persistentQueues\": true,\n  \"persistentQueuesEncrypted\": true,\n  \"objectStoreV1\": true,\n  \"loggingNgEnabled\": true,\n  \"trackingSettings\": {\n    \"trackingLevel\": \"DISABLED\"\n  },\n  \"vpnId\": \"500123\",\n  \"vpnConfig\": {\n    \"vpnId\": \"500123\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d0a07f1d-b468-411a-8e91-e63e05be7359",
+              "name": "Invalid request parameters or body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cloudhub",
+                    "api",
+                    "v2",
+                    "applications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The environment ID to deploy to",
+                    "key": "X-ANYPNT-ENV-ID",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The organization ID",
+                    "key": "X-ANYPNT-ORG-ID",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"domain\": \"example_value\",\n  \"muleVersion\": {\n    \"version\": \"example_value\"\n  },\n  \"region\": \"example_value\",\n  \"workers\": {\n    \"amount\": 10,\n    \"type\": {\n      \"name\": \"Micro\",\n      \"weight\": 0.1,\n      \"cpu\": \"example_value\",\n      \"memory\": \"example_value\"\n    }\n  },\n  \"properties\": \"example_value\",\n  \"monitoringAutoRestart\": true,\n  \"persistentQueues\": true,\n  \"staticIPsEnabled\": true,\n  \"loggingNgEnabled\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fb746b37-f414-44f3-8055-cbec96ac6612",
+              "name": "Authentication credentials are missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cloudhub",
+                    "api",
+                    "v2",
+                    "applications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The environment ID to deploy to",
+                    "key": "X-ANYPNT-ENV-ID",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The organization ID",
+                    "key": "X-ANYPNT-ORG-ID",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"domain\": \"example_value\",\n  \"muleVersion\": {\n    \"version\": \"example_value\"\n  },\n  \"region\": \"example_value\",\n  \"workers\": {\n    \"amount\": 10,\n    \"type\": {\n      \"name\": \"Micro\",\n      \"weight\": 0.1,\n      \"cpu\": \"example_value\",\n      \"memory\": \"example_value\"\n    }\n  },\n  \"properties\": \"example_value\",\n  \"monitoringAutoRestart\": true,\n  \"persistentQueues\": true,\n  \"staticIPsEnabled\": true,\n  \"loggingNgEnabled\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "becbabd1-ab61-4dac-b04d-5e7d4a561157",
+              "name": "Application with this domain already exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cloudhub",
+                    "api",
+                    "v2",
+                    "applications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The environment ID to deploy to",
+                    "key": "X-ANYPNT-ENV-ID",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The organization ID",
+                    "key": "X-ANYPNT-ORG-ID",
+                    "value": "<uuid>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"domain\": \"example_value\",\n  \"muleVersion\": {\n    \"version\": \"example_value\"\n  },\n  \"region\": \"example_value\",\n  \"workers\": {\n    \"amount\": 10,\n    \"type\": {\n      \"name\": \"Micro\",\n      \"weight\": 0.1,\n      \"cpu\": \"example_value\",\n      \"memory\": \"example_value\"\n    }\n  },\n  \"properties\": \"example_value\",\n  \"monitoringAutoRestart\": true,\n  \"persistentQueues\": true,\n  \"staticIPsEnabled\": true,\n  \"loggingNgEnabled\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dc4fc889-5757-4cd4-b1e4-8d02a669255b",
+          "name": "Mulesoft Get Application Details",
+          "request": {
+            "name": "Mulesoft Get Application Details",
+            "description": {
+              "content": "Retrieves detailed information about a specific CloudHub application, including its deployment status, runtime version, worker configuration, and application properties.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cloudhub",
+                "api",
+                "v2",
+                "applications",
+                ":domain"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domain",
+                  "description": "(Required) The unique domain name of the CloudHub application"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The environment ID",
+                "key": "X-ANYPNT-ENV-ID",
+                "value": "<uuid>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) The organization ID",
+                "key": "X-ANYPNT-ORG-ID",
+                "value": "<uuid>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "862717a5-66c9-431b-a316-2b0495765ee5",
+              "name": "Application details retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cloudhub",
+                    "api",
+                    "v2",
+                    "applications",
+                    ":domain"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) The unique domain name of the CloudHub application"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The environment ID",
+                    "key": "X-ANYPNT-ENV-ID",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The organization ID",
+                    "key": "X-ANYPNT-ORG-ID",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"domain\": \"example_value\",\n  \"fullDomain\": \"example_value\",\n  \"status\": \"STARTED\",\n  \"description\": \"A sample description.\",\n  \"region\": \"example_value\",\n  \"muleVersion\": {\n    \"version\": \"example_value\",\n    \"updateId\": \"500123\",\n    \"endOfSupportDate\": \"2026-01-15\"\n  },\n  \"workers\": {\n    \"amount\": 10,\n    \"type\": {\n      \"name\": \"Micro\",\n      \"weight\": 0.1,\n      \"cpu\": \"example_value\",\n      \"memory\": \"example_value\"\n    }\n  },\n  \"properties\": \"example_value\",\n  \"lastUpdateTime\": 10,\n  \"fileName\": \"example_value\",\n  \"monitoringEnabled\": true,\n  \"monitoringAutoRestart\": true,\n  \"staticIPsEnabled\": true,\n  \"persistentQueues\": true,\n  \"persistentQueuesEncrypted\": true,\n  \"objectStoreV1\": true,\n  \"loggingNgEnabled\": true,\n  \"trackingSettings\": {\n    \"trackingLevel\": \"DISABLED\"\n  },\n  \"vpnId\": \"500123\",\n  \"vpnConfig\": {\n    \"vpnId\": \"500123\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "06c0f600-0e20-41dc-a507-2306d098b49e",
+              "name": "Authentication credentials are missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cloudhub",
+                    "api",
+                    "v2",
+                    "applications",
+                    ":domain"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) The unique domain name of the CloudHub application"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The environment ID",
+                    "key": "X-ANYPNT-ENV-ID",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The organization ID",
+                    "key": "X-ANYPNT-ORG-ID",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "92231753-d57c-4559-98b8-6af8c36d108e",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cloudhub",
+                    "api",
+                    "v2",
+                    "applications",
+                    ":domain"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) The unique domain name of the CloudHub application"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The environment ID",
+                    "key": "X-ANYPNT-ENV-ID",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The organization ID",
+                    "key": "X-ANYPNT-ORG-ID",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8d52e7fb-ad73-45b5-ba58-8cc024a73659",
+          "name": "Mulesoft Update Application",
+          "request": {
+            "name": "Mulesoft Update Application",
+            "description": {
+              "content": "Updates the configuration of an existing CloudHub application. Can be used to change runtime version, worker configuration, properties, or redeploy with a new application archive.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cloudhub",
+                "api",
+                "v2",
+                "applications",
+                ":domain"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domain",
+                  "description": "(Required) The unique domain name of the CloudHub application"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The environment ID",
+                "key": "X-ANYPNT-ENV-ID",
+                "value": "<uuid>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) The organization ID",
+                "key": "X-ANYPNT-ORG-ID",
+                "value": "<uuid>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"muleVersion\": {\n    \"version\": \"<string>\"\n  },\n  \"workers\": {\n    \"amount\": \"<integer>\",\n    \"type\": {\n      \"name\": \"<string>\",\n      \"weight\": \"<number>\",\n      \"cpu\": \"<string>\",\n      \"memory\": \"<string>\"\n    }\n  },\n  \"properties\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"monitoringAutoRestart\": \"<boolean>\",\n  \"region\": \"<string>\",\n  \"staticIPsEnabled\": \"<boolean>\",\n  \"loggingNgEnabled\": \"<boolean>\",\n  \"persistentQueues\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fc8763b2-7b01-4a61-a12e-662a81cb1747",
+              "name": "Application updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cloudhub",
+                    "api",
+                    "v2",
+                    "applications",
+                    ":domain"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) The unique domain name of the CloudHub application"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The environment ID",
+                    "key": "X-ANYPNT-ENV-ID",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The organization ID",
+                    "key": "X-ANYPNT-ORG-ID",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"muleVersion\": {\n    \"version\": \"example_value\"\n  },\n  \"workers\": {\n    \"amount\": 10,\n    \"type\": {\n      \"name\": \"Micro\",\n      \"weight\": 0.1,\n      \"cpu\": \"example_value\",\n      \"memory\": \"example_value\"\n    }\n  },\n  \"properties\": \"example_value\",\n  \"monitoringAutoRestart\": true,\n  \"region\": \"example_value\",\n  \"staticIPsEnabled\": true,\n  \"loggingNgEnabled\": true,\n  \"persistentQueues\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"domain\": \"example_value\",\n  \"fullDomain\": \"example_value\",\n  \"status\": \"STARTED\",\n  \"description\": \"A sample description.\",\n  \"region\": \"example_value\",\n  \"muleVersion\": {\n    \"version\": \"example_value\",\n    \"updateId\": \"500123\",\n    \"endOfSupportDate\": \"2026-01-15\"\n  },\n  \"workers\": {\n    \"amount\": 10,\n    \"type\": {\n      \"name\": \"Micro\",\n      \"weight\": 0.1,\n      \"cpu\": \"example_value\",\n      \"memory\": \"example_value\"\n    }\n  },\n  \"properties\": \"example_value\",\n  \"lastUpdateTime\": 10,\n  \"fileName\": \"example_value\",\n  \"monitoringEnabled\": true,\n  \"monitoringAutoRestart\": true,\n  \"staticIPsEnabled\": true,\n  \"persistentQueues\": true,\n  \"persistentQueuesEncrypted\": true,\n  \"objectStoreV1\": true,\n  \"loggingNgEnabled\": true,\n  \"trackingSettings\": {\n    \"trackingLevel\": \"DISABLED\"\n  },\n  \"vpnId\": \"500123\",\n  \"vpnConfig\": {\n    \"vpnId\": \"500123\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "48a629b2-8359-49cd-b6a8-e057d7db58b7",
+              "name": "Invalid request parameters or body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cloudhub",
+                    "api",
+                    "v2",
+                    "applications",
+                    ":domain"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) The unique domain name of the CloudHub application"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The environment ID",
+                    "key": "X-ANYPNT-ENV-ID",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The organization ID",
+                    "key": "X-ANYPNT-ORG-ID",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"muleVersion\": {\n    \"version\": \"example_value\"\n  },\n  \"workers\": {\n    \"amount\": 10,\n    \"type\": {\n      \"name\": \"Micro\",\n      \"weight\": 0.1,\n      \"cpu\": \"example_value\",\n      \"memory\": \"example_value\"\n    }\n  },\n  \"properties\": \"example_value\",\n  \"monitoringAutoRestart\": true,\n  \"region\": \"example_value\",\n  \"staticIPsEnabled\": true,\n  \"loggingNgEnabled\": true,\n  \"persistentQueues\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fa1e56b0-89da-4d1b-acc4-b0c579782c89",
+              "name": "Authentication credentials are missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cloudhub",
+                    "api",
+                    "v2",
+                    "applications",
+                    ":domain"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) The unique domain name of the CloudHub application"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The environment ID",
+                    "key": "X-ANYPNT-ENV-ID",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The organization ID",
+                    "key": "X-ANYPNT-ORG-ID",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"muleVersion\": {\n    \"version\": \"example_value\"\n  },\n  \"workers\": {\n    \"amount\": 10,\n    \"type\": {\n      \"name\": \"Micro\",\n      \"weight\": 0.1,\n      \"cpu\": \"example_value\",\n      \"memory\": \"example_value\"\n    }\n  },\n  \"properties\": \"example_value\",\n  \"monitoringAutoRestart\": true,\n  \"region\": \"example_value\",\n  \"staticIPsEnabled\": true,\n  \"loggingNgEnabled\": true,\n  \"persistentQueues\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cbe2af41-fbd6-49fb-8082-bd3da842c4d0",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cloudhub",
+                    "api",
+                    "v2",
+                    "applications",
+                    ":domain"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) The unique domain name of the CloudHub application"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The environment ID",
+                    "key": "X-ANYPNT-ENV-ID",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The organization ID",
+                    "key": "X-ANYPNT-ORG-ID",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"muleVersion\": {\n    \"version\": \"example_value\"\n  },\n  \"workers\": {\n    \"amount\": 10,\n    \"type\": {\n      \"name\": \"Micro\",\n      \"weight\": 0.1,\n      \"cpu\": \"example_value\",\n      \"memory\": \"example_value\"\n    }\n  },\n  \"properties\": \"example_value\",\n  \"monitoringAutoRestart\": true,\n  \"region\": \"example_value\",\n  \"staticIPsEnabled\": true,\n  \"loggingNgEnabled\": true,\n  \"persistentQueues\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d4b28823-fd84-4daa-ba39-f0442fe65b99",
+          "name": "Mulesoft Delete Application",
+          "request": {
+            "name": "Mulesoft Delete Application",
+            "description": {
+              "content": "Deletes a CloudHub application and stops all running workers. The application domain becomes available for reuse after deletion.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cloudhub",
+                "api",
+                "v2",
+                "applications",
+                ":domain"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domain",
+                  "description": "(Required) The unique domain name of the CloudHub application"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The environment ID",
+                "key": "X-ANYPNT-ENV-ID",
+                "value": "<uuid>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) The organization ID",
+                "key": "X-ANYPNT-ORG-ID",
+                "value": "<uuid>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4bf0aa2d-97d8-462c-855d-3d83e974d8d4",
+              "name": "Application deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cloudhub",
+                    "api",
+                    "v2",
+                    "applications",
+                    ":domain"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) The unique domain name of the CloudHub application"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The environment ID",
+                    "key": "X-ANYPNT-ENV-ID",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The organization ID",
+                    "key": "X-ANYPNT-ORG-ID",
+                    "value": "<uuid>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d25233e1-0be9-403d-94b6-fb4782228ae2",
+              "name": "Authentication credentials are missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cloudhub",
+                    "api",
+                    "v2",
+                    "applications",
+                    ":domain"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) The unique domain name of the CloudHub application"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The environment ID",
+                    "key": "X-ANYPNT-ENV-ID",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The organization ID",
+                    "key": "X-ANYPNT-ORG-ID",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d3508fda-083d-412d-9d0c-a454ff317aec",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cloudhub",
+                    "api",
+                    "v2",
+                    "applications",
+                    ":domain"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) The unique domain name of the CloudHub application"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The environment ID",
+                    "key": "X-ANYPNT-ENV-ID",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The organization ID",
+                    "key": "X-ANYPNT-ORG-ID",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9ec099ee-8178-4197-a155-39becc4cbe14",
+          "name": "Mulesoft Get Application Status",
+          "request": {
+            "name": "Mulesoft Get Application Status",
+            "description": {
+              "content": "Retrieves the current deployment status of a CloudHub application, including the status of each worker instance.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cloudhub",
+                "api",
+                "v2",
+                "applications",
+                ":domain",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domain",
+                  "description": "(Required) The unique domain name of the CloudHub application"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The environment ID",
+                "key": "X-ANYPNT-ENV-ID",
+                "value": "<uuid>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) The organization ID",
+                "key": "X-ANYPNT-ORG-ID",
+                "value": "<uuid>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "978b4193-e3b5-4eca-9b9a-7b838095f6e8",
+              "name": "Application status retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cloudhub",
+                    "api",
+                    "v2",
+                    "applications",
+                    ":domain",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) The unique domain name of the CloudHub application"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The environment ID",
+                    "key": "X-ANYPNT-ENV-ID",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The organization ID",
+                    "key": "X-ANYPNT-ORG-ID",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"domain\": \"example_value\",\n  \"status\": \"example_value\",\n  \"deploymentUpdateStatus\": \"example_value\",\n  \"workers\": [\n    {\n      \"id\": \"abc123\",\n      \"host\": \"example_value\",\n      \"port\": 10,\n      \"status\": \"example_value\",\n      \"deployedRegion\": \"example_value\",\n      \"staticIPAddress\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a8b3d0ff-3aed-4d5c-ad06-b75ae2bab16d",
+              "name": "Authentication credentials are missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cloudhub",
+                    "api",
+                    "v2",
+                    "applications",
+                    ":domain",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) The unique domain name of the CloudHub application"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The environment ID",
+                    "key": "X-ANYPNT-ENV-ID",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The organization ID",
+                    "key": "X-ANYPNT-ORG-ID",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0061efd1-e14c-450d-89be-b98eca6fb073",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cloudhub",
+                    "api",
+                    "v2",
+                    "applications",
+                    ":domain",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domain",
+                      "description": "(Required) The unique domain name of the CloudHub application"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The environment ID",
+                    "key": "X-ANYPNT-ENV-ID",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The organization ID",
+                    "key": "X-ANYPNT-ORG-ID",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://anypoint.mulesoft.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d755c817-4c7e-499f-8b0f-168b0fd4132f",
+    "name": "MuleSoft Anypoint Platform Applications API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Anypoint Platform API provides programmatic access to manage organizations, environments, and applications within the MuleSoft Anypoint Platform. It enables automation of platform administration tasks including creating and configuring organizations and business groups, managing deployment environments, and controlling the lifecycle of Mule applications across CloudHub, Runtime Fabric, and hybrid deployment targets.\n\nContact Support:\n Name: MuleSoft Support",
+      "type": "text/plain"
+    }
+  }
+}

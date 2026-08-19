@@ -1,0 +1,145 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "MuleSoft Anypoint Platform Applications Environments API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Environments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Mulesoft List Environments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://anypoint.mulesoft.com/accounts/api/organizations/:orgId/environments",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the organization"
+              }
+            ]
+          },
+          "docs": "Retrieves all environments within the specified organization. Each environment represents an isolated deployment target such as Design, Sandbox, or Production."
+        },
+        {
+          "info": {
+            "name": "Mulesoft Create Environment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://anypoint.mulesoft.com/accounts/api/organizations/:orgId/environments",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the organization"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new environment within the specified organization. The environment type determines its purpose and available features."
+        },
+        {
+          "info": {
+            "name": "Mulesoft Get Environment Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://anypoint.mulesoft.com/accounts/api/organizations/:orgId/environments/:envId",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the organization"
+              },
+              {
+                "name": "envId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the environment"
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific environment, including its type, client ID, and configuration settings."
+        },
+        {
+          "info": {
+            "name": "Mulesoft Update Environment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://anypoint.mulesoft.com/accounts/api/organizations/:orgId/environments/:envId",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the organization"
+              },
+              {
+                "name": "envId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the environment"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the properties of an existing environment, such as its name or type classification."
+        },
+        {
+          "info": {
+            "name": "Mulesoft Delete Environment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://anypoint.mulesoft.com/accounts/api/organizations/:orgId/environments/:envId",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the organization"
+              },
+              {
+                "name": "envId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the environment"
+              }
+            ]
+          },
+          "docs": "Deletes an environment and all resources deployed within it. Production environments may require additional confirmation."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

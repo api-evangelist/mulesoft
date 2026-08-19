@@ -1,0 +1,1397 @@
+{
+  "item": [
+    {
+      "id": "ad883b8e-c9c9-4de2-96c2-21026f754028",
+      "name": "Environments",
+      "description": {
+        "content": "Manage deployment environments within an organization. Environments provide isolated contexts for deploying and running Mule applications, such as Design, Sandbox, and Production.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "cd63f066-8bf6-4f4f-ad79-514c43d4bf4c",
+          "name": "Mulesoft List Environments",
+          "request": {
+            "name": "Mulesoft List Environments",
+            "description": {
+              "content": "Retrieves all environments within the specified organization. Each environment represents an isolated deployment target such as Design, Sandbox, or Production.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                "api",
+                "organizations",
+                ":orgId",
+                "environments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "orgId",
+                  "description": "(Required) The unique identifier of the organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d92d2090-c7f1-43b3-bc18-9bdffc88fd9b",
+              "name": "List of environments retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    "api",
+                    "organizations",
+                    ":orgId",
+                    "environments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "orgId",
+                      "description": "(Required) The unique identifier of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"abc123\",\n      \"name\": \"Example Title\",\n      \"organizationId\": \"500123\",\n      \"isProduction\": true,\n      \"type\": \"design\",\n      \"clientId\": \"500123\",\n      \"createdAt\": \"2026-01-15T10:30:00Z\",\n      \"updatedAt\": \"2026-01-15T10:30:00Z\"\n    }\n  ],\n  \"total\": 10\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6d0ef4e7-cb2b-4230-8460-7c3a3ee93998",
+              "name": "Authentication credentials are missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    "api",
+                    "organizations",
+                    ":orgId",
+                    "environments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "orgId",
+                      "description": "(Required) The unique identifier of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "109e2708-cf04-45c5-b570-d5e947e09738",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    "api",
+                    "organizations",
+                    ":orgId",
+                    "environments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "orgId",
+                      "description": "(Required) The unique identifier of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bf2651c2-9d49-4555-8e00-46d3217243a1",
+          "name": "Mulesoft Create Environment",
+          "request": {
+            "name": "Mulesoft Create Environment",
+            "description": {
+              "content": "Creates a new environment within the specified organization. The environment type determines its purpose and available features.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                "api",
+                "organizations",
+                ":orgId",
+                "environments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "orgId",
+                  "description": "(Required) The unique identifier of the organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4dccc18d-e051-46b4-80ee-c599a766aec1",
+              "name": "Environment created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    "api",
+                    "organizations",
+                    ":orgId",
+                    "environments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "orgId",
+                      "description": "(Required) The unique identifier of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Example Title\",\n  \"type\": \"design\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"abc123\",\n  \"name\": \"Example Title\",\n  \"organizationId\": \"500123\",\n  \"isProduction\": true,\n  \"type\": \"design\",\n  \"clientId\": \"500123\",\n  \"createdAt\": \"2026-01-15T10:30:00Z\",\n  \"updatedAt\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e9fdd85e-9b19-4310-9568-1457175b0c23",
+              "name": "Invalid request parameters or body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    "api",
+                    "organizations",
+                    ":orgId",
+                    "environments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "orgId",
+                      "description": "(Required) The unique identifier of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Example Title\",\n  \"type\": \"design\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "76f910f6-b2d3-4524-8fc8-8c3bc5080303",
+              "name": "Authentication credentials are missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    "api",
+                    "organizations",
+                    ":orgId",
+                    "environments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "orgId",
+                      "description": "(Required) The unique identifier of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Example Title\",\n  \"type\": \"design\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c67bea38-3feb-4a71-8568-533e1c038697",
+              "name": "Environment with this name already exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    "api",
+                    "organizations",
+                    ":orgId",
+                    "environments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "orgId",
+                      "description": "(Required) The unique identifier of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Example Title\",\n  \"type\": \"design\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f672f822-6540-44ce-bdbf-4d2d2f4e3753",
+          "name": "Mulesoft Get Environment Details",
+          "request": {
+            "name": "Mulesoft Get Environment Details",
+            "description": {
+              "content": "Retrieves detailed information about a specific environment, including its type, client ID, and configuration settings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                "api",
+                "organizations",
+                ":orgId",
+                "environments",
+                ":envId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "orgId",
+                  "description": "(Required) The unique identifier of the organization"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "envId",
+                  "description": "(Required) The unique identifier of the environment"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3b5159d3-ffb7-4f03-a4d2-4c9e6d6bc7ea",
+              "name": "Environment details retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    "api",
+                    "organizations",
+                    ":orgId",
+                    "environments",
+                    ":envId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "orgId",
+                      "description": "(Required) The unique identifier of the organization"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "envId",
+                      "description": "(Required) The unique identifier of the environment"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"abc123\",\n  \"name\": \"Example Title\",\n  \"organizationId\": \"500123\",\n  \"isProduction\": true,\n  \"type\": \"design\",\n  \"clientId\": \"500123\",\n  \"createdAt\": \"2026-01-15T10:30:00Z\",\n  \"updatedAt\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9237b6d2-a6bc-4794-83b5-447e7d79077c",
+              "name": "Authentication credentials are missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    "api",
+                    "organizations",
+                    ":orgId",
+                    "environments",
+                    ":envId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "orgId",
+                      "description": "(Required) The unique identifier of the organization"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "envId",
+                      "description": "(Required) The unique identifier of the environment"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "402901b2-30f5-43d3-b2ee-3b7fc1f1c6f5",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    "api",
+                    "organizations",
+                    ":orgId",
+                    "environments",
+                    ":envId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "orgId",
+                      "description": "(Required) The unique identifier of the organization"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "envId",
+                      "description": "(Required) The unique identifier of the environment"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d9881786-a9a5-4a97-8426-2213489e2ed1",
+          "name": "Mulesoft Update Environment",
+          "request": {
+            "name": "Mulesoft Update Environment",
+            "description": {
+              "content": "Updates the properties of an existing environment, such as its name or type classification.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                "api",
+                "organizations",
+                ":orgId",
+                "environments",
+                ":envId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "orgId",
+                  "description": "(Required) The unique identifier of the organization"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "envId",
+                  "description": "(Required) The unique identifier of the environment"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8bb896e1-5a61-4274-9faa-35169b01d183",
+              "name": "Environment updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    "api",
+                    "organizations",
+                    ":orgId",
+                    "environments",
+                    ":envId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "orgId",
+                      "description": "(Required) The unique identifier of the organization"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "envId",
+                      "description": "(Required) The unique identifier of the environment"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Example Title\",\n  \"type\": \"design\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"abc123\",\n  \"name\": \"Example Title\",\n  \"organizationId\": \"500123\",\n  \"isProduction\": true,\n  \"type\": \"design\",\n  \"clientId\": \"500123\",\n  \"createdAt\": \"2026-01-15T10:30:00Z\",\n  \"updatedAt\": \"2026-01-15T10:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5aca7973-64cd-4b5b-b74d-82dd7965a731",
+              "name": "Invalid request parameters or body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    "api",
+                    "organizations",
+                    ":orgId",
+                    "environments",
+                    ":envId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "orgId",
+                      "description": "(Required) The unique identifier of the organization"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "envId",
+                      "description": "(Required) The unique identifier of the environment"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Example Title\",\n  \"type\": \"design\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "742bfd91-474a-4b0d-b60e-b6cba1ab396b",
+              "name": "Authentication credentials are missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    "api",
+                    "organizations",
+                    ":orgId",
+                    "environments",
+                    ":envId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "orgId",
+                      "description": "(Required) The unique identifier of the organization"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "envId",
+                      "description": "(Required) The unique identifier of the environment"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Example Title\",\n  \"type\": \"design\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "811e0d82-6e6e-46d6-8cb4-684ee54d6d61",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    "api",
+                    "organizations",
+                    ":orgId",
+                    "environments",
+                    ":envId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "orgId",
+                      "description": "(Required) The unique identifier of the organization"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "envId",
+                      "description": "(Required) The unique identifier of the environment"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Example Title\",\n  \"type\": \"design\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "778ff083-5efd-46d7-88a3-ba195523494f",
+          "name": "Mulesoft Delete Environment",
+          "request": {
+            "name": "Mulesoft Delete Environment",
+            "description": {
+              "content": "Deletes an environment and all resources deployed within it. Production environments may require additional confirmation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                "api",
+                "organizations",
+                ":orgId",
+                "environments",
+                ":envId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "orgId",
+                  "description": "(Required) The unique identifier of the organization"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "envId",
+                  "description": "(Required) The unique identifier of the environment"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4c93e13a-d08c-4105-8ff4-f3f9c815ac66",
+              "name": "Environment deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    "api",
+                    "organizations",
+                    ":orgId",
+                    "environments",
+                    ":envId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "orgId",
+                      "description": "(Required) The unique identifier of the organization"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "envId",
+                      "description": "(Required) The unique identifier of the environment"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d70772a1-4b69-4635-a48f-ff8cf03f7239",
+              "name": "Authentication credentials are missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    "api",
+                    "organizations",
+                    ":orgId",
+                    "environments",
+                    ":envId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "orgId",
+                      "description": "(Required) The unique identifier of the organization"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "envId",
+                      "description": "(Required) The unique identifier of the environment"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c2d3aec0-4570-4756-a901-b97b26bc6123",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    "api",
+                    "organizations",
+                    ":orgId",
+                    "environments",
+                    ":envId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "orgId",
+                      "description": "(Required) The unique identifier of the organization"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "envId",
+                      "description": "(Required) The unique identifier of the environment"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://anypoint.mulesoft.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "bfdfc59a-dd1a-4d6e-b525-b472564eba08",
+    "name": "MuleSoft Anypoint Platform Applications Environments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Anypoint Platform API provides programmatic access to manage organizations, environments, and applications within the MuleSoft Anypoint Platform. It enables automation of platform administration tasks including creating and configuring organizations and business groups, managing deployment environments, and controlling the lifecycle of Mule applications across CloudHub, Runtime Fabric, and hybrid deployment targets.\n\nContact Support:\n Name: MuleSoft Support",
+      "type": "text/plain"
+    }
+  }
+}

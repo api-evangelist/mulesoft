@@ -1,0 +1,190 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "MuleSoft Anypoint Platform Applications API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Applications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Mulesoft List Applications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://anypoint.mulesoft.com/cloudhub/api/v2/applications",
+            "headers": [
+              {
+                "name": "X-ANYPNT-ENV-ID",
+                "value": "500123"
+              },
+              {
+                "name": "X-ANYPNT-ORG-ID",
+                "value": "500123"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all Mule applications deployed to CloudHub within the current environment. Returns application metadata, deployment status, and runtime information."
+        },
+        {
+          "info": {
+            "name": "Mulesoft Create Application",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://anypoint.mulesoft.com/cloudhub/api/v2/applications",
+            "headers": [
+              {
+                "name": "X-ANYPNT-ENV-ID",
+                "value": "500123"
+              },
+              {
+                "name": "X-ANYPNT-ORG-ID",
+                "value": "500123"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deploys a new Mule application to CloudHub. The application configuration includes the runtime version, worker size, number of workers, and application properties."
+        },
+        {
+          "info": {
+            "name": "Mulesoft Get Application Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://anypoint.mulesoft.com/cloudhub/api/v2/applications/:domain",
+            "headers": [
+              {
+                "name": "X-ANYPNT-ENV-ID",
+                "value": "500123"
+              },
+              {
+                "name": "X-ANYPNT-ORG-ID",
+                "value": "500123"
+              }
+            ],
+            "params": [
+              {
+                "name": "domain",
+                "value": "",
+                "type": "path",
+                "description": "The unique domain name of the CloudHub application"
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific CloudHub application, including its deployment status, runtime version, worker configuration, and application properties."
+        },
+        {
+          "info": {
+            "name": "Mulesoft Update Application",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://anypoint.mulesoft.com/cloudhub/api/v2/applications/:domain",
+            "headers": [
+              {
+                "name": "X-ANYPNT-ENV-ID",
+                "value": "500123"
+              },
+              {
+                "name": "X-ANYPNT-ORG-ID",
+                "value": "500123"
+              }
+            ],
+            "params": [
+              {
+                "name": "domain",
+                "value": "",
+                "type": "path",
+                "description": "The unique domain name of the CloudHub application"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the configuration of an existing CloudHub application. Can be used to change runtime version, worker configuration, properties, or redeploy with a new application archive."
+        },
+        {
+          "info": {
+            "name": "Mulesoft Delete Application",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://anypoint.mulesoft.com/cloudhub/api/v2/applications/:domain",
+            "headers": [
+              {
+                "name": "X-ANYPNT-ENV-ID",
+                "value": "500123"
+              },
+              {
+                "name": "X-ANYPNT-ORG-ID",
+                "value": "500123"
+              }
+            ],
+            "params": [
+              {
+                "name": "domain",
+                "value": "",
+                "type": "path",
+                "description": "The unique domain name of the CloudHub application"
+              }
+            ]
+          },
+          "docs": "Deletes a CloudHub application and stops all running workers. The application domain becomes available for reuse after deletion."
+        },
+        {
+          "info": {
+            "name": "Mulesoft Get Application Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://anypoint.mulesoft.com/cloudhub/api/v2/applications/:domain/status",
+            "headers": [
+              {
+                "name": "X-ANYPNT-ENV-ID",
+                "value": "500123"
+              },
+              {
+                "name": "X-ANYPNT-ORG-ID",
+                "value": "500123"
+              }
+            ],
+            "params": [
+              {
+                "name": "domain",
+                "value": "",
+                "type": "path",
+                "description": "The unique domain name of the CloudHub application"
+              }
+            ]
+          },
+          "docs": "Retrieves the current deployment status of a CloudHub application, including the status of each worker instance."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

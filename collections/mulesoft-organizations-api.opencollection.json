@@ -1,0 +1,96 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "MuleSoft Anypoint Platform Applications Organizations API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Organizations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Mulesoft List Organizations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://anypoint.mulesoft.com/accounts/api/organizations"
+          },
+          "docs": "Retrieves a list of organizations accessible to the authenticated user, including the root organization and any business groups."
+        },
+        {
+          "info": {
+            "name": "Mulesoft Get Organization Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://anypoint.mulesoft.com/accounts/api/organizations/:orgId",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the organization"
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific organization, including its name, owner, entitlements, and associated business groups."
+        },
+        {
+          "info": {
+            "name": "Mulesoft Update Organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://anypoint.mulesoft.com/accounts/api/organizations/:orgId",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the organization"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the properties of an existing organization, such as its name, session timeout, or entitlement settings."
+        },
+        {
+          "info": {
+            "name": "Mulesoft Delete Organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://anypoint.mulesoft.com/accounts/api/organizations/:orgId",
+            "params": [
+              {
+                "name": "orgId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the organization"
+              }
+            ]
+          },
+          "docs": "Deletes a business group. The root organization cannot be deleted. All environments and resources within the business group are removed."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

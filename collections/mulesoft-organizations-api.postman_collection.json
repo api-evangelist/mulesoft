@@ -1,0 +1,887 @@
+{
+  "item": [
+    {
+      "id": "bcedbb81-5733-4eb5-ba89-9074e7bbdd4b",
+      "name": "Organizations",
+      "description": {
+        "content": "Manage organizations and business groups within the Anypoint Platform. Organizations are the top-level containers for all platform resources including environments, users, and applications.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e4444e2e-cf98-49bf-b19c-eb7a431735fd",
+          "name": "Mulesoft List Organizations",
+          "request": {
+            "name": "Mulesoft List Organizations",
+            "description": {
+              "content": "Retrieves a list of organizations accessible to the authenticated user, including the root organization and any business groups.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                "api",
+                "organizations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7ac6c5d7-e432-4d90-ac67-c91b4beb22fa",
+              "name": "List of organizations retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    "api",
+                    "organizations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"abc123\",\n      \"name\": \"Example Title\",\n      \"createdAt\": \"2026-01-15T10:30:00Z\",\n      \"updatedAt\": \"2026-01-15T10:30:00Z\",\n      \"ownerId\": \"500123\",\n      \"clientId\": \"500123\",\n      \"idprovider_id\": \"500123\",\n      \"isFederated\": true,\n      \"parentOrganizationIds\": [\n        {}\n      ],\n      \"subOrganizationIds\": [\n        {}\n      ],\n      \"tenantOrganizationIds\": [\n        {}\n      ],\n      \"mfaRequired\": true,\n      \"isAutomaticAdminPromotionExempt\": true,\n      \"domain\": \"example_value\",\n      \"isMaster\": true,\n      \"environments\": [\n        {}\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "39b99d37-24b3-4d76-ad37-61bac45edea6",
+              "name": "Authentication credentials are missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    "api",
+                    "organizations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fbb95228-9131-47fe-9f8c-fd71cc267f70",
+          "name": "Mulesoft Get Organization Details",
+          "request": {
+            "name": "Mulesoft Get Organization Details",
+            "description": {
+              "content": "Retrieves detailed information about a specific organization, including its name, owner, entitlements, and associated business groups.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                "api",
+                "organizations",
+                ":orgId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "orgId",
+                  "description": "(Required) The unique identifier of the organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e2787919-9080-45f1-82be-e8bdf5edd457",
+              "name": "Organization details retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    "api",
+                    "organizations",
+                    ":orgId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "orgId",
+                      "description": "(Required) The unique identifier of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"abc123\",\n  \"name\": \"Example Title\",\n  \"createdAt\": \"2026-01-15T10:30:00Z\",\n  \"updatedAt\": \"2026-01-15T10:30:00Z\",\n  \"ownerId\": \"500123\",\n  \"clientId\": \"500123\",\n  \"idprovider_id\": \"500123\",\n  \"isFederated\": true,\n  \"parentOrganizationIds\": [\n    \"example_value\"\n  ],\n  \"subOrganizationIds\": [\n    \"example_value\"\n  ],\n  \"tenantOrganizationIds\": [\n    \"example_value\"\n  ],\n  \"mfaRequired\": true,\n  \"isAutomaticAdminPromotionExempt\": true,\n  \"domain\": \"example_value\",\n  \"isMaster\": true,\n  \"subscription\": {\n    \"category\": \"example_value\",\n    \"type\": \"example_value\",\n    \"expiration\": \"2026-01-15T10:30:00Z\"\n  },\n  \"entitlements\": {\n    \"createEnvironments\": true,\n    \"globalDeployment\": true,\n    \"createSubOrgs\": true\n  },\n  \"environments\": [\n    {\n      \"id\": \"abc123\",\n      \"name\": \"Example Title\",\n      \"organizationId\": \"500123\",\n      \"isProduction\": true,\n      \"type\": \"design\",\n      \"clientId\": \"500123\",\n      \"createdAt\": \"2026-01-15T10:30:00Z\",\n      \"updatedAt\": \"2026-01-15T10:30:00Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "886ea592-181e-4d5c-bfb4-a683282e5bcb",
+              "name": "Authentication credentials are missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    "api",
+                    "organizations",
+                    ":orgId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "orgId",
+                      "description": "(Required) The unique identifier of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f3256188-4505-412d-b322-e02a457870eb",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    "api",
+                    "organizations",
+                    ":orgId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "orgId",
+                      "description": "(Required) The unique identifier of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6c3d1566-85e5-40aa-ab28-10bb7ee9ca74",
+          "name": "Mulesoft Update Organization",
+          "request": {
+            "name": "Mulesoft Update Organization",
+            "description": {
+              "content": "Updates the properties of an existing organization, such as its name, session timeout, or entitlement settings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                "api",
+                "organizations",
+                ":orgId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "orgId",
+                  "description": "(Required) The unique identifier of the organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"ownerId\": \"<uuid>\",\n  \"sessionTimeout\": \"<integer>\",\n  \"mfaRequired\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ccbc05b0-32e3-41e3-ba13-ed38460306bd",
+              "name": "Organization updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    "api",
+                    "organizations",
+                    ":orgId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "orgId",
+                      "description": "(Required) The unique identifier of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Example Title\",\n  \"ownerId\": \"500123\",\n  \"sessionTimeout\": 10,\n  \"mfaRequired\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"abc123\",\n  \"name\": \"Example Title\",\n  \"createdAt\": \"2026-01-15T10:30:00Z\",\n  \"updatedAt\": \"2026-01-15T10:30:00Z\",\n  \"ownerId\": \"500123\",\n  \"clientId\": \"500123\",\n  \"idprovider_id\": \"500123\",\n  \"isFederated\": true,\n  \"parentOrganizationIds\": [\n    \"example_value\"\n  ],\n  \"subOrganizationIds\": [\n    \"example_value\"\n  ],\n  \"tenantOrganizationIds\": [\n    \"example_value\"\n  ],\n  \"mfaRequired\": true,\n  \"isAutomaticAdminPromotionExempt\": true,\n  \"domain\": \"example_value\",\n  \"isMaster\": true,\n  \"subscription\": {\n    \"category\": \"example_value\",\n    \"type\": \"example_value\",\n    \"expiration\": \"2026-01-15T10:30:00Z\"\n  },\n  \"entitlements\": {\n    \"createEnvironments\": true,\n    \"globalDeployment\": true,\n    \"createSubOrgs\": true\n  },\n  \"environments\": [\n    {\n      \"id\": \"abc123\",\n      \"name\": \"Example Title\",\n      \"organizationId\": \"500123\",\n      \"isProduction\": true,\n      \"type\": \"design\",\n      \"clientId\": \"500123\",\n      \"createdAt\": \"2026-01-15T10:30:00Z\",\n      \"updatedAt\": \"2026-01-15T10:30:00Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3e7cc8a6-f450-4b6c-8b7c-3059dd6e8142",
+              "name": "Invalid request parameters or body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    "api",
+                    "organizations",
+                    ":orgId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "orgId",
+                      "description": "(Required) The unique identifier of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Example Title\",\n  \"ownerId\": \"500123\",\n  \"sessionTimeout\": 10,\n  \"mfaRequired\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ab69f0cf-c9e1-4b75-9952-a6e72d03b2bd",
+              "name": "Authentication credentials are missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    "api",
+                    "organizations",
+                    ":orgId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "orgId",
+                      "description": "(Required) The unique identifier of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Example Title\",\n  \"ownerId\": \"500123\",\n  \"sessionTimeout\": 10,\n  \"mfaRequired\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "19b97326-9539-4a1b-9fc7-08465277316a",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    "api",
+                    "organizations",
+                    ":orgId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "orgId",
+                      "description": "(Required) The unique identifier of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Example Title\",\n  \"ownerId\": \"500123\",\n  \"sessionTimeout\": 10,\n  \"mfaRequired\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "63a3e270-d63e-4cad-836d-b9cb6b923238",
+          "name": "Mulesoft Delete Organization",
+          "request": {
+            "name": "Mulesoft Delete Organization",
+            "description": {
+              "content": "Deletes a business group. The root organization cannot be deleted. All environments and resources within the business group are removed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                "api",
+                "organizations",
+                ":orgId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "orgId",
+                  "description": "(Required) The unique identifier of the organization"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2f917f94-d681-4660-8de9-29b68d76b050",
+              "name": "Organization deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    "api",
+                    "organizations",
+                    ":orgId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "orgId",
+                      "description": "(Required) The unique identifier of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e3fc32c8-87f9-470c-8172-e2affe6911d1",
+              "name": "Authentication credentials are missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    "api",
+                    "organizations",
+                    ":orgId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "orgId",
+                      "description": "(Required) The unique identifier of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "21da2054-0a23-4516-b790-93b102368546",
+              "name": "The requested resource was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    "api",
+                    "organizations",
+                    ":orgId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "orgId",
+                      "description": "(Required) The unique identifier of the organization"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 10,\n  \"message\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://anypoint.mulesoft.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4cbc398c-2132-43f9-a154-87d800be09e5",
+    "name": "MuleSoft Anypoint Platform Applications Organizations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Anypoint Platform API provides programmatic access to manage organizations, environments, and applications within the MuleSoft Anypoint Platform. It enables automation of platform administration tasks including creating and configuring organizations and business groups, managing deployment environments, and controlling the lifecycle of Mule applications across CloudHub, Runtime Fabric, and hybrid deployment targets.\n\nContact Support:\n Name: MuleSoft Support",
+      "type": "text/plain"
+    }
+  }
+}
