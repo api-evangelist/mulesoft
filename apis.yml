@@ -145,6 +145,8 @@ apis:
   humanURL: https://www.mulesoft.com/platform/api
   baseURL: https://anypoint.mulesoft.com
   tags:
+  - Application
+  tags_raw:
   - Applications
   properties:
   - type: OpenAPI
@@ -189,6 +191,8 @@ apis:
   humanURL: https://www.mulesoft.com/platform/api
   baseURL: https://anypoint.mulesoft.com
   tags:
+  - Organization
+  tags_raw:
   - Organizations
   properties:
   - type: OpenAPI
