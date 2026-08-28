@@ -11,8 +11,14 @@ info:
     underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: anypointPlatformApi
-  url: ../openapi/mulesoft-anypoint-platform-openapi.yml
+- name: applicationsApi
+  url: ../openapi/mulesoft-applications-api-openapi.yml
+  type: openapi
+- name: environmentsApi
+  url: ../openapi/mulesoft-environments-api-openapi.yml
+  type: openapi
+- name: organizationsApi
+  url: ../openapi/mulesoft-organizations-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: audit-application-inventory
