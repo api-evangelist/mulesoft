@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: MuleSoft Anypoint Platform Applications Environments API
+  title: MuleSoft Anypoint Platform Environments API
   description: The Anypoint Platform API provides programmatic access to manage organizations, environments, and applications within the MuleSoft Anypoint Platform. It enables automation of platform administration tasks including creating and configuring organizations and business groups, managing deployment environments, and controlling the lifecycle of Mule applications across CloudHub, Runtime Fabric, and hybrid deployment targets.
   version: 1.0.0
   contact:
@@ -225,25 +225,23 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters or body
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    EnvId:
+      name: envId
+      in: path
+      required: true
+      description: The unique identifier of the environment
+      schema:
+        type: string
+        format: uuid
+    OrgId:
+      name: orgId
+      in: path
+      required: true
+      description: The unique identifier of the organization
+      schema:
+        type: string
+        format: uuid
   schemas:
     Environment:
       type: object
@@ -294,6 +292,34 @@ components:
           format: date-time
           description: Timestamp when the environment was last updated
           example: '2026-01-15T10:30:00Z'
+    Error:
+      type: object
+      description: Error response from the Anypoint Platform API
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Human-readable error message
+          example: example_value
+    EnvironmentUpdate:
+      type: object
+      description: Request body for updating an environment
+      properties:
+        name:
+          type: string
+          description: New display name for the environment
+          example: Example Title
+        type:
+          type: string
+          description: New environment type classification
+          enum:
+          - design
+          - sandbox
+          - production
+          example: design
     EnvironmentCreate:
       type: object
       description: Request body for creating a new environment
@@ -313,51 +339,25 @@ components:
           - sandbox
           - production
           example: design
-    EnvironmentUpdate:
-      type: object
-      description: Request body for updating an environment
-      properties:
-        name:
-          type: string
-          description: New display name for the environment
-          example: Example Title
-        type:
-          type: string
-          description: New environment type classification
-          enum:
-          - design
-          - sandbox
-          - production
-          example: design
-    Error:
-      type: object
-      description: Error response from the Anypoint Platform API
-      properties:
-        status:
-          type: integer
-          description: HTTP status code
-          example: 10
-        message:
-          type: string
-          description: Human-readable error message
-          example: example_value
-  parameters:
-    EnvId:
-      name: envId
-      in: path
-      required: true
-      description: The unique identifier of the environment
-      schema:
-        type: string
-        format: uuid
-    OrgId:
-      name: orgId
-      in: path
-      required: true
-      description: The unique identifier of the organization
-      schema:
-        type: string
-        format: uuid
+  responses:
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters or body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: MuleSoft Anypoint Platform Applications Organizations API
+  title: MuleSoft Anypoint Platform Organizations API
   description: The Anypoint Platform API provides programmatic access to manage organizations, environments, and applications within the MuleSoft Anypoint Platform. It enables automation of platform administration tasks including creating and configuring organizations and business groups, managing deployment environments, and controlling the lifecycle of Mule applications across CloudHub, Runtime Fabric, and hybrid deployment targets.
   version: 1.0.0
   contact:
@@ -232,26 +232,47 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request parameters or body
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    Subscription:
+      type: object
+      description: Subscription plan details for the organization
+      properties:
+        category:
+          type: string
+          description: Subscription category
+          example: example_value
+        type:
+          type: string
+          description: Subscription type
+          example: example_value
+        expiration:
+          type: string
+          format: date-time
+          description: Subscription expiration date
+          example: '2026-01-15T10:30:00Z'
+    OrganizationUpdate:
+      type: object
+      description: Fields that can be updated on an organization
+      properties:
+        name:
+          type: string
+          description: Display name of the organization
+          example: Example Title
+        ownerId:
+          type: string
+          format: uuid
+          description: User ID of the new organization owner
+          example: '500123'
+        sessionTimeout:
+          type: integer
+          description: Session timeout in minutes
+          minimum: 15
+          maximum: 180
+          example: 10
+        mfaRequired:
+          type: boolean
+          description: Whether multi-factor authentication is required
+          example: true
     Environment:
       type: object
       description: A deployment environment within an organization. Environments provide isolated contexts for deploying Mule applications, with types including Design, Sandbox, and Production.
@@ -329,70 +350,6 @@ components:
           $ref: '#/components/schemas/ResourceAllocation'
         loadBalancer:
           $ref: '#/components/schemas/ResourceAllocation'
-    Subscription:
-      type: object
-      description: Subscription plan details for the organization
-      properties:
-        category:
-          type: string
-          description: Subscription category
-          example: example_value
-        type:
-          type: string
-          description: Subscription type
-          example: example_value
-        expiration:
-          type: string
-          format: date-time
-          description: Subscription expiration date
-          example: '2026-01-15T10:30:00Z'
-    OrganizationUpdate:
-      type: object
-      description: Fields that can be updated on an organization
-      properties:
-        name:
-          type: string
-          description: Display name of the organization
-          example: Example Title
-        ownerId:
-          type: string
-          format: uuid
-          description: User ID of the new organization owner
-          example: '500123'
-        sessionTimeout:
-          type: integer
-          description: Session timeout in minutes
-          minimum: 15
-          maximum: 180
-          example: 10
-        mfaRequired:
-          type: boolean
-          description: Whether multi-factor authentication is required
-          example: true
-    ResourceAllocation:
-      type: object
-      description: Resource allocation with assigned and reassigned counts
-      properties:
-        assigned:
-          type: number
-          description: Number of resources assigned to this organization
-          example: 42.5
-        reassigned:
-          type: number
-          description: Number of resources reassigned to sub-organizations
-          example: 42.5
-    Error:
-      type: object
-      description: Error response from the Anypoint Platform API
-      properties:
-        status:
-          type: integer
-          description: HTTP status code
-          example: 10
-        message:
-          type: string
-          description: Human-readable error message
-          example: example_value
     Organization:
       type: object
       description: An Anypoint Platform organization or business group. Organizations are the top-level containers that hold all platform resources including users, environments, and deployed applications.
@@ -483,6 +440,30 @@ components:
             $ref: '#/components/schemas/Environment'
           description: Environments belonging to this organization
           example: []
+    Error:
+      type: object
+      description: Error response from the Anypoint Platform API
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Human-readable error message
+          example: example_value
+    ResourceAllocation:
+      type: object
+      description: Resource allocation with assigned and reassigned counts
+      properties:
+        assigned:
+          type: number
+          description: Number of resources assigned to this organization
+          example: 42.5
+        reassigned:
+          type: number
+          description: Number of resources reassigned to sub-organizations
+          example: 42.5
   parameters:
     OrgId:
       name: orgId
@@ -492,6 +473,25 @@ components:
       schema:
         type: string
         format: uuid
+  responses:
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request parameters or body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http
