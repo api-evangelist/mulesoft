@@ -54,8 +54,6 @@ apis:
     url: https://docs.mulesoft.com/
   - type: GettingStarted
     url: https://docs.mulesoft.com/general/
-  - url: graphql/mulesoft-graphql.md
-    type: GraphQL
 - aid: mulesoft:mulesoft-anypoint-exchange-api
   name: MuleSoft Anypoint Exchange API
   description: The Anypoint Exchange API provides programmatic access to MuleSoft's asset marketplace,
