@@ -1,0 +1,243 @@
+# Vendor facets — MuleSoft Anypoint (Salesforce): API Manager policies, Exchange (with a public portal,
+# API console and mocking service), SLA tiers with request-access and client credentials, and the
+# Flex/Omni Gateway MCP Bridge that turns Exchange APIs into MCP servers on the customer's gateway.
+# What it cannot reach: rate-limit headers by default (Expose Headers is off), public plans or pricing
+# (SLA tiers appear inside the logged-in request-access flow), served OAuth discovery, SDKs.
+vendor: mulesoft
+name: MuleSoft Anypoint (Salesforce)
+website: https://www.mulesoft.com
+areas:
+- api-gateway
+registry_keys:
+- mulesoft
+rubric_schema_version: 0.22.0
+generated: '2026-09-25'
+features_refreshed: '2026-09-25'
+basis: capability
+summary: >-
+  MuleSoft's lift is concentrated in a handful of checks: an Exchange portal with an API console and a
+  mocking service (portal and sandbox, once declared), self-service request-access that issues client
+  credentials, and MCP Bridge, which serves Exchange APIs as MCP tools on the customer's own gateway (`templated`,
+  0.6). Its Rate Limiting and SLA-based policies can emit X-RateLimit-Limit/Remaining/Reset, but Expose
+  Headers is off by default and the score reads the headers from the provider's OpenAPI, not from traffic.
+  SLA tiers are access tiers chosen inside a logged-in modal, so they do not become published plans.
+features:
+- id: rate-limiting-policy
+  name: Rate Limiting and SLA-based Rate Limiting policies
+  description: >-
+    Throughput limits per API instance or per SLA tier returning 429; X-Ratelimit-Remaining/Limit/Reset
+    headers are emitted only when Expose Headers is enabled (disabled by default).
+  source: https://docs.mulesoft.com/mule-gateway/policies-included-rate-limiting
+  tier: paid
+- id: sla-tiers
+  name: SLA tiers
+  description: >-
+    Named access tiers per API instance with one or more throughput limits and automatic or manual approval,
+    enforced with SLA-based policies.
+  source: https://docs.mulesoft.com/api-manager/latest/defining-sla-tiers
+  tier: paid
+- id: request-access
+  name: Exchange request access and client credentials
+  description: >-
+    A developer picks an instance, an application and an SLA tier, and receives a client ID and secret
+    on approval (automatic or reviewed); My Applications manages contracts.
+  source: https://docs.mulesoft.com/exchange/to-request-access
+  tier: paid
+- id: exchange-portal
+  name: Exchange public portal, API console and mocking service
+  description: >-
+    Asset pages with markdown documentation, an API console, and a mocking service that lets users test
+    an API by sending sample values and getting responses.
+  source: https://docs.mulesoft.com/exchange/
+  tier: paid
+- id: mcp-bridge
+  name: MCP Bridge on Flex/Omni Gateway
+  description: >-
+    Creates an MCP server from APIs that exist in Exchange, deployed on a managed or self-managed Omni
+    Gateway at a base path the customer chooses; existing auth, rate-limit and observability policies
+    still apply.
+  source: https://docs.mulesoft.com/api-manager/latest/create-instance-task-mcp-bridge
+  tier: paid
+maps:
+- feature: exchange-portal
+  check: portal_present
+  layer: composite
+  provider_must: Publish the Exchange public portal and declare it as a DeveloperPortal entry in apis.yml
+    common[].
+  catalog_pass_rate: 0.228
+  facet: developer_ergonomics
+  points: 4
+  baseline_pass_rate: 0.633
+- feature: exchange-portal
+  check: console_or_sandbox
+  layer: composite
+  provider_must: Declare the API console / mocking service page as a Console or Sandbox entry in apis.yml
+    common[].
+  catalog_pass_rate: 0.089
+  facet: developer_ergonomics
+  points: 3
+  baseline_pass_rate: 0.332
+- feature: exchange-portal
+  check: api_reference_present
+  layer: composite
+  provider_must: Declare the asset's reference page as an APIReference entry in apis.yml common[].
+  catalog_pass_rate: 0.222
+  facet: developer_ergonomics
+  points: 3
+  baseline_pass_rate: 0.942
+  saturated: true
+  saturated_note: >-
+    94% of providers with a contract, docs and a reference already earn this; the vendor cannot move it
+    for most of its buyers.
+- feature: request-access
+  check: sign_up_present
+  layer: composite
+  provider_must: >-
+    Declare the public portal's login / request-access entry point as SignUp or Login in apis.yml common[].
+  catalog_pass_rate: 0.19
+  facet: access_clarity
+  points: 5
+  baseline_pass_rate: 0.463
+- feature: rate-limiting-policy
+  check: rate_limit_signal
+  layer: agent_readiness
+  grade: documented
+  partial: true
+  partial_note: >-
+    Headers are off by default, and even when exposed the `verified` grade reads X-RateLimit-* from the
+    provider's OpenAPI responses. MuleSoft reaches only the `documented` fallback, through limits the
+    provider publishes as a rate_limits artifact.
+  points: 7
+  baseline_pass_rate: 0.381
+- feature: sla-tiers
+  check: rate_limits_documented
+  layer: composite
+  conditional: true
+  condition: >-
+    Only if the provider writes its tier limits on a public page — tier limits live in API Manager and
+    surface to consumers inside the request-access flow.
+  catalog_pass_rate: 0.145
+  facet: operational_transparency
+  points: 8
+  baseline_pass_rate: 0.438
+- feature: mcp-bridge
+  check: mcp_server
+  layer: agent_readiness
+  grade: templated
+  note: >-
+    Generated from the provider's Exchange APIs and served on the provider's own gateway and base path,
+    so `templated` (0.6); `verified` only when the catalog probe of the provider's mcp/ manifest passes.
+  points: 12
+  baseline_pass_rate: 0.22
+earns_nothing:
+- feature: sla-tiers
+  check: plans_present
+  why: >-
+    SLA tiers are access levels selected inside a logged-in Request Access modal, with no price; the plans
+    artifact is harvested from public plan or pricing pages.
+- feature: request-access
+  check: dynamic_client_registration
+  why: >-
+    Credentials are issued by Exchange/API Manager contracts; nothing fetched shows a registration_endpoint
+    served in a discovery document on the provider's host.
+- feature: mcp-bridge
+  check: protected_resource_metadata
+  why: >-
+    The MCP Bridge page configures a client provider but documents no /.well-known/oauth-protected-resource
+    document.
+out_of_reach:
+  checks:
+  - sdk_count_1
+  - sdk_count_3
+  - cli_present
+  - idempotency
+  - dry_run_mode
+  - reversibility_documented
+  - auth_clarity
+  - delegated_identity
+  - well_known_published
+  - pricing_link
+  - llms_txt_published
+  - agent_card
+  - error_semantics
+  note: >-
+    Anypoint enforces access and limits but publishes no pricing, discovery documents or llms.txt on the
+    provider's host, and API behaviours sit behind the gateway.
+unscored_practice:
+- feature: mcp-bridge
+  why: >-
+    Agent traffic through MCP Bridge inherits the same auth, rate-limit and observability policies as
+    human traffic; the rubric does not read governance parity.
+surface:
+  operational_transparency:
+    reachable: 8.0
+    total: 38
+  developer_ergonomics:
+    reachable: 10.0
+    total: 42
+  access_clarity:
+    reachable: 5.0
+    total: 38
+  agent_readiness:
+    reachable: 10.7
+    total: 139
+hard_rule: >-
+  A model, not a score. Adopting this vendor changes a provider's Kin Score only when the provider publishes
+  the resulting artifacts on its own surface; nothing here writes a score, and no sponsorship or partnership
+  can.
+method: searched
+source:
+- https://docs.mulesoft.com/api-manager/latest/create-instance-task-mcp-bridge
+- https://docs.mulesoft.com/api-manager/latest/defining-sla-tiers
+- https://docs.mulesoft.com/exchange/
+- https://docs.mulesoft.com/exchange/to-request-access
+- https://docs.mulesoft.com/mule-gateway/policies-included-rate-limiting
+measured:
+  cohort:
+    method: vendors-catalog.json detections (CNAME / header / URL shape / markup), never a name match
+    detected: 0
+    in_baseline: 0
+  control:
+    basis: providers earning contract_present + documentation_present + api_reference_present, minus the
+      cohort
+    n: 5216
+  metric: >-
+    cohort_pct / control_pct = mean share of the check's points earned (derived and platform credit weighted),
+    x100
+  measured_on: '2026-09-25'
+  status: 'not measurable: 0 detected customers clear the baseline (need 20)'
+simulation:
+  simulated_on: '2026-09-25'
+  rubric: 0.23.0
+  population: providers publishing a contract (contract_present earned), replayable exactly
+  providers: 8977
+  providers_unreplayable: 987
+  providers_moved: 8879
+  conditional_rows: excluded (they depend on what the API already does)
+  composite_lift:
+    median: 4.3
+    p75: 6.0
+    p90: 7.4
+    max: 7.5
+    mean_among_movers: 4.5
+  agent_readiness_lift:
+    median: 5.2
+    p75: 6.0
+    p90: 7.7
+    max: 9.0
+    mean_among_movers: 5.4
+  facet_lift_median_among_movers:
+    developer_ergonomics: 16.6
+    access_clarity: 13.1
+  composite_band_moves:
+    thin -> developing: 1716
+    developing -> strong: 659
+    emerging -> thin: 337
+    strong -> exemplar: 140
+    minimal -> emerging: 3
+  agent_readiness_band_moves:
+    agent-aware -> agent-ready: 2456
+    agent-ready -> agent-native: 209
+  method: >-
+    each provider's own kin/checks file, the vendor's maps at their stated credit, the scorer's composite
+    formula; from -> to, nothing written

@@ -204,6 +204,8 @@ apis:
   - type: JSONLD
     url: json-ld/mulesoft-context.jsonld
 common:
+- type: VendorFacets
+  url: vendor-facets/mulesoft-vendor-facets.yml
 - type: Website
   url: https://mulesoft.com
 - type: ParentCompany
