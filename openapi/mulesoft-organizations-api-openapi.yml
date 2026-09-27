@@ -233,23 +233,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Subscription:
-      type: object
-      description: Subscription plan details for the organization
-      properties:
-        category:
-          type: string
-          description: Subscription category
-          example: example_value
-        type:
-          type: string
-          description: Subscription type
-          example: example_value
-        expiration:
-          type: string
-          format: date-time
-          description: Subscription expiration date
-          example: '2026-01-15T10:30:00Z'
     OrganizationUpdate:
       type: object
       description: Fields that can be updated on an organization
@@ -273,83 +256,18 @@ components:
           type: boolean
           description: Whether multi-factor authentication is required
           example: true
-    Environment:
+    Error:
       type: object
-      description: A deployment environment within an organization. Environments provide isolated contexts for deploying Mule applications, with types including Design, Sandbox, and Production.
-      required:
-      - id
-      - name
-      - organizationId
-      - type
+      description: Error response from the Anypoint Platform API
       properties:
-        id:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
           type: string
-          format: uuid
-          description: Unique identifier of the environment
-          example: abc123
-        name:
-          type: string
-          description: Display name of the environment
-          example: Example Title
-        organizationId:
-          type: string
-          format: uuid
-          description: ID of the organization this environment belongs to
-          example: '500123'
-        isProduction:
-          type: boolean
-          description: Whether this is a production environment
-          example: true
-        type:
-          type: string
-          description: The environment type classification
-          enum:
-          - design
-          - sandbox
-          - production
-          example: design
-        clientId:
-          type: string
-          description: Client ID associated with this environment
-          example: '500123'
-        createdAt:
-          type: string
-          format: date-time
-          description: Timestamp when the environment was created
-          example: '2026-01-15T10:30:00Z'
-        updatedAt:
-          type: string
-          format: date-time
-          description: Timestamp when the environment was last updated
-          example: '2026-01-15T10:30:00Z'
-    Entitlements:
-      type: object
-      description: Platform entitlements and resource limits for the organization
-      properties:
-        createEnvironments:
-          type: boolean
-          description: Whether the organization can create new environments
-          example: true
-        globalDeployment:
-          type: boolean
-          description: Whether global deployment is enabled
-          example: true
-        createSubOrgs:
-          type: boolean
-          description: Whether the organization can create sub-organizations
-          example: true
-        vCoresProduction:
-          $ref: '#/components/schemas/ResourceAllocation'
-        vCoresSandbox:
-          $ref: '#/components/schemas/ResourceAllocation'
-        vCoresDesign:
-          $ref: '#/components/schemas/ResourceAllocation'
-        staticIps:
-          $ref: '#/components/schemas/ResourceAllocation'
-        vpcs:
-          $ref: '#/components/schemas/ResourceAllocation'
-        loadBalancer:
-          $ref: '#/components/schemas/ResourceAllocation'
+          description: Human-readable error message
+          example: example_value
     Organization:
       type: object
       description: An Anypoint Platform organization or business group. Organizations are the top-level containers that hold all platform resources including users, environments, and deployed applications.
@@ -440,18 +358,6 @@ components:
             $ref: '#/components/schemas/Environment'
           description: Environments belonging to this organization
           example: []
-    Error:
-      type: object
-      description: Error response from the Anypoint Platform API
-      properties:
-        status:
-          type: integer
-          description: HTTP status code
-          example: 10
-        message:
-          type: string
-          description: Human-readable error message
-          example: example_value
     ResourceAllocation:
       type: object
       description: Resource allocation with assigned and reassigned counts
@@ -464,22 +370,101 @@ components:
           type: number
           description: Number of resources reassigned to sub-organizations
           example: 42.5
-  parameters:
-    OrgId:
-      name: orgId
-      in: path
-      required: true
-      description: The unique identifier of the organization
-      schema:
-        type: string
-        format: uuid
+    Entitlements:
+      type: object
+      description: Platform entitlements and resource limits for the organization
+      properties:
+        createEnvironments:
+          type: boolean
+          description: Whether the organization can create new environments
+          example: true
+        globalDeployment:
+          type: boolean
+          description: Whether global deployment is enabled
+          example: true
+        createSubOrgs:
+          type: boolean
+          description: Whether the organization can create sub-organizations
+          example: true
+        vCoresProduction:
+          $ref: '#/components/schemas/ResourceAllocation'
+        vCoresSandbox:
+          $ref: '#/components/schemas/ResourceAllocation'
+        vCoresDesign:
+          $ref: '#/components/schemas/ResourceAllocation'
+        staticIps:
+          $ref: '#/components/schemas/ResourceAllocation'
+        vpcs:
+          $ref: '#/components/schemas/ResourceAllocation'
+        loadBalancer:
+          $ref: '#/components/schemas/ResourceAllocation'
+    Subscription:
+      type: object
+      description: Subscription plan details for the organization
+      properties:
+        category:
+          type: string
+          description: Subscription category
+          example: example_value
+        type:
+          type: string
+          description: Subscription type
+          example: example_value
+        expiration:
+          type: string
+          format: date-time
+          description: Subscription expiration date
+          example: '2026-01-15T10:30:00Z'
+    Environment:
+      type: object
+      description: A deployment environment within an organization. Environments provide isolated contexts for deploying Mule applications, with types including Design, Sandbox, and Production.
+      required:
+      - id
+      - name
+      - organizationId
+      - type
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier of the environment
+          example: abc123
+        name:
+          type: string
+          description: Display name of the environment
+          example: Example Title
+        organizationId:
+          type: string
+          format: uuid
+          description: ID of the organization this environment belongs to
+          example: '500123'
+        isProduction:
+          type: boolean
+          description: Whether this is a production environment
+          example: true
+        type:
+          type: string
+          description: The environment type classification
+          enum:
+          - design
+          - sandbox
+          - production
+          example: design
+        clientId:
+          type: string
+          description: Client ID associated with this environment
+          example: '500123'
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the environment was created
+          example: '2026-01-15T10:30:00Z'
+        updatedAt:
+          type: string
+          format: date-time
+          description: Timestamp when the environment was last updated
+          example: '2026-01-15T10:30:00Z'
   responses:
-    NotFound:
-      description: The requested resource was not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     BadRequest:
       description: Invalid request parameters or body
       content:
@@ -492,6 +477,21 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    OrgId:
+      name: orgId
+      in: path
+      required: true
+      description: The unique identifier of the organization
+      schema:
+        type: string
+        format: uuid
   securitySchemes:
     bearerAuth:
       type: http
