@@ -256,6 +256,100 @@ components:
           type: boolean
           description: Whether multi-factor authentication is required
           example: true
+    Entitlements:
+      type: object
+      description: Platform entitlements and resource limits for the organization
+      properties:
+        createEnvironments:
+          type: boolean
+          description: Whether the organization can create new environments
+          example: true
+        globalDeployment:
+          type: boolean
+          description: Whether global deployment is enabled
+          example: true
+        createSubOrgs:
+          type: boolean
+          description: Whether the organization can create sub-organizations
+          example: true
+        vCoresProduction:
+          $ref: '#/components/schemas/ResourceAllocation'
+        vCoresSandbox:
+          $ref: '#/components/schemas/ResourceAllocation'
+        vCoresDesign:
+          $ref: '#/components/schemas/ResourceAllocation'
+        staticIps:
+          $ref: '#/components/schemas/ResourceAllocation'
+        vpcs:
+          $ref: '#/components/schemas/ResourceAllocation'
+        loadBalancer:
+          $ref: '#/components/schemas/ResourceAllocation'
+    Environment:
+      type: object
+      description: A deployment environment within an organization. Environments provide isolated contexts for deploying Mule applications, with types including Design, Sandbox, and Production.
+      required:
+      - id
+      - name
+      - organizationId
+      - type
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier of the environment
+          example: abc123
+        name:
+          type: string
+          description: Display name of the environment
+          example: Example Title
+        organizationId:
+          type: string
+          format: uuid
+          description: ID of the organization this environment belongs to
+          example: '500123'
+        isProduction:
+          type: boolean
+          description: Whether this is a production environment
+          example: true
+        type:
+          type: string
+          description: The environment type classification
+          enum:
+          - design
+          - sandbox
+          - production
+          example: design
+        clientId:
+          type: string
+          description: Client ID associated with this environment
+          example: '500123'
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the environment was created
+          example: '2026-01-15T10:30:00Z'
+        updatedAt:
+          type: string
+          format: date-time
+          description: Timestamp when the environment was last updated
+          example: '2026-01-15T10:30:00Z'
+    Subscription:
+      type: object
+      description: Subscription plan details for the organization
+      properties:
+        category:
+          type: string
+          description: Subscription category
+          example: example_value
+        type:
+          type: string
+          description: Subscription type
+          example: example_value
+        expiration:
+          type: string
+          format: date-time
+          description: Subscription expiration date
+          example: '2026-01-15T10:30:00Z'
     Error:
       type: object
       description: Error response from the Anypoint Platform API
@@ -370,109 +464,18 @@ components:
           type: number
           description: Number of resources reassigned to sub-organizations
           example: 42.5
-    Entitlements:
-      type: object
-      description: Platform entitlements and resource limits for the organization
-      properties:
-        createEnvironments:
-          type: boolean
-          description: Whether the organization can create new environments
-          example: true
-        globalDeployment:
-          type: boolean
-          description: Whether global deployment is enabled
-          example: true
-        createSubOrgs:
-          type: boolean
-          description: Whether the organization can create sub-organizations
-          example: true
-        vCoresProduction:
-          $ref: '#/components/schemas/ResourceAllocation'
-        vCoresSandbox:
-          $ref: '#/components/schemas/ResourceAllocation'
-        vCoresDesign:
-          $ref: '#/components/schemas/ResourceAllocation'
-        staticIps:
-          $ref: '#/components/schemas/ResourceAllocation'
-        vpcs:
-          $ref: '#/components/schemas/ResourceAllocation'
-        loadBalancer:
-          $ref: '#/components/schemas/ResourceAllocation'
-    Subscription:
-      type: object
-      description: Subscription plan details for the organization
-      properties:
-        category:
-          type: string
-          description: Subscription category
-          example: example_value
-        type:
-          type: string
-          description: Subscription type
-          example: example_value
-        expiration:
-          type: string
-          format: date-time
-          description: Subscription expiration date
-          example: '2026-01-15T10:30:00Z'
-    Environment:
-      type: object
-      description: A deployment environment within an organization. Environments provide isolated contexts for deploying Mule applications, with types including Design, Sandbox, and Production.
-      required:
-      - id
-      - name
-      - organizationId
-      - type
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Unique identifier of the environment
-          example: abc123
-        name:
-          type: string
-          description: Display name of the environment
-          example: Example Title
-        organizationId:
-          type: string
-          format: uuid
-          description: ID of the organization this environment belongs to
-          example: '500123'
-        isProduction:
-          type: boolean
-          description: Whether this is a production environment
-          example: true
-        type:
-          type: string
-          description: The environment type classification
-          enum:
-          - design
-          - sandbox
-          - production
-          example: design
-        clientId:
-          type: string
-          description: Client ID associated with this environment
-          example: '500123'
-        createdAt:
-          type: string
-          format: date-time
-          description: Timestamp when the environment was created
-          example: '2026-01-15T10:30:00Z'
-        updatedAt:
-          type: string
-          format: date-time
-          description: Timestamp when the environment was last updated
-          example: '2026-01-15T10:30:00Z'
+  parameters:
+    OrgId:
+      name: orgId
+      in: path
+      required: true
+      description: The unique identifier of the organization
+      schema:
+        type: string
+        format: uuid
   responses:
     BadRequest:
       description: Invalid request parameters or body
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid
       content:
         application/json:
           schema:
@@ -483,15 +486,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    OrgId:
-      name: orgId
-      in: path
-      required: true
-      description: The unique identifier of the organization
-      schema:
-        type: string
-        format: uuid
+    Unauthorized:
+      description: Authentication credentials are missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http
