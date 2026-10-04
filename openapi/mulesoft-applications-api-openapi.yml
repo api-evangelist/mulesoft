@@ -460,6 +460,113 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ApplicationCreate:
+      type: object
+      description: Request body for creating a new CloudHub application
+      required:
+      - domain
+      - muleVersion
+      - workers
+      properties:
+        domain:
+          type: string
+          description: Unique domain name for the application
+          pattern: ^[a-z0-9-]+$
+          example: example_value
+        muleVersion:
+          type: object
+          description: Target Mule runtime version
+          required:
+          - version
+          properties:
+            version:
+              type: string
+              description: Mule runtime version to deploy
+          example: example_value
+        region:
+          type: string
+          description: CloudHub region to deploy to
+          example: example_value
+        workers:
+          $ref: '#/components/schemas/WorkerConfig'
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+          description: Application properties
+          example: example_value
+        monitoringAutoRestart:
+          type: boolean
+          description: Enable automatic restart on failure
+          default: true
+          example: true
+        persistentQueues:
+          type: boolean
+          description: Enable persistent queues
+          default: false
+          example: true
+        staticIPsEnabled:
+          type: boolean
+          description: Enable static IP allocation
+          default: false
+          example: true
+        loggingNgEnabled:
+          type: boolean
+          description: Enable next-generation logging
+          default: true
+          example: true
+    ApplicationUpdate:
+      type: object
+      description: Request body for updating an existing CloudHub application
+      properties:
+        muleVersion:
+          type: object
+          description: New Mule runtime version
+          properties:
+            version:
+              type: string
+              description: Mule runtime version
+          example: example_value
+        workers:
+          $ref: '#/components/schemas/WorkerConfig'
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+          description: Updated application properties
+          example: example_value
+        monitoringAutoRestart:
+          type: boolean
+          description: Enable or disable automatic restart
+          example: true
+        region:
+          type: string
+          description: Target CloudHub region
+          example: example_value
+        staticIPsEnabled:
+          type: boolean
+          description: Enable or disable static IPs
+          example: true
+        loggingNgEnabled:
+          type: boolean
+          description: Enable or disable next-generation logging
+          example: true
+        persistentQueues:
+          type: boolean
+          description: Enable or disable persistent queues
+          example: true
+    Error:
+      type: object
+      description: Error response from the Anypoint Platform API
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+          example: 10
+        message:
+          type: string
+          description: Human-readable error message
+          example: example_value
     Application:
       type: object
       description: A Mule application deployed to CloudHub. Contains metadata about the application configuration, deployment status, worker settings, and runtime properties.
@@ -585,46 +692,6 @@ components:
               type: string
               description: VPN identifier
           example: example_value
-    ApplicationUpdate:
-      type: object
-      description: Request body for updating an existing CloudHub application
-      properties:
-        muleVersion:
-          type: object
-          description: New Mule runtime version
-          properties:
-            version:
-              type: string
-              description: Mule runtime version
-          example: example_value
-        workers:
-          $ref: '#/components/schemas/WorkerConfig'
-        properties:
-          type: object
-          additionalProperties:
-            type: string
-          description: Updated application properties
-          example: example_value
-        monitoringAutoRestart:
-          type: boolean
-          description: Enable or disable automatic restart
-          example: true
-        region:
-          type: string
-          description: Target CloudHub region
-          example: example_value
-        staticIPsEnabled:
-          type: boolean
-          description: Enable or disable static IPs
-          example: true
-        loggingNgEnabled:
-          type: boolean
-          description: Enable or disable next-generation logging
-          example: true
-        persistentQueues:
-          type: boolean
-          description: Enable or disable persistent queues
-          example: true
     WorkerConfig:
       type: object
       description: Worker configuration defining the compute resources allocated to a CloudHub application, including the number of workers and their size.
@@ -671,18 +738,6 @@ components:
               type: string
               description: Memory allocation description
           example: example_value
-    Error:
-      type: object
-      description: Error response from the Anypoint Platform API
-      properties:
-        status:
-          type: integer
-          description: HTTP status code
-          example: 10
-        message:
-          type: string
-          description: Human-readable error message
-          example: example_value
     ApplicationStatus:
       type: object
       description: Detailed deployment status of a CloudHub application
@@ -723,64 +778,9 @@ components:
                 type: string
                 description: Static IP address if allocated
           example: []
-    ApplicationCreate:
-      type: object
-      description: Request body for creating a new CloudHub application
-      required:
-      - domain
-      - muleVersion
-      - workers
-      properties:
-        domain:
-          type: string
-          description: Unique domain name for the application
-          pattern: ^[a-z0-9-]+$
-          example: example_value
-        muleVersion:
-          type: object
-          description: Target Mule runtime version
-          required:
-          - version
-          properties:
-            version:
-              type: string
-              description: Mule runtime version to deploy
-          example: example_value
-        region:
-          type: string
-          description: CloudHub region to deploy to
-          example: example_value
-        workers:
-          $ref: '#/components/schemas/WorkerConfig'
-        properties:
-          type: object
-          additionalProperties:
-            type: string
-          description: Application properties
-          example: example_value
-        monitoringAutoRestart:
-          type: boolean
-          description: Enable automatic restart on failure
-          default: true
-          example: true
-        persistentQueues:
-          type: boolean
-          description: Enable persistent queues
-          default: false
-          example: true
-        staticIPsEnabled:
-          type: boolean
-          description: Enable static IP allocation
-          default: false
-          example: true
-        loggingNgEnabled:
-          type: boolean
-          description: Enable next-generation logging
-          default: true
-          example: true
   responses:
-    BadRequest:
-      description: Invalid request parameters or body
+    Unauthorized:
+      description: Authentication credentials are missing or invalid
       content:
         application/json:
           schema:
@@ -791,8 +791,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid
+    BadRequest:
+      description: Invalid request parameters or body
       content:
         application/json:
           schema:

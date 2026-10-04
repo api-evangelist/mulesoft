@@ -1,9 +1,11 @@
 aid: mulesoft
+
 name: MuleSoft
-description: MuleSoft Anypoint Platform is an enterprise integration and API management platform offering
-  an API gateway, design center, exchange marketplace, and monitoring for hybrid deployments connecting
-  applications and data.
+
+description: MuleSoft Anypoint Platform is an enterprise integration and API management platform offering a comprehensive suite of tools including an API gateway, design center, exchange marketplace, and robust monitoring for hybrid deployments. It enables organizations to connect applications, data, and devices across cloud and on-premises environments, supporting rapid development, secure management, and scalable integration across the enterprise ecosystem.
+
 type: Index
+
 deliveryModel:
   model: saas
   license_evidence:
@@ -20,6 +22,7 @@ deliveryModel:
   - repository-not-product
   generated: '2026-09-25'
   method: derived
+
 accessModel:
   pricing: paid
   onboarding: self-serve
@@ -33,16 +36,249 @@ accessModel:
   - authentication
   generated: '2026-07-22'
   method: derived
+
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/mulesoft.png
+
 tags:
 - API Gateway
 - API Management
 - Enterprise
 - Integration
+- API Integration
+- Application Connectivity
+- Data Integration
+- Enterprise Integration
+
 url: https://raw.githubusercontent.com/api-evangelist/mulesoft/refs/heads/main/apis.yml
+
 created: '2026-03-18'
+
 modified: '2026-09-16'
+
 specificationVersion: '0.23'
+
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
+
+common:
+- type: Pricing
+  url: https://www.mulesoft.com/pricing
+- type: FinOps
+  url: finops/mulesoft-finops.yml
+- type: RateLimits
+  url: rate-limits/mulesoft-rate-limits.yml
+- type: Plans
+  url: plans/mulesoft-plans-pricing.yml
+- type: Spectral
+  url: rules/mulesoft-spectral-rules.yml
+- type: Spectral
+  url: rules/mulesoft-rules.yml
+- type: Spectral
+  url: rules/mulesoft-jsonschema-spectral-rules.yml
+- type: JSONLD
+  url: json-ld/mulesoft-anypoint-platform-context.jsonld
+- type: Vocabulary
+  url: vocabulary/mulesoft-vocabulary.yml
+- type: DataModel
+  url: data-model/mulesoft-data-model.yml
+- type: ErrorCatalog
+  url: errors/mulesoft-problem-types.yml
+- type: Conformance
+  url: conformance/mulesoft-conformance.yml
+- type: LLMsTxt
+  url: llms/mulesoft-llms.txt
+- type: AgentCard
+  url: a2a/mulesoft-a2a.yml
+- type: SecurityTxt
+  url: well-known/mulesoft-apis-security.txt
+- type: WellKnown
+  url: well-known/mulesoft-well-known.yml
+- type: Hosts
+  url: hosts/mulesoft-hosts.yml
+- type: Vendors
+  url: vendors/mulesoft-vendors.yml
+- type: TrustCenter
+  url: https://www.mulesoft.com/trust-center
+- type: Security
+  url: https://www.mulesoft.com/api/security
+- type: Newsroom
+  url: https://blogs.mulesoft.com/news/
+- type: Leadership
+  url: https://www.mulesoft.com/api/management
+- type: VendorFacets
+  url: vendor-facets/mulesoft-vendor-facets.yml
+- type: Website
+  url: https://mulesoft.com
+- type: ParentCompany
+  url: https://apis.io/providers/salesforce/
+  name: Salesforce
+  x-relationship: acquisition
+  x-generated-by: salesforce-family:2026-08-30
+  x-acquired: 2018
+- type: AgenticAccess
+  url: agentic-access/mulesoft-agentic-access.yml
+- type: DomainSecurity
+  url: security/mulesoft-domain-security.yml
+- type: Authentication
+  url: authentication/mulesoft-authentication.yml
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/mulesoft/overview
+- type: Arazzo
+  url: arazzo/mulesoft-audit-application-inventory-workflow.yml
+  name: MuleSoft Audit Application Inventory
+- type: Arazzo
+  url: arazzo/mulesoft-decommission-app-workflow.yml
+  name: MuleSoft Decommission Application
+- type: Arazzo
+  url: arazzo/mulesoft-deploy-app-and-poll-status-workflow.yml
+  name: MuleSoft Deploy Application and Poll Until Started
+- type: Arazzo
+  url: arazzo/mulesoft-harden-organization-security-workflow.yml
+  name: MuleSoft Harden Organization Security
+- type: Arazzo
+  url: arazzo/mulesoft-promote-app-between-environments-workflow.yml
+  name: MuleSoft Promote Application Between Environments
+- type: Arazzo
+  url: arazzo/mulesoft-provision-environment-and-deploy-app-workflow.yml
+  name: MuleSoft Provision Environment and Deploy Application
+- type: Arazzo
+  url: arazzo/mulesoft-resolve-org-and-list-environments-workflow.yml
+  name: MuleSoft Resolve Organization and List Environments
+- type: Arazzo
+  url: arazzo/mulesoft-teardown-environment-workflow.yml
+  name: MuleSoft Tear Down Environment
+- type: Arazzo
+  url: arazzo/mulesoft-update-app-runtime-and-verify-workflow.yml
+  name: MuleSoft Update Application Runtime and Verify
+- type: Arazzo
+  url: arazzo/mulesoft-upsert-environment-workflow.yml
+  name: MuleSoft Upsert Environment
+- type: LinkedIn
+  url: https://www.linkedin.com/company/mulesoft
+- type: Portal
+  url: https://www.mulesoft.com/
+- type: DeveloperPortal
+  url: https://anypoint.mulesoft.com/exchange/portals/anypoint-platform/
+- type: Documentation
+  url: https://docs.mulesoft.com/
+- type: GettingStarted
+  url: https://docs.mulesoft.com/general/
+- type: Authentication
+  url: https://docs.mulesoft.com/access-management/connected-apps-overview
+- type: Console
+  url: https://anypoint.mulesoft.com/
+- type: Blog
+  url: https://blogs.mulesoft.com/
+- type: ChangeLog
+  url: https://docs.mulesoft.com/release-notes/
+- type: StatusPage
+  url: https://trust.mulesoft.com/
+- type: Support
+  url: https://help.mulesoft.com/s/support
+- type: TermsOfService
+  url: https://www.mulesoft.com/legal/terms/EULA
+- type: GitHubOrganization
+  url: https://github.com/mulesoft
+- type: StackOverflow
+  url: https://stackoverflow.com/questions/tagged/mule
+- type: SDKs
+  url: https://docs.mulesoft.com/mule-sdk/latest/
+- type: Glossary
+  url: https://docs.mulesoft.com/general/glossary
+- type: Signup
+  url: https://anypoint.mulesoft.com/login/signup?apintent=generic
+- type: Login
+  url: https://anypoint.mulesoft.com/login/signin?apintent=generic
+- type: Partners
+  url: https://www.mulesoft.com/integration-partner/partnermax-retirement
+- type: SpectralRules
+  url: rules/mulesoft-spectral-rules.yml
+- type: Vocabulary
+  url: vocabulary/mulesoft-vocabulary.yaml
+- type: Features
+  url: https://www.mulesoft.com/platform
+  data:
+  - name: API Gateway
+    description: Enterprise-grade API gateway for securing, governing, and managing API traffic across
+      cloud and on-premises environments.
+  - name: Anypoint Exchange
+    description: Centralized marketplace for discovering, sharing, and reusing APIs, connectors, templates,
+      and integration assets across the organization.
+  - name: Design Center
+    description: Web-based API design environment for creating and editing API specifications in RAML
+      and OAS formats with real-time collaboration.
+  - name: Runtime Manager
+    description: Unified management console for deploying, monitoring, and managing Mule applications
+      across CloudHub, Runtime Fabric, and hybrid targets.
+  - name: Anypoint MQ
+    description: Cloud-native messaging service supporting queues, exchanges, and dead-letter queues for
+      reliable asynchronous integration patterns.
+  - name: DataWeave
+    description: Powerful data transformation language for mapping and converting data between formats
+      within Mule integration flows.
+  - name: Anypoint Studio
+    description: Eclipse-based IDE for building Mule applications with visual flow design and integrated
+      debugging capabilities.
+  - name: Flow Designer
+    description: Browser-based low-code tool for building simple integrations and automations without
+      needing Anypoint Studio.
+  - name: API Governance
+    description: Policy enforcement and governance framework for ensuring API consistency, security, and
+      compliance across the platform.
+  - name: Anypoint Monitoring
+    description: Real-time visibility into API and integration performance with dashboards, alerts, and
+      log management.
+- type: UseCases
+  url: https://www.mulesoft.com/integration-solutions
+  data:
+  - name: Application Integration
+    description: Connect SaaS and on-premises applications to create unified business processes and eliminate
+      data silos.
+  - name: API-Led Connectivity
+    description: Build reusable APIs organized in system, process, and experience layers to accelerate
+      digital transformation.
+  - name: B2B Integration
+    description: Automate partner onboarding and EDI/AS2 data exchange with trading partners using pre-built
+      connectors.
+  - name: Cloud Migration
+    description: Migrate on-premises integrations to the cloud while maintaining connectivity with legacy
+      systems.
+  - name: Customer 360
+    description: Unify customer data across CRM, ERP, and marketing systems to create a single view of
+      the customer.
+  - name: AI Agent Integration
+    description: Connect AI agents to enterprise systems, models, and vector stores to orchestrate complex
+      agentic workflows.
+- type: Integrations
+  url: https://www.mulesoft.com/exchange/
+  data:
+  - name: Salesforce
+    description: Native integration with Salesforce CRM, Service Cloud, and Marketing Cloud for bidirectional
+      data sync and event-driven workflows.
+  - name: SAP
+    description: Pre-built connector for SAP ERP, S/4HANA, and BTP enabling real-time data exchange with
+      SAP systems.
+  - name: Workday
+    description: Connector for syncing HR, finance, and planning data between Workday and other enterprise
+      applications.
+  - name: ServiceNow
+    description: Integration with ServiceNow ITSM and ITOM for automated ticket creation, incident management,
+      and CMDB sync.
+  - name: AWS
+    description: Connectors for Amazon S3, SQS, SNS, Lambda, and other AWS services for hybrid cloud integration.
+  - name: Microsoft Azure
+    description: Integration with Azure Service Bus, Blob Storage, SQL Database, and Active Directory
+      services.
+  - name: Slack
+    description: Connector for sending notifications, creating channels, and automating workflows within
+      Slack workspaces.
+  - name: NetSuite
+    description: Pre-built connector for Oracle NetSuite ERP enabling financial, inventory, and order
+      management integration.
+- type: LlmsText
+  url: https://docs.mulesoft.com/llms.txt
+
 apis:
 - aid: mulesoft:mulesoft
   name: MuleSoft Anypoint Platform
@@ -207,190 +443,24 @@ apis:
     url: json-schema/mulesoft-application-schema.json
   - type: JSONLD
     url: json-ld/mulesoft-context.jsonld
-common:
-- type: VendorFacets
-  url: vendor-facets/mulesoft-vendor-facets.yml
-- type: Website
-  url: https://mulesoft.com
-- type: ParentCompany
-  url: https://apis.io/providers/salesforce/
-  name: Salesforce
-  x-relationship: acquisition
-  x-generated-by: salesforce-family:2026-08-30
-  x-acquired: 2018
-- type: AgenticAccess
-  url: agentic-access/mulesoft-agentic-access.yml
-- type: DomainSecurity
-  url: security/mulesoft-domain-security.yml
-- type: Authentication
-  url: authentication/mulesoft-authentication.yml
-- type: PostmanWorkspace
-  url: https://www.postman.com/kinlaneapi/mulesoft/overview
-- type: Arazzo
-  url: arazzo/mulesoft-audit-application-inventory-workflow.yml
-  name: MuleSoft Audit Application Inventory
-- type: Arazzo
-  url: arazzo/mulesoft-decommission-app-workflow.yml
-  name: MuleSoft Decommission Application
-- type: Arazzo
-  url: arazzo/mulesoft-deploy-app-and-poll-status-workflow.yml
-  name: MuleSoft Deploy Application and Poll Until Started
-- type: Arazzo
-  url: arazzo/mulesoft-harden-organization-security-workflow.yml
-  name: MuleSoft Harden Organization Security
-- type: Arazzo
-  url: arazzo/mulesoft-promote-app-between-environments-workflow.yml
-  name: MuleSoft Promote Application Between Environments
-- type: Arazzo
-  url: arazzo/mulesoft-provision-environment-and-deploy-app-workflow.yml
-  name: MuleSoft Provision Environment and Deploy Application
-- type: Arazzo
-  url: arazzo/mulesoft-resolve-org-and-list-environments-workflow.yml
-  name: MuleSoft Resolve Organization and List Environments
-- type: Arazzo
-  url: arazzo/mulesoft-teardown-environment-workflow.yml
-  name: MuleSoft Tear Down Environment
-- type: Arazzo
-  url: arazzo/mulesoft-update-app-runtime-and-verify-workflow.yml
-  name: MuleSoft Update Application Runtime and Verify
-- type: Arazzo
-  url: arazzo/mulesoft-upsert-environment-workflow.yml
-  name: MuleSoft Upsert Environment
-- type: LinkedIn
-  url: https://www.linkedin.com/company/mulesoft
-- type: Portal
-  url: https://www.mulesoft.com/
-- type: DeveloperPortal
-  url: https://anypoint.mulesoft.com/exchange/portals/anypoint-platform/
-- type: Documentation
-  url: https://docs.mulesoft.com/
-- type: GettingStarted
-  url: https://docs.mulesoft.com/general/
-- type: Authentication
-  url: https://docs.mulesoft.com/access-management/connected-apps-overview
-- type: Console
-  url: https://anypoint.mulesoft.com/
-- type: Blog
-  url: https://blogs.mulesoft.com/
-- type: ChangeLog
-  url: https://docs.mulesoft.com/release-notes/
-- type: StatusPage
-  url: https://trust.mulesoft.com/
-- type: Support
-  url: https://help.mulesoft.com/s/support
-- type: Pricing
-  url: https://www.mulesoft.com/platform/mule-esb-open-source-esb/pricing
-- type: TermsOfService
-  url: https://www.mulesoft.com/legal/terms/EULA
-- type: PrivacyPolicy
-  url: https://www.mulesoft.com/legal/privacy
-- type: GitHubOrganization
-  url: https://github.com/mulesoft
-- type: GitHubRepository
-  url: https://github.com/mulesoft/anypoint-examples
-- type: StackOverflow
-  url: https://stackoverflow.com/questions/tagged/mule
-- type: YouTube
-  url: https://www.youtube.com/user/mulesofttv
-- type: SDKs
-  url: https://docs.mulesoft.com/mule-sdk/latest/
-- type: Glossary
-  url: https://docs.mulesoft.com/general/glossary
-- type: Signup
-  url: https://anypoint.mulesoft.com/login/signup?apintent=generic
-- type: Login
-  url: https://anypoint.mulesoft.com/login/signin?apintent=generic
-- type: Partners
-  url: https://www.mulesoft.com/integration-partner/partnermax-retirement
-- type: SpectralRules
-  url: rules/mulesoft-spectral-rules.yml
-- type: Vocabulary
-  url: vocabulary/mulesoft-vocabulary.yaml
-- type: Features
-  url: https://www.mulesoft.com/platform
-  data:
-  - name: API Gateway
-    description: Enterprise-grade API gateway for securing, governing, and managing API traffic across
-      cloud and on-premises environments.
-  - name: Anypoint Exchange
-    description: Centralized marketplace for discovering, sharing, and reusing APIs, connectors, templates,
-      and integration assets across the organization.
-  - name: Design Center
-    description: Web-based API design environment for creating and editing API specifications in RAML
-      and OAS formats with real-time collaboration.
-  - name: Runtime Manager
-    description: Unified management console for deploying, monitoring, and managing Mule applications
-      across CloudHub, Runtime Fabric, and hybrid targets.
-  - name: Anypoint MQ
-    description: Cloud-native messaging service supporting queues, exchanges, and dead-letter queues for
-      reliable asynchronous integration patterns.
-  - name: DataWeave
-    description: Powerful data transformation language for mapping and converting data between formats
-      within Mule integration flows.
-  - name: Anypoint Studio
-    description: Eclipse-based IDE for building Mule applications with visual flow design and integrated
-      debugging capabilities.
-  - name: Flow Designer
-    description: Browser-based low-code tool for building simple integrations and automations without
-      needing Anypoint Studio.
-  - name: API Governance
-    description: Policy enforcement and governance framework for ensuring API consistency, security, and
-      compliance across the platform.
-  - name: Anypoint Monitoring
-    description: Real-time visibility into API and integration performance with dashboards, alerts, and
-      log management.
-- type: UseCases
-  url: https://www.mulesoft.com/integration-solutions
-  data:
-  - name: Application Integration
-    description: Connect SaaS and on-premises applications to create unified business processes and eliminate
-      data silos.
-  - name: API-Led Connectivity
-    description: Build reusable APIs organized in system, process, and experience layers to accelerate
-      digital transformation.
-  - name: B2B Integration
-    description: Automate partner onboarding and EDI/AS2 data exchange with trading partners using pre-built
-      connectors.
-  - name: Cloud Migration
-    description: Migrate on-premises integrations to the cloud while maintaining connectivity with legacy
-      systems.
-  - name: Customer 360
-    description: Unify customer data across CRM, ERP, and marketing systems to create a single view of
-      the customer.
-  - name: AI Agent Integration
-    description: Connect AI agents to enterprise systems, models, and vector stores to orchestrate complex
-      agentic workflows.
-- type: Integrations
-  url: https://www.mulesoft.com/exchange/
-  data:
-  - name: Salesforce
-    description: Native integration with Salesforce CRM, Service Cloud, and Marketing Cloud for bidirectional
-      data sync and event-driven workflows.
-  - name: SAP
-    description: Pre-built connector for SAP ERP, S/4HANA, and BTP enabling real-time data exchange with
-      SAP systems.
-  - name: Workday
-    description: Connector for syncing HR, finance, and planning data between Workday and other enterprise
-      applications.
-  - name: ServiceNow
-    description: Integration with ServiceNow ITSM and ITOM for automated ticket creation, incident management,
-      and CMDB sync.
-  - name: AWS
-    description: Connectors for Amazon S3, SQS, SNS, Lambda, and other AWS services for hybrid cloud integration.
-  - name: Microsoft Azure
-    description: Integration with Azure Service Bus, Blob Storage, SQL Database, and Active Directory
-      services.
-  - name: Slack
-    description: Connector for sending notifications, creating channels, and automating workflows within
-      Slack workspaces.
-  - name: NetSuite
-    description: Pre-built connector for Oracle NetSuite ERP enabling financial, inventory, and order
-      management integration.
-- type: LlmsText
-  url: https://docs.mulesoft.com/llms.txt
-maintainers:
-- FN: Kin Lane
-  email: kin@apievangelist.com
+
 x-parent: salesforce
+
 x-relationship: acquisition
+
 x-acquired: 2018
+
+x-coverage:
+  state: unreadable
+  reason: js-rendered-docs
+  detail: Documentation pages are rendered via JavaScript and no machine‑readable OpenAPI spec could be retrieved.
+  evidence:
+    - url: https://anypoint.mulesoft.com/openapi.json
+      status: 200
+  checked: '2026-10-03'
+x-enrichment:
+  date: '2026-10-03'
+  status: enriched
+  artifacts_added: 20
+  pass: modular-v1
+  engine: identity=local,contract=local,surfaces=local,docs=local,regulatory=local
