@@ -1,21 +1,19 @@
-# Kin Score artifact — mulesoft — 2026-08-27T123021
+# Kin Score artifact — mulesoft — 2026-09-24T064009
 # The API Evangelist rating (https://github.com/api-evangelist/kin-score). Generated; do not edit.
 ---
 kin_score:
   slug: mulesoft
-  schema_version: 0.15.1
-  scored_at: '2026-08-27'
-  run_ts: 2026-08-27T123021
-  composite: 53.3
+  schema_version: 0.22.0
+  scored_at: '2026-09-24'
+  run_ts: 2026-09-24T064009
+  composite: 50.5
   band: developing
   facets:
-    discoverability: 63.0
-    contract_quality: 74.9
-    governance: 28.8
-    operational_transparency: 34.2
-    developer_ergonomics: 69.0
-    commercial_clarity: 32.9
+    discoverability: 57.4
+    contract_quality: 71.7
     contract_governance: 28.8
+    operational_transparency: 34.2
+    developer_ergonomics: 65.5
     access_clarity: 32.9
   agent_readiness:
     score: 24.8
