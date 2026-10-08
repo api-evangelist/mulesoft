@@ -208,6 +208,12 @@ apis:
   - type: JSONLD
     url: json-ld/mulesoft-context.jsonld
 common:
+- type: Plans
+  url: plans/mulesoft-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/mulesoft-rate-limits.yml
+- type: FinOps
+  url: finops/mulesoft-finops.yml
 - type: VendorFacets
   url: vendor-facets/mulesoft-vendor-facets.yml
 - type: Website
