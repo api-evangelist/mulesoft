@@ -1,0 +1,10 @@
+generated: '2026-10-03'
+method: derived
+source: "https://docs.mulesoft.com/mulesoft-mcp-server/reference-mcp-tools-platform.md"
+deployment:
+  mode: none
+  endpoint: null
+  install: ""
+  package: ""
+  auth: unknown
+  verified: derived
