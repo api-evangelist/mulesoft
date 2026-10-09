@@ -143,3 +143,43 @@ plans:
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - subscription
+  units:
+  - negotiated
+  plans:
+  - name: Anypoint Integration Starter
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - other
+    periods:
+    - year
+  - name: Anypoint Integration Advanced
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - other
+    periods:
+    - year
+  - name: API Management Solution
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - negotiated
+    periods:
+    - year
+  - name: Anypoint Add-Ons
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - negotiated
+    periods:
+    - year
