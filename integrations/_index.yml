@@ -103,3 +103,16 @@
     detected: '2026-10-18'
   status: not-a-workflow
   arazzo: null
+- slug: mulesoft-slack-own
+  label: Slack (own)
+  partner: slack
+  partner_name: Slack (own)
+  category: Slack app
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://slack.com/marketplace/A0B13T5MS92-mulesoft-us
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
