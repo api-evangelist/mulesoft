@@ -124,32 +124,6 @@
     detected: '2026-10-20'
   status: not-a-workflow
   arazzo: null
-- slug: mulesoft-slack-own
-  label: Slack (own)
-  partner: slack
-  partner_name: Slack (own)
-  category: Slack app
-  type: marketplace
-  marketplace: own
-  channel: partner-built
-  evidence: https://slack.com/marketplace/A0B13T5MS92-mulesoft-us
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
-- slug: mulesoft-terraform-terraform-registry
-  label: Terraform (terraform-registry)
-  partner: terraform
-  partner_name: Terraform (terraform-registry)
-  category: infrastructure-as-code provider registry listing
-  type: marketplace
-  marketplace: terraform-registry
-  channel: partner-built
-  evidence: https://registry.terraform.io/providers/mulesoft/anypoint
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
 - slug: mulesoft-red-hat-ecosystem-catalog-certified-partners
   label: Red Hat Ecosystem Catalog (certified partners)
   partner: red-hat
@@ -197,5 +171,44 @@
       and package counts are context, never counted'
     detected_by: sweep-red-hat-certified-ecosystem.py
     detected: '2026-10-22'
+  status: not-a-workflow
+  arazzo: null
+- slug: mulesoft-slack-own
+  label: Slack (own)
+  partner: slack
+  partner_name: Slack (own)
+  category: Slack app
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://slack.com/marketplace/A0B13T5MS92-mulesoft-us
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: mulesoft-terraform-terraform-registry
+  label: Terraform (terraform-registry)
+  partner: terraform
+  partner_name: Terraform (terraform-registry)
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: terraform-registry
+  channel: partner-built
+  evidence: https://registry.terraform.io/providers/mulesoft/anypoint
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: mulesoft-artifact-hub-artifact-hub
+  label: Artifact Hub (artifact-hub)
+  partner: artifact-hub
+  partner_name: Artifact Hub (artifact-hub)
+  category: Artifact Hub listing (Helm chart)
+  type: marketplace
+  marketplace: artifact-hub
+  channel: partner-built
+  evidence: https://artifacthub.io/packages/search?repo=flex-gateway
+  source: edge
+  relationship: platform-app
   status: not-a-workflow
   arazzo: null
